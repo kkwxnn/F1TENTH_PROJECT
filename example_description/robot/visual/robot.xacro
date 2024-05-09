@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="example">
+    <xacro:arg name="robot_name" default=""/>
+    <xacro:property name="namespace" value="$(arg robot_name)"/>
+    <xacro:property name="description_package" value="example_description"/>
+  
+    <!-- Include all model properties-->
+    <xacro:include filename="$(find ${description_package})/robot/visual/properties.xacro"/>
+        
+    <!-- Add manipulator -->
+    <!-- <xacro:include filename="$(find ${description_package})/robot/visual/manipulator.xacro"/> -->
+    <xacro:include filename="$(find ${description_package})/robot/visual/mobile.xacro"/>
+    <xacro:manipulator_visual/>
+    
+  
+</robot>

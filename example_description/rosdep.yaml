@@ -1,0 +1,13 @@
+# example_description dependencies
+xacro:
+  debian: ros-$ROS_DISTRO-xacro
+robot_state_publisher:
+  debian: ros-$ROS_DISTRO-robot-state-publisher
+joint_state_publisher_gui:
+  debian: ros-$ROS_DISTRO-joint-state-publisher-gui
+tf2_msgs:
+  debian: ros-$ROS_DISTRO-tf2-msgs
+tf2_ros:
+  debian: ros-$ROS_DISTRO-tf2-ros
+tf2_tools:
+  debian: ros-$ROS_DISTRO-tf2-tools

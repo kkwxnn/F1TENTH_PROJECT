@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    
+    <xacro:macro name="base_visual" params="">
+        <visual>
+            <origin xyz="${BASE_VISUAL['position']}" rpy="${BASE_VISUAL['orientation']}"/>
+            <geometry>
+                <!--mesh filename="file://$(find ${description_pkg})/meshes/link_0.stl"/-->
+                <box size="${BASE_VISUAL['size']}"/>
+            </geometry>
+            <material name="link_color">
+                <color rgba="${BASE_VISUAL['color']}"/>
+            </material>
+        </visual>
+    </xacro:macro>
+
+    <xacro:macro name="base_offset" params="">
+        <joint name="base_offset" type="fixed">
+            <parent link="base"/>
+            <child link="link_0"/>
+            <origin xyz="${BASE['position']}" rpy="${BASE['orientation']}"/>
+        </joint>
+    </xacro:macro>
+
+    <!-- Pure Visual (No dynamics) -->
+    <xacro:macro name="manipulator_visual" params="">
+        <link name="base"/>
+        <link name="link_0">
+            <xacro:base_visual />
+        </link>
+        
+        <link name="link_demo">
+            <visual>
+                <origin xyz="0 0 0.5" rpy="0 0 0"/>
+                <geometry>
+                    <!--mesh filename="file://$(find ${description_pkg})/meshes/link_${link_id-1}.stl"/-->
+                    <box size="0.1 0.2 1.0"/>
+                </geometry>
+                <material name="link_color">
+                    <color rgba="1 1 0.5 1"/>
+                </material>
+            </visual>
+        </link>
+        <link name="end_effector"/>
+        
+        <xacro:base_offset/>
+
+        <joint name="joint_demo" type="revolute">
+            <parent link="link_0"/>
+            <child link="link_demo"/>
+            <origin xyz="0 0 0" rpy="0 0 0"/> 
+            <axis xyz="0 0 1"/>
+            <limit 
+                lower="-3.1459" 
+                upper="3.1459" 
+                velocity="1000.0" 
+                effort="1000.0"/>
+        </joint>
+
+        <joint name="end_effector_offset" type="fixed">
+            <parent link="link_demo"/>
+            <child link="end_effector"/>
+            <origin xyz="0 0 1.0" rpy="0 ${-3.14159/2} 0"/> 
+            <axis xyz="0 0 1"/>
+            <limit 
+                lower="-3.1459" 
+                upper="3.1459" 
+                velocity="1000.0" 
+                effort="1000.0"/>
+        </joint>
+    </xacro:macro>
+</robot>

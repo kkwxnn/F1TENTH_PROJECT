@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="example">
+ 
+  <xacro:property name="description_package" value="example_description"/>
+  
+  <!-- File paths-->
+  <xacro:property name="kinematics_params_path" value="$(find ${description_package})/config/kinematics_parameters.yaml"/> 
+  <xacro:property name="visual_params_path" value="$(find ${description_package})/config/visual_parameters.yaml"/> 
+  
+  <xacro:property name="kp" value="${xacro.load_yaml(kinematics_params_path)}"/> 
+  <xacro:property name="vp" value="${xacro.load_yaml(visual_params_path)}"/> 
+  
+  <!-- Mathematics Constants -->
+  <xacro:property name="PI" value="3.1415926535897931"/>
+  <!-- Manipulator Visual Properties -->
+  <xacro:property name="BASE" value="${kp['base']}"/>
+  <xacro:property name="TYPE" value="${kp['types']}"/>
+  <xacro:property name="TRANSFORM" value="${kp['links']}"/>
+  <xacro:property name="LIMIT" value="${kp['joints']}"/>
+  <xacro:property name="END_EFFECTOR" value="${kp['end_effector']}"/>
+  
+  <xacro:property name="LINK_VISUAL" value="${vp['links']}"/>
+  <xacro:property name="BASE_VISUAL" value="${vp['base']}"/>
+  
+  <!-- Gripper Visual Properties -->
+  <!-- Camera Visual Properties -->
+</robot>

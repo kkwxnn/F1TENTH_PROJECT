@@ -1,0 +1,32 @@
+12description_pkg: example_description
+base:
+  orientation: 0.0 0.0 0.0
+  position: 0.0 0.0 0.0
+types:
+- revolute
+- revolute
+- revolute
+links: 
+- orientation: 0.0 0.0 0.0
+  position: 0.0 0.0 0.24
+- orientation: -1.5707963267948966 -1.5707963267948966 0.0
+  position: 0.0 -0.12 0.0
+- orientation: 0.0 0.0 0.0
+  position: 0.25 0.0 0.1
+joints:
+- lower: -3.141592653589793
+  upper: 3.141592653589793
+  velocity: 1000.0
+  effort: 1000.0
+- lower: -3.141592653589793
+  upper: 3.141592653589793
+  velocity: 1000.0
+  effort: 1000.0
+- lower: -3.141592653589793
+  upper: 3.141592653589793
+  velocity: 1000.0
+  effort: 1000.0
+end_effector:
+  orientation: 1.5707963267948966 0.0 1.5707963267948966
+  position: 0.28 0.0 0.0
+
