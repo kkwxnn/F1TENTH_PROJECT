@@ -44,11 +44,11 @@ class OdometryCalculation(Node):
     def wheel_vel_callback(self, msg):
         self.v_rl = msg.data[1]
         self.v_rr = msg.data[0]
-        print(self.v_rl, self.v_rr, 1)
+        # print(self.v_rl, self.v_rr, 1)
 
     def Odo2Track(self):
         dt = (self.get_clock().now() - self.prev_time).to_msg().nanosec * 1.0e-9
-        print(self.v_curr)
+        # print(self.v_curr)
         x_prev = self.x_curr
         y_prev = self.y_curr
         v_prev = self.v_curr
@@ -77,6 +77,7 @@ class OdometryCalculation(Node):
         self.w_curr = (C1 - C2) / (B1 - B2 - B3 + B4)
 
         self.prev_time = self.get_clock().now()
+        print('x: ',self.x_curr , 'y: ',self.y_curr)
 
     def pub_transformation(self):
         tf_stamp = TransformStamped()
