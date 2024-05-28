@@ -35,29 +35,30 @@ class OdometryCalculation(Node):
         self.w_curr = 0.0 # car angular velocity
         self.quat = quaternion_from_euler(0.0, 0.0, self.theta_curr)
 
+        self.x_prev = 0.0
+        self.y_prev = 0.0
+        self.v_prev = 0.0
+        self.w_prev = 0.0
+        self.theta_prev = 0.0
+
         self.prev_time = self.get_clock().now()
 
     def timer_callback(self):
-        self.Odo2Track()
+        # self.Odo2Track()
+        self.OdoYawRate()
         self.pub_transformation()
 
     def wheel_vel_callback(self, msg):
         self.v_rl = msg.data[1]
         self.v_rr = msg.data[0]
-        # print(self.v_rl, self.v_rr, 1)
+        
 
     def Odo2Track(self):
         dt = (self.get_clock().now() - self.prev_time).to_msg().nanosec * 1.0e-9
-        # print(self.v_curr)
-        x_prev = self.x_curr
-        y_prev = self.y_curr
-        v_prev = self.v_curr
-        w_prev = self.w_curr
-        theta_prev = self.theta_curr
 
-        self.x_curr = x_prev + (v_prev * dt * np.cos(self.BETA + theta_prev + (w_prev * dt / 2)))
-        self.y_curr = y_prev + (v_prev * dt * np.sin(self.BETA + theta_prev + (w_prev * dt / 2)))
-        self.theta_curr = theta_prev + w_prev * dt
+        self.x_curr = self.x_prev + (self.v_prev * dt * np.cos(self.BETA + self.theta_prev + (self.w_prev * dt / 2)))
+        self.y_curr = self.y_prev + (self.v_prev * dt * np.sin(self.BETA + self.theta_prev + (self.w_prev * dt / 2)))
+        self.theta_curr = self.theta_prev + self.w_prev * dt
         self.quat = quaternion_from_euler(0.0, 0.0, self.theta_curr)
 
         A1 = self.L_RX * self.v_rr * np.sin(self.L_REAR_STEER_ANGLE)
@@ -77,7 +78,31 @@ class OdometryCalculation(Node):
         self.w_curr = (C1 - C2) / (B1 - B2 - B3 + B4)
 
         self.prev_time = self.get_clock().now()
+        self.x_prev = self.x_curr
+        self.y_prev = self.y_curr
+        self.v_prev = self.v_curr
+        self.w_prev = self.w_curr
+        self.theta_prev = self.theta_curr
         print('x: ',self.x_curr , 'y: ',self.y_curr)
+
+    def OdoYawRate(self):
+        dt = (self.get_clock().now() - self.prev_time).to_msg().nanosec * 1.0e-9
+
+        self.x_curr = self.x_prev + (self.v_prev * dt * np.cos(self.BETA + self.theta_prev + (self.w_prev * dt / 2)))
+        self.y_curr = self.y_prev + (self.v_prev * dt * np.sin(self.BETA + self.theta_prev + (self.w_prev * dt / 2)))
+        self.theta_curr = self.theta_prev + self.w_prev * dt
+        self.quat = quaternion_from_euler(0.0, 0.0, self.theta_curr)
+
+        self.v_curr = (self.v_rl + self.v_rr)/2
+        
+        self.prev_time = self.get_clock().now()
+        self.x_prev = self.x_curr
+        self.y_prev = self.y_curr
+        self.v_prev = self.v_curr
+        self.w_prev = self.w_curr
+        self.theta_prev = self.theta_curr
+        print('x: ',self.x_curr , 'y: ',self.y_curr)
+
 
     def pub_transformation(self):
         tf_stamp = TransformStamped()
