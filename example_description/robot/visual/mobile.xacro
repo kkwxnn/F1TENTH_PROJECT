@@ -17,7 +17,6 @@
 
     <!-- Pure Visual (No dynamics) -->
     <xacro:macro name="manipulator_visual" params="">
-        <link name="odom"/>
         <link name="base_link">
             <origin xyz="0 0 0" rpy="0 0 0"/>
         </link>
@@ -32,14 +31,6 @@
         <link name="steer">
             <origin xyz="0 0 0" rpy="0 0 0"/>
         </link>
-
-        <!-- <link name="end_effector"/> -->
-
-        <joint name="base_offset" type="fixed">
-            <parent link="odom"/>
-            <child link="base_link"/>
-            <origin xyz="0 0 0" rpy="0 0 0"/>
-        </joint>
 
         <joint name="left_wheel" type="revolute">
             <parent link="base_link"/>
