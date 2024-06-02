@@ -2,6 +2,11 @@
 
 This project is a part of FRA532 Mobile Robot, Institute of Field Robotics (FIBO), King's Mongkut's University of Technology Thonburi (KMUTT)
 
+Team Members:
+1. Tuchapong Sangthaworn 64340500031
+2. Tanakon Apithanakun 64340500062
+3. Monsicha Sopitlaptana 64340500071
+
 ## Requirements
 - Ubuntu 20.04
 - ROS2 FOXY
@@ -15,7 +20,7 @@ This project is a part of FRA532 Mobile Robot, Institute of Field Robotics (FIBO
   - [1.4. Connect Jetson Xavier NX via SSH](#14-connect-jetson-xavier-nx-via-ssh)
   - [1.5. Creating the micro-ROS agent](#15-creating-the-micro-ros-agent)
   - [1.6. Running the micro-ROS app](#16-running-the-micro-ros-app)
-  - [1.7. Running Robot (Teleoperation)](#17-running-robot-teleoperation)
+  - [1.7. Verify Installation: Running Robot (Teleoperation)](#17-verify-installation-running-robot-teleoperation)
 - [2. Firmware](#2-firmware)
 - [3. TF](#3-tf)
   - [3.1 Sensor and Coordinate Frame Transformations](#31-sensor-and-coordinate-frame-transformations)
@@ -28,6 +33,9 @@ This project is a part of FRA532 Mobile Robot, Institute of Field Robotics (FIBO
 - [6. Mapping](#6-mapping)
   - [6.1. Creating Map](#61-creating-map)
 - [7. Autonomous Navigation](#7-autonomous-navigation)
+  - [7.1. Running the micro-ROS app](#71-running-the-micro-ros-app)
+  - [7.2. Run ydlidar_launch.py](#72-run-ydlidar_launchpy)
+  - [7.3. Run robot_bridge.launch](#73-run-robot_bridgelaunch)
 
 ## 1. Getting Started
 ### 1.1. What you need
@@ -108,9 +116,9 @@ cd microros_ws
 source install/setup.bash
 ros2 run micro_ros_agent micro_ros_agent serial --dev /dev/ttyACM0 -b 921600
 ```
-- WARNING! If the serial port is not found, you have to run this command ``` sudo chmod 777 /dev/ttyUSB0 ```
+- WARNING! If the serial port is not found, you have to run this command ``` sudo chmod 777 /dev/ttyACM0 ```
 
-### 1.7. Running Robot (Teleoperation)
+### 1.7. Verify Installation: Running Robot (Teleoperation)
 ```
 ros2 launch robot_bridge robot_description.launch.py
 ```
@@ -118,33 +126,33 @@ ros2 launch robot_bridge robot_description.launch.py
 ros2 run teleop_twist_keyboard teleop_twist_keyboard
 ```
 ## 2. Firmware
-https://github.com/tanakon-apit/F1TENTH_PROJECT.git
+Process for Setup low level is within this [link](https://github.com/tanakon-apit/F1TENTH_PROJECT.git)
 
 ## 3. TF
 
 ### 3.1 Sensor and Coordinate Frame Transformations
 
-#### 3.1.1 base_footprint -> base_link**
+#### 3.1.1 base_footprint -> **base_link**
 
 - This transform represents the static relationship between the center of the robot base (`base_footprint`) and the floor (`base_link`).
 
-#### 3.1.2 base_link -> imu**
+#### 3.1.2 base_link -> **imu**
 
 - This transform describes the static relationship between the robot's base (`base_link`) and the IMU (Inertial Measurement Unit) sensor (`imu`).
 
-#### 3.1.3 base_link -> left_wheel**
+#### 3.1.3 base_link -> **left_wheel**
 
 - This transform defines the revolute relationship between the robot's base (`base_link`) and the left wheel (`left_wheel`).
 
-#### 3.1.4 base_link -> right_wheel**
+#### 3.1.4 base_link -> **right_wheel**
 
 - This transform defines the revolute relationship between the robot's base (`base_link`) and the right wheel (`right_wheel`).
 
-#### 3.1.5 base_link -> steer**
+#### 3.1.5 base_link -> **steer**
 
 - This transform defines the static relationship between the robot's base (`base_link`) and the lidar sensor (`steer`).
 
-#### 3.1.6 imu -> laser_frame**
+#### 3.1.6 imu -> **laser_frame**
 
 - This transform defines the static relationship between imu (`imu`) and the lidar sensor (`laser_frame`). 
 
@@ -189,13 +197,7 @@ This matrix provides a comprehensive update rule for the vehicle's state based o
 ![image](https://github.com/kkwxnn/FRA532_Mobile_Robot_Project/assets/122891621/0f598d8c-70a4-49eb-9619-f397d7c45a40)
 
 ### 4.2. Odometry Information
-```
-ros2 launch robot_bridge robot_description.launch.py
-```
-- In new terminal, you can control robot via keyboard
-```
-ros2 run teleop_twist_keyboard teleop_twist_keyboard
-```
+Do step [1.6](#16-running-the-micro-ros-app) and [1.7](#17-running-robot-teleoperation)
 - Get Odometry data
 ```
 ros2 topic echo /odom
@@ -239,6 +241,9 @@ or:
 ros2 topic echo /scan
 ```
 ## 6. Mapping
+
+Do steps [1.6](#16-running-the-micro-ros-app) and [1.7](#17-running-robot-teleoperation) (close RVIZ)
+
 ### 6.1. Creating Map
 - To create a map, run the following command
 ```
@@ -253,39 +258,50 @@ Two files will be saved where you ran the command. The ```.pgm``` file is the ma
 ![S__24838172](https://github.com/kkwxnn/FRA532_Mobile_Robot_Project/assets/122891621/55a76116-ac01-4617-adf2-df7f1d06ed57)
 
 *In case the map cannot be saved*
-1. It is expected that RVIZ is open overlapping, please close it and leave the RVIZ used for Save Map
+1. If RVIZ is open overlapping, **close RVIZ in step 1.6 and open only the RVIZ used for Save Map**
 or
 2. Refresh rqt_graph
 
 ## 7. Autonomous Navigation
 
-To run Autonomous Navigation on the robot’s computer, open 2 new terminals.
+To run Autonomous Navigation on the robot’s computer, open 3 new terminals.
 
-1. Running the micro-ROS app
+### 7.1. Running the micro-ROS app
 ```
 cd microros_ws
 source install/setup.bash
 ros2 run micro_ros_agent micro_ros_agent serial --dev /dev/ttyACM0 -b 921600
 ```
-2. Run ydlidar_launch.py
+### 7.2. Run ydlidar_launch.py
 ```
 cd [your workspace]
 ros2 launch ydlidar_ros2_driver ydlidar_launch.py 
 ```
-3. Run robot_bridge.launch
+### 7.3. Run robot_bridge.launch
 ```
 ros2 launch robot_bridge robot_bridge.launch.py 
 ```
-4. Run navigate.launch:
 
-    You can select the map file by changing the `map name.yaml`
+### In case: Changing Map 
 
-    or
+You can select the map file by changing the `map name.yaml`
 
-    specify the map file in robot_bridge/robot_bridge.launch.py as the default
+or
+
+specify the map file in robot_bridge/robot_bridge.launch.py as the default
+    
 ```
 ros2 launch robot_bridge robot_bridge.launch.py map:=$HOME/<your workspace>/src/robot_bridge/maps/<map name.yaml>
 ```
 ![image](https://github.com/kkwxnn/FRA532_Mobile_Robot_Project/assets/122891621/8bb00942-56e4-47e2-8274-35a4c619dbdf)
+
+![image](https://github.com/kkwxnn/FRA532_Mobile_Robot_Project/assets/122891621/a1f3a369-77e8-4260-be51-cfc2481fc96c)
+
+Press the 2D Pose Estimate button, then drag the arrow onto the map at the location you think the robot is.
+
+![image](https://github.com/kkwxnn/FRA532_Mobile_Robot_Project/assets/122891621/311bacc5-a1ba-4516-967b-14c8fcc0d291)
+
+Press the Start-up button to get the Costmap as the picture below.
+
 ![image](https://github.com/kkwxnn/FRA532_Mobile_Robot_Project/assets/122891621/4532d9a6-0489-4a88-a3ae-3e65aa35525a)
 
