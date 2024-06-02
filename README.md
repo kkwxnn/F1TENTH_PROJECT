@@ -87,7 +87,7 @@ ssh jetson@[inet addr] -XC
 For example: ```ssh jetson@10.7.145.17 -XC```
 
 ### 1.5. Creating the micro-ROS agent
-[https://micro.ros.org/docs/tutorials/core/first_application_linux/]
+[Reference](https://micro.ros.org/docs/tutorials/core/first_application_linux/)
 
 - Source the ROS 2 installation
 ```
