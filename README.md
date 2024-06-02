@@ -2,9 +2,32 @@
 
 This project is a part of FRA532 Mobile Robot, Institute of Field Robotics (FIBO), King's Mongkut's University of Technology Thonburi (KMUTT)
 
-## Requirement
+## Requirements
 - Ubuntu 20.04
 - ROS2 FOXY
+
+## Table of Contents
+
+- [1. Getting Started](#1-getting-started)
+  - [1.1. What you need](#11-what-you-need)
+  - [1.2. ROS 2 Setup Environment](#12-ros-2-setup-environment)
+  - [1.3. Installation Package](#13-installation-package)
+  - [1.4. Connect Jetson Xavier NX via SSH](#14-connect-jetson-xavier-nx-via-ssh)
+  - [1.5. Creating the micro-ROS agent](#15-creating-the-micro-ros-agent)
+  - [1.6. Running the micro-ROS app](#16-running-the-micro-ros-app)
+  - [1.7. Running Robot (Teleoperation)](#17-running-robot-teleoperation)
+- [2. Firmware](#2-firmware)
+- [3. TF](#3-tf)
+  - [3.1 Sensor and Coordinate Frame Transformations](#31-sensor-and-coordinate-frame-transformations)
+  - [3.2 Visualization](#32-visualization)
+- [4. Odometry](#4-odometry)
+  - [4.1. Odometry Calculation](#41-odometry-calculation)
+  - [4.2. Odometry Information](#42-odometry-information)
+- [5. Sensors](#5-sensors)
+  - [5.1 Laser Sensor](#51-laser-sensor)
+- [6. Mapping](#6-mapping)
+  - [6.1. Creating Map](#61-creating-map)
+- [7. Autonomous Navigation](#7-autonomous-navigation)
 
 ## 1. Getting Started
 ### 1.1. What you need
@@ -85,7 +108,7 @@ cd microros_ws
 source install/setup.bash
 ros2 run micro_ros_agent micro_ros_agent serial --dev /dev/ttyACM0 -b 921600
 ```
-- WARNING! If serial port not found, you have to run this command ``` sudo chmod 777 /dev/ttyUSB0 ```
+- WARNING! If the serial port is not found, you have to run this command ``` sudo chmod 777 /dev/ttyUSB0 ```
 
 ### 1.7. Running Robot (Teleoperation)
 ```
@@ -146,29 +169,9 @@ This command opens a graphical interface displaying the relationships between di
 
 ## 4. Odometry
 ### 4.1. Odometry Calculation
-Calculated using a Yaw Rate Algorithm
+Calculated using a Yaw Rate Algorithm:
 
-The state update equations are given by:
-
-\[
-\begin{bmatrix}
-x_k \\
-y_k \\
-\theta_k \\
-\beta_k \\
-v_k \\
-\omega_k
-\end{bmatrix}
-=
-\begin{bmatrix}
-x_{k-1} + v_{k-1} \cdot \Delta t \cdot \cos\left(\beta_{k-1} + \theta_{k-1} + \frac{\omega_{k-1} \cdot \Delta t}{2}\right) \\
-y_{k-1} + v_{k-1} \cdot \Delta t \cdot \sin\left(\beta_{k-1} + \theta_{k-1} + \frac{\omega_{k-1} \cdot \Delta t}{2}\right) \\
-\theta_{k-1} + \omega_{k-1} \cdot \Delta t \\
-0 \\
-\frac{\tilde{v}_{RL,k} + \tilde{v}_{RR,k}}{2} \\
-\omega_k
-\end{bmatrix}
-\]
+![image](https://github.com/kkwxnn/FRA532_Mobile_Robot_Project/assets/122891621/d185040b-cd99-4aca-995b-5e9ed1ae5bc8)
 
 where:
 - $x_k$ and $y_k$ are the vehicle's position coordinates at time step $k$.
@@ -178,7 +181,8 @@ where:
 - $\omega_k$ is the vehicle's yaw rate at time step $k$.
 - $x_{k-1}$, $y_{k-1}$, $\theta_{k-1}$, $\beta_{k-1}$, $v_{k-1}$, and $\omega_{k-1}$ are the corresponding values at the previous time step $k-1$.
 - $\Delta t$ is the time interval between the previous and current time steps.
-- $\tilde{v}_{\text{RL},k}$ and $\tilde{v}_{\text{RR},k}$ are the estimated velocities of the rear left and rear right wheels, respectively.
+- ${v}_{RL,k}$ is the estimated velocities of the rear left wheel
+- ${v}_{RR,k}$ is the estimated velocities of the rear right wheel
   
 This matrix provides a comprehensive update rule for the vehicle's state based on the previous state and the motion inputs.
 
@@ -253,4 +257,35 @@ Two files will be saved where you ran the command. The ```.pgm``` file is the ma
 or
 2. Refresh rqt_graph
 
-## 7. Mapping
+## 7. Autonomous Navigation
+
+To run Autonomous Navigation on the robot’s computer, open 2 new terminals.
+
+1. Running the micro-ROS app
+```
+cd microros_ws
+source install/setup.bash
+ros2 run micro_ros_agent micro_ros_agent serial --dev /dev/ttyACM0 -b 921600
+```
+2. Run ydlidar_launch.py
+```
+cd [your workspace]
+ros2 launch ydlidar_ros2_driver ydlidar_launch.py 
+```
+3. Run robot_bridge.launch
+```
+ros2 launch robot_bridge robot_bridge.launch.py 
+```
+4. Run navigate.launch:
+
+    You can select the map file by changing the `map name.yaml`
+
+    or
+
+    specify the map file in robot_bridge/robot_bridge.launch.py as the default
+```
+ros2 launch robot_bridge robot_bridge.launch.py map:=$HOME/<your workspace>/src/robot_bridge/maps/<map name.yaml>
+```
+![image](https://github.com/kkwxnn/FRA532_Mobile_Robot_Project/assets/122891621/8bb00942-56e4-47e2-8274-35a4c619dbdf)
+![image](https://github.com/kkwxnn/FRA532_Mobile_Robot_Project/assets/122891621/4532d9a6-0489-4a88-a3ae-3e65aa35525a)
+
