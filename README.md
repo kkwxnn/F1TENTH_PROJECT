@@ -199,7 +199,7 @@ This matrix provides a comprehensive update rule for the vehicle's state based o
 ![image](https://github.com/kkwxnn/FRA532_Mobile_Robot_Project/assets/122891621/0f598d8c-70a4-49eb-9619-f397d7c45a40)
 
 ### 4.2. Odometry Information
-Do step [1.6](#16-running-the-micro-ros-app) and [1.7](#17-running-robot-teleoperation)
+Do steps [1.6](#16-running-the-micro-ros-app) and [1.7](#17-running-robot-teleoperation)
 - Get Odometry data
 ```
 ros2 topic echo /odom
