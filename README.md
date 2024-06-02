@@ -1,4 +1,7 @@
 # F1TENTH: Autonomous Ackermann Steering Mobile Robot
+
+This project is a part of FRA532 Mobile Robot, Institute of Field Robotics (FIBO), King's Mongkut's University of Technology Thonburi (KMUTT)
+
 ## Requirement
 - Ubuntu 20.04
 - ROS2 FOXY
@@ -50,7 +53,7 @@ ifconfig
 ```
 ssh jetson@[inet addr] -XC
 ```
-example: ```ssh jetson@10.7.145.17 -XC```
+For example: ```ssh jetson@10.7.145.17 -XC```
 
 ### 1.5. Creating the micro-ROS agent
 [https://micro.ros.org/docs/tutorials/core/first_application_linux/]
@@ -82,6 +85,7 @@ cd microros_ws
 source install/setup.bash
 ros2 run micro_ros_agent micro_ros_agent serial --dev /dev/ttyACM0 -b 921600
 ```
+- WARNING! If serial port not found, you have to run this command ``` sudo chmod 777 /dev/ttyUSB0 ```
 
 ### 1.7. Running Robot (Teleoperation)
 ```
@@ -90,3 +94,163 @@ ros2 launch robot_bridge robot_description.launch.py
 ```
 ros2 run teleop_twist_keyboard teleop_twist_keyboard
 ```
+## 2. Firmware
+https://github.com/tanakon-apit/F1TENTH_PROJECT.git
+
+## 3. TF
+
+### 3.1 Sensor and Coordinate Frame Transformations
+
+#### 3.1.1 base_footprint -> base_link**
+
+- This transform represents the static relationship between the center of the robot base (`base_footprint`) and the floor (`base_link`).
+
+#### 3.1.2 base_link -> imu**
+
+- This transform describes the static relationship between the robot's base (`base_link`) and the IMU (Inertial Measurement Unit) sensor (`imu`).
+
+#### 3.1.3 base_link -> left_wheel**
+
+- This transform defines the revolute relationship between the robot's base (`base_link`) and the left wheel (`left_wheel`).
+
+#### 3.1.4 base_link -> right_wheel**
+
+- This transform defines the revolute relationship between the robot's base (`base_link`) and the right wheel (`right_wheel`).
+
+#### 3.1.5 base_link -> steer**
+
+- This transform defines the static relationship between the robot's base (`base_link`) and the lidar sensor (`steer`).
+
+#### 3.1.6 imu -> laser_frame**
+
+- This transform defines the static relationship between imu (`imu`) and the lidar sensor (`laser_frame`). 
+
+### 3.2 Visualization
+
+#### 3.2.1 Launch Robot Description:
+- Run the following command to launch the robot's description:
+```
+ros2 launch robot_bridge robot_bridge.launch.py 
+```
+![image](https://github.com/kkwxnn/FRA532_Mobile_Robot_Project/assets/122891621/dafb6f87-7ae8-40b9-95a7-8e46b88c7712)
+
+#### 3.2.2 View Transformations
+- Execute the following command to watch the relationships between the robot's transformations:
+```
+ros2 run tf2_tools view_frames.py
+```
+This command opens a graphical interface displaying the relationships between different frames. The provided link shows an example image capturing these transformations:
+
+![image](https://github.com/kkwxnn/FRA532_Mobile_Robot_Project/assets/122891621/114b5b94-3abc-42cd-88ec-68d15511fbc8)
+
+
+## 4. Odometry
+### 4.1. Odometry Calculation
+Calculated using a Yaw Rate Algorithm
+
+The state update equations are given by:
+
+\[
+\begin{bmatrix}
+x_k \\
+y_k \\
+\theta_k \\
+\beta_k \\
+v_k \\
+\omega_k
+\end{bmatrix}
+=
+\begin{bmatrix}
+x_{k-1} + v_{k-1} \cdot \Delta t \cdot \cos\left(\beta_{k-1} + \theta_{k-1} + \frac{\omega_{k-1} \cdot \Delta t}{2}\right) \\
+y_{k-1} + v_{k-1} \cdot \Delta t \cdot \sin\left(\beta_{k-1} + \theta_{k-1} + \frac{\omega_{k-1} \cdot \Delta t}{2}\right) \\
+\theta_{k-1} + \omega_{k-1} \cdot \Delta t \\
+0 \\
+\frac{\tilde{v}_{RL,k} + \tilde{v}_{RR,k}}{2} \\
+\omega_k
+\end{bmatrix}
+\]
+
+where:
+- $x_k$ and $y_k$ are the vehicle's position coordinates at time step $k$.
+- $\theta_k$ is the vehicle's orientation (heading angle) at time step $k$.
+- $\beta_k$ is the vehicle's steering angle at time step $k$.
+- $v_k$ is the vehicle's velocity at time step $k$.
+- $\omega_k$ is the vehicle's yaw rate at time step $k$.
+- $x_{k-1}$, $y_{k-1}$, $\theta_{k-1}$, $\beta_{k-1}$, $v_{k-1}$, and $\omega_{k-1}$ are the corresponding values at the previous time step $k-1$.
+- $\Delta t$ is the time interval between the previous and current time steps.
+- $\tilde{v}_{\text{RL},k}$ and $\tilde{v}_{\text{RR},k}$ are the estimated velocities of the rear left and rear right wheels, respectively.
+  
+This matrix provides a comprehensive update rule for the vehicle's state based on the previous state and the motion inputs.
+
+![image](https://github.com/kkwxnn/FRA532_Mobile_Robot_Project/assets/122891621/0f598d8c-70a4-49eb-9619-f397d7c45a40)
+
+### 4.2. Odometry Information
+```
+ros2 launch robot_bridge robot_description.launch.py
+```
+- In new terminal, you can control robot via keyboard
+```
+ros2 run teleop_twist_keyboard teleop_twist_keyboard
+```
+- Get Odometry data
+```
+ros2 topic echo /odom
+```
+
+## 5. Sensors
+
+### 5.1 Laser Sensor
+
+#### 5.1.1 Setup LD06 Lidar
+
+guide provides quick instructions for setting up & testing the LD06 Lidar. For a more comprehensive explanation of LD06 Lidar, 
+click [here](https://github.com/YDLIDAR/ydlidar_ros2_driver?fbclid=IwZXh0bgNhZW0CMTAAAR3OEcoaB9rG6-haQZFpyFFbUIRuxUHEzv-TmZLJxinNRptzsMPwWTPi2mU_aem_AWq-ZxKVIEgbPc8O5VaWP_GTqjUgGpQF3f1EuqnmXKfztNGkgQNBtLfJfG6miwBMLaj0LysVZxNwI7SLqACmVW_h)
+
+##### 5.1.1.1 Run the driver
+
+1. Connect LiDAR (Testing YDlidar hardware)
+```
+ros2 launch ydlidar_ros2_driver ydlidar_launch.py
+```
+Optional Parameters:
+* `port` used to override the autodetect and select a specific port.
+* `frame_id` used to override the default `laser` frame_id.
+
+- For example:
+```
+ros2 launch ldlidar ldlidar.launch.py port:=/dev/ttyACM0
+```
+2. RVIZ
+```
+ros2 launch ydlidar_ros2_driver ydlidar_launch_view.py 
+```
+![441467630_390399290647239_5916944124229973333_n](https://github.com/kkwxnn/FRA532_Mobile_Robot_Project/assets/122891621/ec8c4d3e-f6fe-496b-9903-1e3c9b92a857)
+
+3. echo scan topic
+```
+ros2 run ydlidar_ros2_driver ydlidar_ros2_driver_client 
+```
+or:
+```
+ros2 topic echo /scan
+```
+## 6. Mapping
+### 6.1. Creating Map
+- To create a map, run the following command
+```
+ros2 launch carver_navigation carver_mapping.launch.py
+```
+- Save the map, run the following command
+```
+ros2 run nav2_map_server map_saver_cli -f [map_name]
+```
+Two files will be saved where you ran the command. The ```.pgm``` file is the map image and the ```.yaml``` file is the map metadata.
+
+![S__24838172](https://github.com/kkwxnn/FRA532_Mobile_Robot_Project/assets/122891621/55a76116-ac01-4617-adf2-df7f1d06ed57)
+
+*In case the map cannot be saved*
+1. It is expected that RVIZ is open overlapping, please close it and leave the RVIZ used for Save Map
+or
+2. Refresh rqt_graph
+
+## 7. Mapping
