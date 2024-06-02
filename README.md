@@ -46,7 +46,9 @@ Team Members:
 - BNO-005
   
 #### 1.1.3. Microcontroller
-- STM32L432KC 
+- STM32L432KC
+
+#### 1.1.4. Processor
 - Jetson Xavier NX
   
 #### 1.1.4. Motor
@@ -82,7 +84,7 @@ ifconfig
 ```
 - Connect Jetson Xavier NX with your computer via SSH (do this every new terminal)
 ```
-ssh jetson@[inet addr] -XC
+ssh [username]@[inet addr] -XC
 ```
 For example: ```ssh jetson@10.7.145.17 -XC```
 
@@ -184,7 +186,7 @@ Calculated using a Yaw Rate Algorithm:
 where:
 - $x_k$ and $y_k$ are the vehicle's position coordinates at time step $k$.
 - $\theta_k$ is the vehicle's orientation (heading angle) at time step $k$.
-- $\beta_k$ is the vehicle's steering angle at time step $k$.
+- $\beta_k$ is the vehicle's slip angle at time step $k$.
 - $v_k$ is the vehicle's velocity at time step $k$.
 - $\omega_k$ is the vehicle's yaw rate at time step $k$.
 - $x_{k-1}$, $y_{k-1}$, $\theta_{k-1}$, $\beta_{k-1}$, $v_{k-1}$, and $\omega_{k-1}$ are the corresponding values at the previous time step $k-1$.
