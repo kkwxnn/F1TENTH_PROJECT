@@ -128,7 +128,7 @@ ros2 launch robot_bridge robot_description.launch.py
 ros2 run teleop_twist_keyboard teleop_twist_keyboard
 ```
 ## 2. Firmware
-Process for Setup low level is within this [link](https://github.com/tanakon-apit/F1TENTH_PROJECT.git)
+Process for Setup low level is within [this link](https://github.com/tanakon-apit/F1TENTH_PROJECT.git)
 
 ## 3. TF
 
