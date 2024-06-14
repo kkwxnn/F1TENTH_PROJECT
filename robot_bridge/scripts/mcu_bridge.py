@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+import os
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import Float64MultiArray
@@ -7,6 +8,8 @@ from geometry_msgs.msg import Twist, Quaternion, TransformStamped
 import numpy as np
 from tf_transformations import quaternion_from_euler
 from sensor_msgs.msg import Imu
+from ament_index_python.packages import get_package_share_directory
+import sys, yaml
 
 class MCUBridgeNode(Node):
     def __init__(self):
@@ -26,9 +29,18 @@ class MCUBridgeNode(Node):
         self.quat = quaternion_from_euler(0.0, 0.0, self.pose[2])
         self.lasttimestamp = self.get_clock().now()
 
-        self.gyro_cov = np.diag([1.0e-9, 1.0e-9, 1.0e-9])
-        self.acc_cov = np.diag([1.0e-9, 1.0e-9, 1.0e-9])
-        self.quat_cov = np.diag([1.0e-9, 1.0e-9, 1.0e-9])
+        self.path = os.path.join(get_package_share_directory('calibration_gen'), 'config', 'sensor_calibration.yaml')
+        with open(self.path, 'r') as file:
+            self.value = yaml.safe_load(file)
+        
+        # self.gyro_cov = np.array(self.value['cov gyro'])
+        self.acc_cov = np.array(self.value['cov acc'])
+        self.acc_cov_flat = self.acc_cov.flatten()
+        self.acc_std = np.array([np.sqrt(self.acc_cov_flat[0]), np.sqrt(self.acc_cov_flat[4]), np.sqrt(self.acc_cov_flat[8])]) # accel x, y, z
+        # # self.quat_cov = np.array(self.value['cov quat'])
+        self.gyro_cov = np.diag([0.1, 0.1, 0.1])
+        self.acc_cov = np.diag([1000.0, 1000.0, 1000.0])
+        self.quat_cov = np.diag([0.1, 0.1, 0.1])
 
         self.prev_motor_position_msg = 0.0
 
@@ -45,6 +57,13 @@ class MCUBridgeNode(Node):
         imu_msg.linear_acceleration.y = msg.data[4] 
         imu_msg.linear_acceleration.z = msg.data[5] 
         imu_msg.linear_acceleration_covariance = self.acc_cov.flatten()
+
+        if imu_msg.linear_acceleration.x < 3.0 and imu_msg.linear_acceleration.x > -3.0:
+            imu_msg.linear_acceleration.x = 0.0
+        if imu_msg.linear_acceleration.y < 1.5 and imu_msg.linear_acceleration.y > -1.5:
+            imu_msg.linear_acceleration.y = 0.0
+        if imu_msg.linear_acceleration.z <= 5.0 * self.acc_std[2] and imu_msg.linear_acceleration.z > -5.0 * self.acc_std[2]:
+            imu_msg.linear_acceleration.z = 0.0
 
         # Gyroscope data in rad/s
         imu_msg.angular_velocity.x = msg.data[0]

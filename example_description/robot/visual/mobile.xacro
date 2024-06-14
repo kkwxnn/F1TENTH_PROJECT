@@ -17,6 +17,10 @@
 
     <!-- Pure Visual (No dynamics) -->
     <xacro:macro name="manipulator_visual" params="">
+        <link name="base_footprint">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </link>
+
         <link name="base_link">
             <origin xyz="0 0 0" rpy="0 0 0"/>
         </link>
@@ -31,6 +35,24 @@
         <link name="steer">
             <origin xyz="0 0 0" rpy="0 0 0"/>
         </link>
+
+        <link name="laser_frame">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </link>
+
+        <joint name="base_link" type="fixed">
+            <parent link="base_footprint"/>
+            <child link="base_link"/>
+            <origin xyz="0 0 0.03" rpy="0 0 0"/>
+        </joint>
+
+        <!-- <link name="end_effector"/> -->
+
+        <!-- <joint name="base_offset" type="fixed">
+            <parent link="odom"/>
+            <child link="base_link"/>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </joint> -->
 
         <joint name="left_wheel" type="revolute">
             <parent link="base_link"/>
@@ -59,7 +81,7 @@
         <joint name="imu" type="fixed">
             <parent link="base_link"/>
             <child link="imu"/>
-            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <origin xyz="0 0 0.09" rpy="0 0 -1.5729"/>
         </joint>
 
         <joint name="steer" type="revolute">
@@ -72,6 +94,13 @@
                 upper="3.1459" 
                 velocity="1000.0" 
                 effort="1000.0"/>
+        </joint>
+
+        <joint name="laser_frame" type="fixed">
+            <parent link="imu"/>
+            <child link="laser_frame"/>
+            <origin xyz="0.255 0 0" rpy="0 0 0"/>
+            <!-- <origin xyz="0.255 0 0" rpy="3.1416 0 0"/> -->
         </joint>
 
     </xacro:macro>

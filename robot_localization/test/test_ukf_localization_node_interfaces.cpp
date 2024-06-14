@@ -37,7 +37,7 @@
 #include <rclcpp/qos.hpp>
 #include <sensor_msgs/msg/imu.hpp>
 #include <tf2/LinearMath/Quaternion.h>
-#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
 
 #include <chrono>
 #include <functional>
@@ -760,9 +760,9 @@ TEST(InterfacesTest, ImuAccBasicIO) {
     rclcpp::spin_some(node_);
   }
 
-  EXPECT_LT(::fabs(filtered_.pose.pose.position.x - 1.8), 0.4);
-  EXPECT_LT(::fabs(filtered_.pose.pose.position.y + 1.8), 0.4);
-  EXPECT_LT(::fabs(filtered_.pose.pose.position.z - 1.8), 0.4);
+  EXPECT_LT(::fabs(filtered_.pose.pose.position.x - 1.8), 0.6);
+  EXPECT_LT(::fabs(filtered_.pose.pose.position.y + 1.8), 0.6);
+  EXPECT_LT(::fabs(filtered_.pose.pose.position.z - 1.8), 0.6);
 
   resetFilter(node_);
 

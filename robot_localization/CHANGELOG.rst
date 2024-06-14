@@ -2,6 +2,53 @@
 Changelog for package robot_localization
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+3.5.3 (2024-04-16)
+------------------
+* TF Prefix Bug (`#876 <https://github.com/cra-ros-pkg/robot_localization/issues/876>`_)
+* Fixing angle clamping for humble (`#854 <https://github.com/cra-ros-pkg/robot_localization/issues/854>`_)
+* Contributors: Tom Moore, rafal-gorecki
+
+3.5.2 (2023-12-20)
+------------------
+* fix header timestamp (`#852 <https://github.com/cra-ros-pkg/robot_localization/issues/852>`_)
+  Co-authored-by: Luke Chang <luke@boxfish.nz>
+* Wait for odometry message before setting manual datum so that the base and world frame names can be set. (`#835 <https://github.com/cra-ros-pkg/robot_localization/issues/835>`_)
+  * wait for odom msg before setting manual datum
+* Utm using geographiclib humble branch (`#834 <https://github.com/cra-ros-pkg/robot_localization/issues/834>`_)
+  * Add single test for navsat_conversions
+  * Add a southern point to the navsat_transform test
+  * LLtoUTM using GeographicLib
+  * Use GeographicLib for UTMtoLL conversions
+  * Linting
+  * Forgot include
+  * Fix compilation
+  * Calculate gamma because it's a function output and was supplied before
+  * Also test for gamma conversion
+  * Align naming and install
+* Contributors: Luke Chang, Tim Clephas, Tom Greier
+
+3.4.0 (2022-05-05)
+------------------
+* Fix angles dependency (`#747 <https://github.com/cra-ros-pkg/robot_localization/issues/747>`_)
+  * Add angles to CMakeLists.txt
+* Using angles library to normalize angles (`#739 <https://github.com/cra-ros-pkg/robot_localization/issues/739>`_)
+  * Using angles library for innovation angle normalization
+* Read predict_to_current_time from ROS parameters (`#737 <https://github.com/cra-ros-pkg/robot_localization/issues/737>`_)
+  Co-authored-by: Zygfryd Wieszok <zwieszok@autonomous-systems.pl>
+* Fixed state history reversion (`#736 <https://github.com/cra-ros-pkg/robot_localization/issues/736>`_)
+  Co-authored-by: Zygfryd Wieszok <zwieszok@autonomous-systems.pl>
+* Fixing code style divergence for ament_uncrustify in main ROS2 branch (`#743 <https://github.com/cra-ros-pkg/robot_localization/issues/743>`_)
+* This fixes `#732 <https://github.com/cra-ros-pkg/robot_localization/issues/732>`_ (broadcast_cartesian_transform) (`#733 <https://github.com/cra-ros-pkg/robot_localization/issues/733>`_)
+* Contributors: Anish, Marek Piechula, RoboTech Vision, Tony Najjar, Zygfryd Wieszok
+
+3.3.1 (2022-02-25)
+------------------
+* Moving to C++17 support (`#725 <https://github.com/cra-ros-pkg/robot_localization/issues/725>`_)
+* SHARED linking for Geographiclib (`#624 <https://github.com/cra-ros-pkg/robot_localization/issues/624>`_) (`#712 <https://github.com/cra-ros-pkg/robot_localization/issues/712>`_)
+  * remove GeographicLib specific linking option
+  Co-authored-by: Achmad Fathoni <fathoni.id@gmail.com>
+* Contributors: Stephan Sundermann, Tom Moore
+
 2.4.0 (2017-06-12)
 ------------------
 * Updated documentation

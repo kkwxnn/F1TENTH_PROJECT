@@ -446,7 +446,7 @@ private:
    * here until the odom message is received, and the manual datum pose can be
    * set.
    */
-  geographic_msgs::msg::GeoPose manual_datum_geopose_;
+  geographic_msgs::msg::GeoPose manual_datum_geopose_;  
 };
 
 }  // namespace robot_localization

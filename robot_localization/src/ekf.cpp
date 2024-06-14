@@ -33,6 +33,7 @@
 
 #include <robot_localization/ekf.hpp>
 #include <robot_localization/filter_common.hpp>
+#include <angles/angles.h>
 #include <Eigen/Dense>
 #include <rclcpp/duration.hpp>
 #include <vector>
@@ -177,13 +178,7 @@ void Ekf::correct(const Measurement & measurement)
       update_indices[i] == StateMemberPitch ||
       update_indices[i] == StateMemberYaw)
     {
-      while (innovation_subset(i) < -PI) {
-        innovation_subset(i) += TAU;
-      }
-
-      while (innovation_subset(i) > PI) {
-        innovation_subset(i) -= TAU;
-      }
+      innovation_subset(i) = ::angles::normalize_angle(innovation_subset(i));
     }
   }
 
@@ -417,6 +412,9 @@ void Ekf::predict(
     control_acceleration_(ControlMemberVz) :
     state_(StateMemberAz));
 
+    //   if (std::fabs(control_acceleration_(ControlMemberVx)) < 0.1){
+    //   control_acceleration_(ControlMemberVx)) = 0.0
+    // }
   // (2) Project the state forward: x = Ax + Bu (really, x = f(x, u))
   state_ = transfer_function_ * state_;
 

@@ -41,7 +41,7 @@
 #include <rclcpp/qos.hpp>
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/imu.hpp>
-#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
 
 #include <algorithm>
 #include <iostream>
@@ -74,14 +74,15 @@ RosFilter<T>::RosFilter(const rclcpp::NodeOptions & options)
   static_diag_error_level_(diagnostic_msgs::msg::DiagnosticStatus::OK),
   frequency_(30.0),
   gravitational_acceleration_(9.80665),
-  history_length_(0),
+  history_length_(0ns),
   latest_control_(),
   last_diag_time_(0, 0, RCL_ROS_TIME),
   last_published_stamp_(0, 0, RCL_ROS_TIME),
+  predict_to_current_time_(false),
   last_set_pose_time_(0, 0, RCL_ROS_TIME),
   latest_control_time_(0, 0, RCL_ROS_TIME),
-  tf_timeout_(0),
-  tf_time_offset_(0)
+  tf_timeout_(0ns),
+  tf_time_offset_(0ns)
 {
   tf_buffer_ = std::make_unique<tf2_ros::Buffer>(this->get_clock());
   tf_listener_ = std::make_unique<tf2_ros::TransformListener>(*tf_buffer_);
@@ -608,7 +609,7 @@ void RosFilter<T>::integrateMeasurements(const rclcpp::Time & current_time)
       const std::string first_measurement_topic =
         first_measurement->topic_name_;
       // revertTo may invalidate first_measurement
-      if (!revertTo(first_measurement_time - rclcpp::Duration(1))) {
+      if (!revertTo(first_measurement_time - rclcpp::Duration(1ns))) {
         RF_DEBUG(
           "ERROR: history interval is too small to revert to time " <<
             filter_utilities::toSec(first_measurement_time) << "\n");
@@ -818,9 +819,8 @@ void RosFilter<T>::loadParams()
 
   // Try to resolve tf_prefix
   std::string tf_prefix = "";
-  std::string tf_prefix_path = "";
-  this->declare_parameter("tf_prefix");
-  if (this->get_parameter("tf_prefix", tf_prefix_path)) {
+  this->declare_parameter("tf_prefix", rclcpp::PARAMETER_STRING);
+  if (this->get_parameter("tf_prefix", tf_prefix)) {
     // Append the tf prefix in a tf2-friendly manner
     filter_utilities::appendPrefix(tf_prefix, map_frame_id_);
     filter_utilities::appendPrefix(tf_prefix, odom_frame_id_);
@@ -840,19 +840,19 @@ void RosFilter<T>::loadParams()
 
   // Transform future dating
   double offset_tmp = this->declare_parameter("transform_time_offset", 0.0);
-  tf_time_offset_ =
-    rclcpp::Duration(filter_utilities::secToNanosec(offset_tmp));
+  tf_time_offset_ = rclcpp::Duration::from_seconds(offset_tmp);
 
   // Transform timeout
   double timeout_tmp = this->declare_parameter("transform_timeout", 0.0);
-  tf_timeout_ = rclcpp::Duration(filter_utilities::secToNanosec(timeout_tmp));
+  tf_timeout_ = rclcpp::Duration::from_seconds(timeout_tmp);
 
   // Update frequency and sensor timeout
   frequency_ = this->declare_parameter("frequency", 30.0);
 
+  predict_to_current_time_ = this->declare_parameter<bool>("predict_to_current_time", false);
+
   double sensor_timeout = this->declare_parameter("sensor_timeout", 1.0 / frequency_);
-  filter_.setSensorTimeout(
-    rclcpp::Duration(filter_utilities::secToNanosec(sensor_timeout)));
+  filter_.setSensorTimeout(rclcpp::Duration::from_seconds(sensor_timeout));
 
   // Determine if we're in 2D mode
   two_d_mode_ = this->declare_parameter("two_d_mode", false);
@@ -872,8 +872,7 @@ void RosFilter<T>::loadParams()
       " specified. Absolute value will be assumed.";
   }
 
-  history_length_ = rclcpp::Duration(
-    filter_utilities::secToNanosec(std::abs(history_length_double)));
+  history_length_ = rclcpp::Duration::from_seconds(std::abs(history_length_double));
 
   // Whether we reset filter on jump back in time
   reset_on_time_jump_ = this->declare_parameter("reset_on_time_jump", false);
@@ -890,7 +889,7 @@ void RosFilter<T>::loadParams()
   control_timeout = this->declare_parameter("control_timeout", 0.0);
 
   if (use_control_) {
-    this->declare_parameter("control_config");
+    this->declare_parameter("control_config", rclcpp::PARAMETER_BOOL_ARRAY);
     if (this->get_parameter("control_config", control_update_vector)) {
       if (control_update_vector.size() != TWIST_SIZE) {
         std::cerr << "Control configuration must be of size " << TWIST_SIZE <<
@@ -906,7 +905,7 @@ void RosFilter<T>::loadParams()
       use_control_ = false;
     }
 
-    this->declare_parameter("acceleration_limits");
+    this->declare_parameter("acceleration_limits", rclcpp::PARAMETER_DOUBLE_ARRAY);
     if (this->get_parameter("acceleration_limits", acceleration_limits)) {
       if (acceleration_limits.size() != TWIST_SIZE) {
         std::cerr << "Acceleration configuration must be of size " << TWIST_SIZE <<
@@ -922,7 +921,7 @@ void RosFilter<T>::loadParams()
       acceleration_limits.resize(TWIST_SIZE, 1.0);
     }
 
-    this->declare_parameter("acceleration_gains");
+    this->declare_parameter("acceleration_gains", rclcpp::PARAMETER_DOUBLE_ARRAY);
     if (this->get_parameter("acceleration_gains", acceleration_gains)) {
       const int size = acceleration_gains.size();
       if (size != TWIST_SIZE) {
@@ -936,7 +935,7 @@ void RosFilter<T>::loadParams()
       }
     }
 
-    this->declare_parameter("deceleration_limits");
+    this->declare_parameter("deceleration_limits", rclcpp::PARAMETER_DOUBLE_ARRAY);
     if (this->get_parameter("deceleration_limits", deceleration_limits)) {
       if (deceleration_limits.size() != TWIST_SIZE) {
         std::cerr << "Deceleration configuration must be of size " << TWIST_SIZE <<
@@ -952,7 +951,7 @@ void RosFilter<T>::loadParams()
       deceleration_limits = acceleration_limits;
     }
 
-    this->declare_parameter("deceleration_gains");
+    this->declare_parameter("deceleration_gains", rclcpp::PARAMETER_DOUBLE_ARRAY);
     if (this->get_parameter("deceleration_gains", deceleration_gains)) {
       const int size = deceleration_gains.size();
       if (size != TWIST_SIZE) {
@@ -984,7 +983,7 @@ void RosFilter<T>::loadParams()
     dynamic_process_noise_covariance);
 
   std::vector<double> initial_state;
-  this->declare_parameter("initial_state");
+  this->declare_parameter("initial_state", rclcpp::PARAMETER_DOUBLE_ARRAY);
   if (this->get_parameter("initial_state", initial_state)) {
     if (initial_state.size() != STATE_SIZE) {
       std::cerr << "Initial state must be of size " << STATE_SIZE <<
@@ -1073,7 +1072,7 @@ void RosFilter<T>::loadParams()
     ss << "odom" << topic_ind++;
     std::string odom_topic_name = ss.str();
     std::string odom_topic;
-    this->declare_parameter(odom_topic_name);
+    this->declare_parameter(odom_topic_name, rclcpp::PARAMETER_STRING);
 
     rclcpp::Parameter parameter;
     if (this->get_parameter(odom_topic_name, parameter)) {
@@ -1081,7 +1080,6 @@ void RosFilter<T>::loadParams()
       odom_topic = parameter.as_string();
     } else {
       more_params = false;
-      this->undeclare_parameter(odom_topic_name);
     }
 
     if (more_params) {
@@ -1224,7 +1222,7 @@ void RosFilter<T>::loadParams()
     ss << "pose" << topic_ind++;
     std::string pose_topic_name = ss.str();
     std::string pose_topic;
-    this->declare_parameter(pose_topic_name);
+    this->declare_parameter(pose_topic_name, rclcpp::PARAMETER_STRING);
 
     rclcpp::Parameter parameter;
     if (this->get_parameter(pose_topic_name, parameter)) {
@@ -1232,7 +1230,6 @@ void RosFilter<T>::loadParams()
       pose_topic = parameter.as_string();
     } else {
       more_params = false;
-      this->undeclare_parameter(pose_topic_name);
     }
 
     if (more_params) {
@@ -1342,7 +1339,7 @@ void RosFilter<T>::loadParams()
     ss << "twist" << topic_ind++;
     std::string twist_topic_name = ss.str();
     std::string twist_topic;
-    this->declare_parameter(twist_topic_name);
+    this->declare_parameter(twist_topic_name, rclcpp::PARAMETER_STRING);
 
     rclcpp::Parameter parameter;
     if (this->get_parameter(twist_topic_name, parameter)) {
@@ -1350,7 +1347,6 @@ void RosFilter<T>::loadParams()
       twist_topic = parameter.as_string();
     } else {
       more_params = false;
-      this->undeclare_parameter(twist_topic_name);
     }
 
     if (more_params) {
@@ -1424,7 +1420,7 @@ void RosFilter<T>::loadParams()
     ss << "imu" << topic_ind++;
     std::string imu_topic_name = ss.str();
     std::string imu_topic;
-    this->declare_parameter(imu_topic_name);
+    this->declare_parameter(imu_topic_name, rclcpp::PARAMETER_STRING);
 
     rclcpp::Parameter parameter;
     if (this->get_parameter(imu_topic_name, parameter)) {
@@ -1432,7 +1428,6 @@ void RosFilter<T>::loadParams()
       imu_topic = parameter.as_string();
     } else {
       more_params = false;
-      this->undeclare_parameter(imu_topic_name);
     }
 
     if (more_params) {
@@ -1670,7 +1665,7 @@ void RosFilter<T>::loadParams()
 
     filter_.setControlParams(
       control_update_vector,
-      rclcpp::Duration(filter_utilities::secToNanosec(control_timeout)),
+      rclcpp::Duration::from_seconds(control_timeout),
       acceleration_limits, acceleration_gains, deceleration_limits,
       deceleration_gains);
 
@@ -1734,7 +1729,7 @@ void RosFilter<T>::loadParams()
   process_noise_covariance.setZero();
   std::vector<double> process_noise_covar_flat;
 
-  this->declare_parameter("process_noise_covariance");
+  this->declare_parameter("process_noise_covariance", rclcpp::PARAMETER_DOUBLE_ARRAY);
   if (this->get_parameter(
       "process_noise_covariance",
       process_noise_covar_flat))
@@ -1761,7 +1756,7 @@ void RosFilter<T>::loadParams()
   initial_estimate_error_covariance.setZero();
   std::vector<double> estimate_error_covar_flat;
 
-  this->declare_parameter("initial_estimate_covariance");
+  this->declare_parameter("initial_estimate_covariance", rclcpp::PARAMETER_DOUBLE_ARRAY);
   if (this->get_parameter(
       "initial_estimate_covariance",
       estimate_error_covar_flat))
@@ -1977,14 +1972,17 @@ void RosFilter<T>::initialize()
     tf2::toMsg(tf2::Transform::getIdentity());
 
   // Position publisher
+  rclcpp::PublisherOptions publisher_options;
+  publisher_options.qos_overriding_options = rclcpp::QosOverridingOptions::with_default_policies();
   position_pub_ =
-    this->create_publisher<nav_msgs::msg::Odometry>("odometry/filtered", rclcpp::QoS(10));
+    this->create_publisher<nav_msgs::msg::Odometry>(
+    "odometry/filtered", rclcpp::QoS(10), publisher_options);
 
   // Optional acceleration publisher
   if (publish_acceleration_) {
     accel_pub_ =
       this->create_publisher<geometry_msgs::msg::AccelWithCovarianceStamped>(
-      "accel/filtered", rclcpp::QoS(10));
+      "accel/filtered", rclcpp::QoS(10), publisher_options);
   }
 
   const std::chrono::duration<double> timespan{1.0 / frequency_};
@@ -2582,23 +2580,26 @@ bool RosFilter<T>::prepareAcceleration(
     // of normal forces, so we use a parameter
     if (remove_gravitational_acceleration_[topic_name]) {
       tf2::Vector3 normAcc(0, 0, gravitational_acceleration_);
-      tf2::Quaternion curAttitude;
       tf2::Transform trans;
 
       if (::fabs(msg->orientation_covariance[0] + 1) < 1e-9) {
         // Imu message contains no orientation, so we should use orientation
         // from filter state to transform and remove acceleration
         const Eigen::VectorXd & state = filter_.getState();
-        tf2::Vector3 stateTmp(state(StateMemberRoll), state(StateMemberPitch),
+        tf2::Matrix3x3 stateTmp;
+        stateTmp.setRPY(
+          state(StateMemberRoll),
+          state(StateMemberPitch),
           state(StateMemberYaw));
+
         // transform state orientation to IMU frame
         tf2::Transform imuFrameTrans;
         ros_filter_utilities::lookupTransformSafe(
-          tf_buffer_.get(), msg_frame, target_frame, msg->header.stamp, tf_timeout_,
+          tf_buffer_.get(), target_frame, msg_frame, msg->header.stamp, tf_timeout_,
           imuFrameTrans);
-        stateTmp = imuFrameTrans.getBasis() * stateTmp;
-        curAttitude.setRPY(stateTmp.getX(), stateTmp.getY(), stateTmp.getZ());
+        trans.setBasis(stateTmp * imuFrameTrans.getBasis());
       } else {
+        tf2::Quaternion curAttitude;
         tf2::fromMsg(msg->orientation, curAttitude);
         if (fabs(curAttitude.length() - 1.0) > 0.01) {
           RCLCPP_WARN_ONCE(
@@ -2606,8 +2607,8 @@ bool RosFilter<T>::prepareAcceleration(
             "An input was not normalized, this should NOT happen, but will normalize.");
           curAttitude.normalize();
         }
+        trans.setRotation(curAttitude);
       }
-      trans.setRotation(curAttitude);
       tf2::Vector3 rotNorm = trans.getBasis().inverse() * normAcc;
       acc_tmp.setX(acc_tmp.getX() - rotNorm.getX());
       acc_tmp.setY(acc_tmp.getY() - rotNorm.getY());
@@ -2615,7 +2616,7 @@ bool RosFilter<T>::prepareAcceleration(
 
       RF_DEBUG(
         "Orientation is " <<
-          curAttitude << "Acceleration due to gravity is " << rotNorm <<
+          trans.getRotation() << "Acceleration due to gravity is " << rotNorm <<
           "After removing acceleration due to gravity, acceleration is " <<
           acc_tmp << "\n");
     }
@@ -2742,7 +2743,7 @@ bool RosFilter<T>::preparePose(
 
   pose_tmp.stamp_ = tf2::timeFromSec(
     static_cast<double>(msg->header.stamp.sec) +
-    static_cast<double>(msg->header.stamp.sec) / 1000000000.0);
+    static_cast<double>(msg->header.stamp.nanosec) / 1000000000.0);
 
   // Fill out the position data
   pose_tmp.setOrigin(
@@ -3346,7 +3347,7 @@ bool RosFilter<T>::revertTo(const rclcpp::Time & time)
   // If we have a valid reversion state, revert
   if (last_history_state) {
     // Reset filter to the latest state from the queue.
-    const FilterStatePtr & state = filter_state_history_.back();
+    const FilterStatePtr & state = last_history_state;
     filter_.setState(state->state_);
     filter_.setEstimateErrorCovariance(state->estimate_error_covariance_);
     filter_.setLastMeasurementTime(state->last_measurement_time_);

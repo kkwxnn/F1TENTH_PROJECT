@@ -108,7 +108,7 @@ class OdometryCalculation(Node):
         tf_stamp = TransformStamped()
         tf_stamp.header.stamp = self.get_clock().now().to_msg()
         tf_stamp.header.frame_id = "odom"
-        tf_stamp.child_frame_id = "base_link"
+        tf_stamp.child_frame_id = "base_footprint"
         tf_stamp.transform.translation.x = self.x_curr
         tf_stamp.transform.translation.y = self.y_curr
         tf_stamp.transform.rotation = Quaternion(x=self.quat[0], y=self.quat[1], z=self.quat[2], w=self.quat[3])

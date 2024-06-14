@@ -9,6 +9,7 @@ from std_msgs.msg import Header, Float32, Float64MultiArray
 from tf2_ros import TransformBroadcaster
 import tf_transformations
 import math
+import numpy as np
 
 class YawrateOdom(Node):
     def __init__(self):
@@ -39,6 +40,9 @@ class YawrateOdom(Node):
         self.tf_br2 = TransformBroadcaster(self)
         self.isOdomUpdate = False
 
+        self.pose_cov = np.diag([1.0e-9, 1.0e-9, 1.0e-9, 1.0e-9, 1.0e-9, 1.0e-9])
+        self.twist_cov = np.diag([1.0e-9, 1.0e-6, 1.0e-9, 1.0e-9, 1.0e-9, 1.0e-9])
+
         # Initialize odometry variables
         self.odom_msg = Odometry(
             header=Header(
@@ -59,7 +63,8 @@ class YawrateOdom(Node):
                         z=0.0,
                         w=1.0
                     )
-                )
+                ),
+                covariance= self.pose_cov.flatten()
             ),
             twist=TwistWithCovariance(
                 twist=Twist(
@@ -71,7 +76,8 @@ class YawrateOdom(Node):
                     angular=Vector3(
                         z=0.0
                     )
-                )
+                ),
+                covariance= self.twist_cov.flatten()
             )
         )
 
@@ -83,11 +89,14 @@ class YawrateOdom(Node):
         self.x = 0.0
         self.y = 0.0
         self.th = 0.0
+
+        self.REAR_STEER_ANGLE = 0.0455
     def feedback_motorspeed(self, msg):
         self.motor_speed = msg.data[0]
         wheel2motor_ratio = (27/68) * (15/39)
         r = 0.033
         self.wheelspeed = self.motor_speed * wheel2motor_ratio * r
+        self.wheelspeed = self.wheelspeed * math.cos(self.REAR_STEER_ANGLE)
         
     def feedback_imu(self, msg):
         orientation_q = msg.orientation
@@ -102,11 +111,11 @@ class YawrateOdom(Node):
         self.relative_yaw = yaw - self.initial_orientation
 
     def timer_callback(self):
-        delta_x = self.wheelspeed * math.cos(self.relative_yaw) * self.dt_loop
-        delta_y = self.wheelspeed * math.sin(self.relative_yaw) * self.dt_loop
+        vx = self.wheelspeed * math.cos(self.relative_yaw) 
+        vy = self.wheelspeed * math.sin(self.relative_yaw) 
 
-        self.x += delta_x
-        self.y += delta_y
+        self.x += vx * self.dt_loop
+        self.y += vy * self.dt_loop
 
         quaternion = tf_transformations.quaternion_from_euler(0.0, 0.0, self.relative_yaw)
         # Create Odometry message and fill in the data
@@ -123,8 +132,11 @@ class YawrateOdom(Node):
             w=quaternion[3]
         )
         )
-        odom_msg.twist.twist.linear = Vector3(x=0.0, y=0.0, z=0.0)
+        odom_msg.pose.covariance = self.pose_cov.flatten()
+
+        odom_msg.twist.twist.linear = Vector3(x=vx, y=vy, z=0.0)
         odom_msg.twist.twist.angular = Vector3(x=0.0, y=0.0, z=0.0)
+        odom_msg.twist.covariance = self.twist_cov.flatten()
 
         self.publisher.publish(odom_msg)
         self.publisher_imu.publish(Float32(data=self.relative_yaw*180/math.pi))

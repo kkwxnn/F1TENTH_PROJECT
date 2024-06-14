@@ -2,7 +2,7 @@
 <?xml-model href="http://download.ros.org/schema/package_format2.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>robot_localization</name>
-  <version>3.1.2</version>
+  <version>3.5.3</version>
   <description>Provides nonlinear state estimation through sensor fusion of an abritrary number of sensors.</description>
 
   <author email="ayrton04@gmail.com">Tom Moore</author> 
@@ -26,7 +26,9 @@
   <depend>diagnostic_msgs</depend>
   <depend>diagnostic_updater</depend>
   <depend>geographiclib</depend>
+  <depend>message_filters</depend>
   <depend>nav_msgs</depend>
+  <depend>angles</depend>
   <build_depend>rclcpp</build_depend>
   <build_depend>rmw_implementation</build_depend>
   <depend>sensor_msgs</depend>

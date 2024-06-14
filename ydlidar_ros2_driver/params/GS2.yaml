@@ -22,4 +22,3 @@ ydlidar_ros2_driver_node:
     range_min: 0.025
     frequency: 10.0
     invalid_range_is_inf: false
-

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(robot_bridge)
+project(calibration_gen)
 
 # Default to C99
 if(NOT CMAKE_C_STANDARD)
@@ -27,40 +27,15 @@ ament_python_install_package(${PROJECT_NAME})
 
 # Install Python executables
 install(PROGRAMS
-  scripts/dummy_script.py
-  scripts/diff_drive_robot.py
-  scripts/cmd_odom.py
-  scripts/RobotCommand.py
-  scripts/mcu_bridge.py
-  scripts/ackerman_yaw_rate_odom.py
-  scripts/save_csv.py
-  scripts/via_points_generator.py
-  DESTINATION lib/${PROJECT_NAME}
-)
-
-
-# Include Cpp "include" directory
-include_directories(include)
-
-# Create Cpp executable
-add_executable(cpp_node_test src/cpp_node.cpp)
-ament_target_dependencies(cpp_node_test rclcpp)
-
-# Install Cpp executables
-install(TARGETS
-  cpp_node_test
+  scripts/signal_generate.py
+  scripts/imuread_node.py
+  scripts/cal_node.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
 ################ INSTALL LAUNCH, ETC #################
 install(DIRECTORY
-  # add directories here
-  launch
-  scripts
-  maps
   config
-  rviz
-  robot_bridge
   DESTINATION share/${PROJECT_NAME})
 
 ament_package()
