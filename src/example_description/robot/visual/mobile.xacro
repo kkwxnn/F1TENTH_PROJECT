@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    
+    <xacro:macro name="base_visual" params="">
+        <visual>
+            <origin xyz="${BASE_VISUAL['position']}" rpy="${BASE_VISUAL['orientation']}"/>
+            <geometry>
+                <!--mesh filename="file://$(find ${description_pkg})/meshes/link_0.stl"/-->
+                <box size="${BASE_VISUAL['size']}"/>
+            </geometry>
+            <material name="link_color">
+                <color rgba="${BASE_VISUAL['color']}"/>
+            </material>
+        </visual>
+    </xacro:macro>
+
+
+    <!-- Pure Visual (No dynamics) -->
+    <xacro:macro name="manipulator_visual" params="">
+        <link name="base_footprint">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </link>
+
+        <link name="base_link">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </link>
+        
+        <link name="left_wheel"/>
+        <link name="right_wheel"/>
+
+        <link name="imu">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </link>
+
+        <link name="steer">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </link>
+
+        <link name="laser_frame">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </link>
+
+        <joint name="base_link" type="fixed">
+            <parent link="base_footprint"/>
+            <child link="base_link"/>
+            <origin xyz="0 0 0.03" rpy="0 0 0"/>
+        </joint>
+
+        <!-- <link name="end_effector"/> -->
+
+        <!-- <joint name="base_offset" type="fixed">
+            <parent link="odom"/>
+            <child link="base_link"/>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </joint> -->
+
+        <joint name="left_wheel" type="revolute">
+            <parent link="base_link"/>
+            <child link="left_wheel"/>
+            <origin xyz="0 0.0765 0" rpy="0 0 -0.0455"/>
+            <axis xyz="0 1 0"/>
+            <limit 
+                lower="-3.1459" 
+                upper="3.1459" 
+                velocity="1000.0" 
+                effort="1000.0"/>
+        </joint>
+
+        <joint name="right_wheel" type="revolute">
+            <parent link="base_link"/>
+            <child link="right_wheel"/>
+            <origin xyz="0 -0.0765 0" rpy="0 0 0.0455"/>
+            <axis xyz="0 1 0"/>
+            <limit 
+                lower="-3.1459" 
+                upper="3.1459" 
+                velocity="1000.0" 
+                effort="1000.0"/>
+        </joint>
+
+        <joint name="imu" type="fixed">
+            <parent link="base_link"/>
+            <child link="imu"/>
+            <origin xyz="0 0 0.09" rpy="0 0 -1.5729"/>
+        </joint>
+
+        <joint name="steer" type="revolute">
+            <parent link="base_link"/>
+            <child link="steer"/>
+            <origin xyz="0.255 0 0" rpy="0 0 0"/>
+            <axis xyz="0 0 1"/>
+            <limit 
+                lower="-3.1459" 
+                upper="3.1459" 
+                velocity="1000.0" 
+                effort="1000.0"/>
+        </joint>
+
+        <joint name="laser_frame" type="fixed">
+            <parent link="base_link"/>
+            <child link="laser_frame"/>
+            <origin xyz="0.255 0 0.09" rpy="0 0 0"/>
+            <!-- <origin xyz="0.255 0 0" rpy="3.1416 0 0"/> -->
+        </joint>
+
+    </xacro:macro>
+</robot>

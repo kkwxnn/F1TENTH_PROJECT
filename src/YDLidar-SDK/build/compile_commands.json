@@ -1,0 +1,162 @@
+[
+{
+  "directory": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build",
+  "command": "/usr/bin/c++  -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build  -std=c++11 -fPIC -o CMakeFiles/ydlidar_sdk.dir/core/base/timer.cpp.o -c /home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core/base/timer.cpp",
+  "file": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core/base/timer.cpp"
+},
+{
+  "directory": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build",
+  "command": "/usr/bin/c++  -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build  -std=c++11 -fPIC -o CMakeFiles/ydlidar_sdk.dir/core/common/ydlidar_def.cpp.o -c /home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core/common/ydlidar_def.cpp",
+  "file": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core/common/ydlidar_def.cpp"
+},
+{
+  "directory": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build",
+  "command": "/usr/bin/c++  -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build  -std=c++11 -fPIC -o CMakeFiles/ydlidar_sdk.dir/core/network/ActiveSocket.cpp.o -c /home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core/network/ActiveSocket.cpp",
+  "file": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core/network/ActiveSocket.cpp"
+},
+{
+  "directory": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build",
+  "command": "/usr/bin/c++  -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build  -std=c++11 -fPIC -o CMakeFiles/ydlidar_sdk.dir/core/network/PassiveSocket.cpp.o -c /home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core/network/PassiveSocket.cpp",
+  "file": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core/network/PassiveSocket.cpp"
+},
+{
+  "directory": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build",
+  "command": "/usr/bin/c++  -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build  -std=c++11 -fPIC -o CMakeFiles/ydlidar_sdk.dir/core/network/SimpleSocket.cpp.o -c /home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core/network/SimpleSocket.cpp",
+  "file": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core/network/SimpleSocket.cpp"
+},
+{
+  "directory": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build",
+  "command": "/usr/bin/c++  -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build  -std=c++11 -fPIC -o CMakeFiles/ydlidar_sdk.dir/core/serial/serial.cpp.o -c /home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core/serial/serial.cpp",
+  "file": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core/serial/serial.cpp"
+},
+{
+  "directory": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build",
+  "command": "/usr/bin/cc  -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build -fPIC -o CMakeFiles/ydlidar_sdk.dir/core/serial/impl/unix/lock.c.o -c /home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core/serial/impl/unix/lock.c",
+  "file": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core/serial/impl/unix/lock.c"
+},
+{
+  "directory": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build",
+  "command": "/usr/bin/c++  -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build  -std=c++11 -fPIC -o CMakeFiles/ydlidar_sdk.dir/core/serial/impl/unix/list_ports_linux.cpp.o -c /home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core/serial/impl/unix/list_ports_linux.cpp",
+  "file": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core/serial/impl/unix/list_ports_linux.cpp"
+},
+{
+  "directory": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build",
+  "command": "/usr/bin/c++  -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build  -std=c++11 -fPIC -o CMakeFiles/ydlidar_sdk.dir/core/serial/impl/unix/unix_serial.cpp.o -c /home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core/serial/impl/unix/unix_serial.cpp",
+  "file": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core/serial/impl/unix/unix_serial.cpp"
+},
+{
+  "directory": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build",
+  "command": "/usr/bin/c++  -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build  -std=c++11 -fPIC -o CMakeFiles/ydlidar_sdk.dir/src/CYdLidar.cpp.o -c /home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src/CYdLidar.cpp",
+  "file": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src/CYdLidar.cpp"
+},
+{
+  "directory": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build",
+  "command": "/usr/bin/c++  -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build  -std=c++11 -fPIC -o CMakeFiles/ydlidar_sdk.dir/src/DTSLidarDriver.cpp.o -c /home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src/DTSLidarDriver.cpp",
+  "file": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src/DTSLidarDriver.cpp"
+},
+{
+  "directory": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build",
+  "command": "/usr/bin/c++  -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build  -std=c++11 -fPIC -o CMakeFiles/ydlidar_sdk.dir/src/ETLidarDriver.cpp.o -c /home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src/ETLidarDriver.cpp",
+  "file": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src/ETLidarDriver.cpp"
+},
+{
+  "directory": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build",
+  "command": "/usr/bin/c++  -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build  -std=c++11 -fPIC -o CMakeFiles/ydlidar_sdk.dir/src/GSLidarDriver.cpp.o -c /home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src/GSLidarDriver.cpp",
+  "file": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src/GSLidarDriver.cpp"
+},
+{
+  "directory": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build",
+  "command": "/usr/bin/c++  -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build  -std=c++11 -fPIC -o CMakeFiles/ydlidar_sdk.dir/src/SDMLidarDriver.cpp.o -c /home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src/SDMLidarDriver.cpp",
+  "file": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src/SDMLidarDriver.cpp"
+},
+{
+  "directory": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build",
+  "command": "/usr/bin/c++  -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build  -std=c++11 -fPIC -o CMakeFiles/ydlidar_sdk.dir/src/YDlidarDriver.cpp.o -c /home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src/YDlidarDriver.cpp",
+  "file": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src/YDlidarDriver.cpp"
+},
+{
+  "directory": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build",
+  "command": "/usr/bin/c++  -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build  -std=c++11 -fPIC -o CMakeFiles/ydlidar_sdk.dir/src/ydlidar_sdk.cpp.o -c /home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src/ydlidar_sdk.cpp",
+  "file": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src/ydlidar_sdk.cpp"
+},
+{
+  "directory": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build",
+  "command": "/usr/bin/c++  -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build  -std=c++11 -fPIC -o CMakeFiles/ydlidar_sdk.dir/src/filters/NoiseFilter.cpp.o -c /home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src/filters/NoiseFilter.cpp",
+  "file": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src/filters/NoiseFilter.cpp"
+},
+{
+  "directory": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build",
+  "command": "/usr/bin/c++  -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build  -std=c++11 -fPIC -o CMakeFiles/ydlidar_sdk.dir/src/filters/StrongLightFilter.cpp.o -c /home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src/filters/StrongLightFilter.cpp",
+  "file": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src/filters/StrongLightFilter.cpp"
+},
+{
+  "directory": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build/examples",
+  "command": "/usr/bin/c++  -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/.. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build/examples  -std=c++11 -fPIC -std=c++11 -o CMakeFiles/et_test.dir/et_test.cpp.o -c /home/ubuntu/f1tenth_ws/src/YDLidar-SDK/examples/et_test.cpp",
+  "file": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/examples/et_test.cpp"
+},
+{
+  "directory": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build/examples",
+  "command": "/usr/bin/c++  -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/.. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build/examples  -std=c++11 -fPIC -std=c++11 -o CMakeFiles/gs_ota.dir/gs_ota.cpp.o -c /home/ubuntu/f1tenth_ws/src/YDLidar-SDK/examples/gs_ota.cpp",
+  "file": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/examples/gs_ota.cpp"
+},
+{
+  "directory": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build/examples",
+  "command": "/usr/bin/c++  -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/.. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build/examples  -std=c++11 -fPIC -std=c++11 -o CMakeFiles/gs_test.dir/gs_test.cpp.o -c /home/ubuntu/f1tenth_ws/src/YDLidar-SDK/examples/gs_test.cpp",
+  "file": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/examples/gs_test.cpp"
+},
+{
+  "directory": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build/examples",
+  "command": "/usr/bin/c++  -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/.. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build/examples  -std=c++11 -fPIC -std=c++11 -o CMakeFiles/gs_test2.dir/gs_test2.cpp.o -c /home/ubuntu/f1tenth_ws/src/YDLidar-SDK/examples/gs_test2.cpp",
+  "file": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/examples/gs_test2.cpp"
+},
+{
+  "directory": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build/examples",
+  "command": "/usr/bin/c++  -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/.. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build/examples  -std=c++11 -fPIC -std=c++11 -o CMakeFiles/scl_test.dir/scl_test.cpp.o -c /home/ubuntu/f1tenth_ws/src/YDLidar-SDK/examples/scl_test.cpp",
+  "file": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/examples/scl_test.cpp"
+},
+{
+  "directory": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build/examples",
+  "command": "/usr/bin/c++  -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/.. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build/examples  -std=c++11 -fPIC -std=c++11 -o CMakeFiles/sdm18_test.dir/sdm18_test.cpp.o -c /home/ubuntu/f1tenth_ws/src/YDLidar-SDK/examples/sdm18_test.cpp",
+  "file": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/examples/sdm18_test.cpp"
+},
+{
+  "directory": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build/examples",
+  "command": "/usr/bin/c++  -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/.. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build/examples  -std=c++11 -fPIC -std=c++11 -o CMakeFiles/sdm_test.dir/sdm_test.cpp.o -c /home/ubuntu/f1tenth_ws/src/YDLidar-SDK/examples/sdm_test.cpp",
+  "file": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/examples/sdm_test.cpp"
+},
+{
+  "directory": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build/examples",
+  "command": "/usr/bin/c++  -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/.. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build/examples  -std=c++11 -fPIC -std=c++11 -o CMakeFiles/tea_test.dir/tea_test.cpp.o -c /home/ubuntu/f1tenth_ws/src/YDLidar-SDK/examples/tea_test.cpp",
+  "file": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/examples/tea_test.cpp"
+},
+{
+  "directory": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build/examples",
+  "command": "/usr/bin/c++  -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/.. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build/examples  -std=c++11 -fPIC -std=c++11 -o CMakeFiles/tmini_test.dir/tmini_test.cpp.o -c /home/ubuntu/f1tenth_ws/src/YDLidar-SDK/examples/tmini_test.cpp",
+  "file": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/examples/tmini_test.cpp"
+},
+{
+  "directory": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build/examples",
+  "command": "/usr/bin/c++  -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/.. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build/examples  -std=c++11 -fPIC -std=c++11 -o CMakeFiles/tof_test.dir/tof_test.cpp.o -c /home/ubuntu/f1tenth_ws/src/YDLidar-SDK/examples/tof_test.cpp",
+  "file": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/examples/tof_test.cpp"
+},
+{
+  "directory": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build/examples",
+  "command": "/usr/bin/c++  -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/.. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build/examples  -std=c++11 -fPIC -std=c++11 -o CMakeFiles/tri_and_gs_test.dir/tri_and_gs_test.cpp.o -c /home/ubuntu/f1tenth_ws/src/YDLidar-SDK/examples/tri_and_gs_test.cpp",
+  "file": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/examples/tri_and_gs_test.cpp"
+},
+{
+  "directory": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build/examples",
+  "command": "/usr/bin/c++  -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/.. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build/examples  -std=c++11 -fPIC -std=c++11 -o CMakeFiles/tri_restart.dir/tri_restart.cpp.o -c /home/ubuntu/f1tenth_ws/src/YDLidar-SDK/examples/tri_restart.cpp",
+  "file": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/examples/tri_restart.cpp"
+},
+{
+  "directory": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build/examples",
+  "command": "/usr/bin/c++  -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/.. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build/examples  -std=c++11 -fPIC -std=c++11 -o CMakeFiles/tri_test.dir/tri_test.cpp.o -c /home/ubuntu/f1tenth_ws/src/YDLidar-SDK/examples/tri_test.cpp",
+  "file": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/examples/tri_test.cpp"
+},
+{
+  "directory": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build/examples",
+  "command": "/usr/bin/cc  -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/core -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/src -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/.. -I/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/build/examples -fPIC -std=c++11 -o CMakeFiles/lidar_c_api_test.dir/lidar_c_api_test.c.o -c /home/ubuntu/f1tenth_ws/src/YDLidar-SDK/examples/lidar_c_api_test.c",
+  "file": "/home/ubuntu/f1tenth_ws/src/YDLidar-SDK/examples/lidar_c_api_test.c"
+}
+]
