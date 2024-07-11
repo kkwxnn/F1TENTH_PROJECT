@@ -25,6 +25,7 @@ class MCUBridgeNode(Node):
         self.imu_data_publisher = self.create_publisher(Imu, '/imu', 10)
         self.motor_speed_publisher = self.create_publisher(Float64MultiArray, '/motor_speed', 10)
         self.optical_odom_publisher = self.create_publisher(PoseWithCovarianceStamped, '/optical_odom', 10)
+        self.optical_odom_tf_publisher = self.create_publisher(PoseWithCovarianceStamped, '/optical_odom_tf', 10)
         self.diff_enc = self.create_publisher(Float64MultiArray, '/diff_enc', 10)
 
         self.dt_loop = 1/50.0
@@ -126,13 +127,15 @@ class MCUBridgeNode(Node):
         self.motor_position_msg = msg.data[0]
 
     def opticalOdom_callback(self, msg):
-        #quaternion = tf_transformations.quaternion_from_euler(0.0, 0.0, msg.data[2])
+        quaternion = tf_transformations.quaternion_from_euler(0.0, 0.0, self.relative_yaw)
 
         optical_pose_msg = PoseWithCovarianceStamped()
         optical_pose_msg.header.frame_id = "optical_odom"
         optical_pose_msg.header.stamp = self.get_clock().now().to_msg()
-        optical_pose_msg.pose.pose.position.x = msg.data[0] * (-1)
-        optical_pose_msg.pose.pose.position.y = msg.data[1] * (-1)
+        x_optical_offset = -0.05
+        y_optical_offset = 0.0
+        optical_pose_msg.pose.pose.position.x = (msg.data[0] * (-1)) 
+        optical_pose_msg.pose.pose.position.y = (msg.data[1] * (-1)) 
         optical_pose_msg.pose.pose.position.z = 0.0
         optical_pose_msg.pose.pose.orientation.x = 0.0 #self.imu_orientation_ls[0]
         optical_pose_msg.pose.pose.orientation.y = 0.0 #self.imu_orientation_ls[1]
@@ -143,26 +146,23 @@ class MCUBridgeNode(Node):
 
         self.optical_odom_publisher.publish(optical_pose_msg)
 
-        # odom_msg = Odometry()
-        # odom_msg.header.stamp = self.get_clock().now().to_msg()  # Update time stamp
-        # odom_msg.header.frame_id = 'odom'
-        # odom_msg.child_frame_id = 'optical_odom'
-        # odom_msg.pose.pose = Pose(
-        #     position=Point(x=msg.data[0], y=msg.data[1], z=0.0),
-        #     orientation=Quaternion(
-        #     x=quaternion[0],
-        #     y=quaternion[1],
-        #     z=quaternion[2],
-        #     w=quaternion[3]
-        # )
-        # )
-        # odom_msg.pose.covariance = self.pose_cov.flatten()
+        # optical_odom_tf (for record)
 
-        # odom_msg.twist.twist.linear = Vector3(x=msg.data[6], y=msg.data[7], z=0.0)
-        # odom_msg.twist.twist.angular = Vector3(x=0.0, y=0.0, z=msg.data[8])
-        # odom_msg.twist.covariance = self.twist_cov.flatten()
+        optical_pose_x = ((msg.data[0] * (-1)) - x_optical_offset) * np.cos(self.relative_yaw) - ((msg.data[1] * (-1)) - y_optical_offset) * np.sin(self.relative_yaw)
+        optical_pose_y = ((msg.data[0] * (-1)) - x_optical_offset) * np.sin(self.relative_yaw) + ((msg.data[1] * (-1)) - y_optical_offset) * np.sin(self.relative_yaw)
 
-        # self.optical_odom_publisher.publish(odom_msg)
+        optical_tf_msg = PoseWithCovarianceStamped()
+        optical_tf_msg.header.frame_id = "optical_odom_tf"
+        optical_tf_msg.header.stamp = self.get_clock().now().to_msg()
+        optical_tf_msg.pose.pose.position.x = optical_pose_x
+        optical_tf_msg.pose.pose.position.y = optical_pose_y
+        optical_tf_msg.pose.pose.position.z = 0.0
+        optical_tf_msg.pose.pose.orientation.x = quaternion[0]
+        optical_tf_msg.pose.pose.orientation.y = quaternion[1]
+        optical_tf_msg.pose.pose.orientation.z = quaternion[2]
+        optical_tf_msg.pose.pose.orientation.w = quaternion[3]
+
+        self.optical_odom_publisher.publish(optical_tf_msg)
 
 def main(args=None):
     rclpy.init(args=args)

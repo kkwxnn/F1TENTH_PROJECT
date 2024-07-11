@@ -117,6 +117,7 @@ class YawrateOdom_Ideal(Node):
         self.y += vy * self.dt_loop
 
         quaternion = tf_transformations.quaternion_from_euler(0.0, 0.0, self.relative_yaw)
+
         # Create Odometry message and fill in the data
         odom_msg = Odometry()
         odom_msg.header.stamp = self.get_clock().now().to_msg()  # Update time stamp

@@ -36,8 +36,7 @@ class YawrateOdom(Node):
         )
 
         # Initialize the transform broadcaster
-        self.tf_br = TransformBroadcaster(self)
-        self.tf_br2 = TransformBroadcaster(self)
+        # self.tf_br = TransformBroadcaster(self)
         self.isOdomUpdate = False
 
         self.pose_cov = np.diag([1.0e-9, 1.0e-9, 1.0e-9, 1.0e-9, 1.0e-9, 1.0e-9])
@@ -150,24 +149,8 @@ class YawrateOdom(Node):
         transform.transform.translation.z = odom_msg.pose.pose.position.z
         transform.transform.rotation = odom_msg.pose.pose.orientation
 
-        self.tf_br.sendTransform(transform)
+        # self.tf_br.sendTransform(transform)
         
-        # transform = TransformStamped()
-        # transform.header.stamp = self.get_clock().now().to_msg()
-        # transform.header.frame_id = 'map'
-        # transform.child_frame_id = 'odom'  # Make sure it matches the child frame ID in odom_output
-        # transform.transform.translation.x = 0.0
-        # transform.transform.translation.y = 0.0
-        # transform.transform.translation.z = 0.0
-        # transform.transform.rotation.x = 0.0
-        # transform.transform.rotation.y = 0.0
-        # transform.transform.rotation.z = 0.0
-        # transform.transform.rotation.w = 1.0
-
-        # self.tf_br2.sendTransform(transform)
-
-        # Publish the odometry message
-        # self.publisher.publish(self.odom_output)
 
 def main(args=None):
     rclpy.init(args=args)
