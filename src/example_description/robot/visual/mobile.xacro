@@ -40,10 +40,20 @@
             <origin xyz="0 0 0" rpy="0 0 0"/>
         </link>
 
+        <link name="optical_odom">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </link>
+
         <joint name="base_link" type="fixed">
             <parent link="base_footprint"/>
             <child link="base_link"/>
             <origin xyz="0 0 0.03" rpy="0 0 0"/>
+        </joint>
+
+        <joint name="optical_odom" type="fixed">
+            <parent link="base_link"/>
+            <child link="optical_odom"/>
+            <origin xyz="-0.043 0 0.0" rpy="0 0 3.14159"/>
         </joint>
 
         <!-- <link name="end_effector"/> -->

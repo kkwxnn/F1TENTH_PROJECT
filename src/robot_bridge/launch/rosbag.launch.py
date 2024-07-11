@@ -18,7 +18,7 @@ def generate_launch_description():
     map_dir = os.path.join(get_package_share_directory(
         'robot_bridge'), 'maps')
     map_file = LaunchConfiguration('map', default=os.path.join(
-        map_dir, 'gensurv_outdoor1.yaml'))
+        map_dir, 'gensurv_outdoor2.yaml'))
     # map_file = LaunchConfiguration('map', default=os.path.join(
     #     map_dir, 'FIBO_floor5_AMCL_2.yaml'))
 
@@ -152,9 +152,9 @@ def generate_launch_description():
         robot_state_publisher,
         joint_state_publisher,
 
-        CommandOdom
+        #CommandOdom,
         #RobotCommand_Node,
-        #ackerman_yaw_rate_odom_Node,
-        #mcu_bridge_Node,
+        ackerman_yaw_rate_odom_Node,
+        mcu_bridge_Node,
         #ydlidar_node,
     ])

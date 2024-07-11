@@ -1,4 +1,4 @@
-image: gensurv_outdoor1_filtered.pgm
+image: gensurv_outdoor1_filtered_2.pgm
 mode: trinary
 resolution: 0.05
 origin: [-1, -13, 0]

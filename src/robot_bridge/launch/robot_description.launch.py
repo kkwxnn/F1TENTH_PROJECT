@@ -129,7 +129,10 @@ def generate_launch_description():
         robot_state_publisher,
         joint_state_publisher,
 
-        RobotCommand_Node,
+        #ekf_node,
+
+        #RobotCommand_Node,
         ackerman_yaw_rate_odom_Node,
         mcu_bridge_Node,
+        
     ])
