@@ -134,8 +134,8 @@ class MCUBridgeNode(Node):
         optical_pose_msg.header.stamp = self.get_clock().now().to_msg()
         x_optical_offset = -0.05
         y_optical_offset = 0.0
-        optical_pose_msg.pose.pose.position.x = (msg.data[0] * (-1)) 
-        optical_pose_msg.pose.pose.position.y = (msg.data[1] * (-1)) 
+        optical_pose_msg.pose.pose.position.x = (msg.data[0] * (-1)) - x_optical_offset
+        optical_pose_msg.pose.pose.position.y = (msg.data[1] * (-1)) - y_optical_offset
         optical_pose_msg.pose.pose.position.z = 0.0
         optical_pose_msg.pose.pose.orientation.x = 0.0 #self.imu_orientation_ls[0]
         optical_pose_msg.pose.pose.orientation.y = 0.0 #self.imu_orientation_ls[1]
@@ -162,7 +162,7 @@ class MCUBridgeNode(Node):
         optical_tf_msg.pose.pose.orientation.z = quaternion[2]
         optical_tf_msg.pose.pose.orientation.w = quaternion[3]
 
-        self.optical_odom_publisher.publish(optical_tf_msg)
+        self.optical_odom_tf_publisher.publish(optical_tf_msg)
 
 def main(args=None):
     rclpy.init(args=args)
