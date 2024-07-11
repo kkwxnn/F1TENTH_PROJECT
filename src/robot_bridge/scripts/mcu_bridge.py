@@ -149,7 +149,7 @@ class MCUBridgeNode(Node):
         # optical_odom_tf (for record)
 
         optical_pose_x = ((msg.data[0] * (-1)) - x_optical_offset) * np.cos(self.relative_yaw) - ((msg.data[1] * (-1)) - y_optical_offset) * np.sin(self.relative_yaw)
-        optical_pose_y = ((msg.data[0] * (-1)) - x_optical_offset) * np.sin(self.relative_yaw) + ((msg.data[1] * (-1)) - y_optical_offset) * np.sin(self.relative_yaw)
+        optical_pose_y = ((msg.data[0] * (-1)) - x_optical_offset) * np.sin(self.relative_yaw) + ((msg.data[1] * (-1)) - y_optical_offset) * np.cos(self.relative_yaw)
 
         optical_tf_msg = PoseWithCovarianceStamped()
         optical_tf_msg.header.frame_id = "optical_odom_tf"
