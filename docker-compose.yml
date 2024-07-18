@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  micro_ros_agent:
+    image: microros/micro-ros-agent:humble
+    container_name: micro-ros-agent
+    network_mode: host
+    command: serial --dev /dev/ttyACM0 --baudrate 2000000
+    devices:
+      - "/dev/ttyACM0:/dev/ttyACM0"
+    restart: unless-stopped
+    
+  desktop_ros2:
+    image: tiryoh/ros2-desktop-vnc:humble
+    container_name: desktop_ros2
+    security_opt:
+      - seccomp=unconfined
+    shm_size: 512m
+    ipc: host
+    ports:
+      - "6080:80"
+    volumes:
+      - ~/F1TENTH_PROJECT/ros2_ws:/ros2_ws:rw
+      - "/dev:/dev"
+    devices:
+      - "/dev/ttyUSB0:/dev/ttyUSB0"
+    restart: unless-stopped
