@@ -20,7 +20,7 @@ services:
     ports:
       - "6080:80"
     volumes:
-      - ~/F1TENTH_PROJECT/ros2_ws:/ros2_ws:rw
+      - ~/F1TENTH_PROJECT/ros2_ws:/f1tenth_ws:rw
       - "/dev:/dev"
     devices:
       - "/dev/ttyUSB0:/dev/ttyUSB0"
