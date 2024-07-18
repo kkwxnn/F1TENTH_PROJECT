@@ -32,7 +32,7 @@
 - HW-683 Module
 
 ### 2.2. F1TENTH PCB Schematic
-View full PCB schematic in EasyEDA within [this link](https://discord.com/channels/@me/1205382480077520957/1263419183312539740)
+View full PCB schematic in EasyEDA within [this link](https://u.easyeda.com/join?type=project&key=61e3464f45188bac2c8e41a07c19f58e&inviter=db3150f4d5b848c09e05f7428d4a7d9b)
 
 <img src="https://github.com/user-attachments/assets/ac95c9e9-dec3-4970-b7cc-894eba6396ad" alt="Schematic_F1TENTH_V4_2024-07-18" width="500">
 <img src="https://github.com/user-attachments/assets/73847e04-d45c-444e-89ba-6c5d62f37a31" alt="PCB_F1TENTH_V4_2024-07-18" width="310">
