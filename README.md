@@ -9,7 +9,7 @@ Team Members:
 
 ## Requirements
 - Ubuntu 20.04
-- ROS2 FOXY
+- ROS 2 FOXY
 
 ## Table of Contents
 
