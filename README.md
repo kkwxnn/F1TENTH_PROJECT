@@ -1,32 +1,30 @@
 # F1TENTH: Autonomous Ackermann Steering Mobile Robot
 
-## Requirements
-- Ubuntu 22.04
-- ROS 2 HUMBLE
-
 ## Table of Contents
 
 ## 1. Getting Started
-### 1.1. What you need
+### 1.1. Hardware Components
 #### 1.1.1. Laser Sensor
-- YDLIDAR T-mini Pro 
-  
+- [YDLIDAR T-mini Pro](https://www.ydlidar.com/products/view/22.html)
+
 #### 1.1.2. Sensors
 - 9-DOF Absolute Orientation IMU Fusion Breakout - BNO055
-- Optical Tracking Odometry Sensor - PAA5160E1 (Optional)
+- [Optical Tracking Odometry Sensor - PAA5160E1](https://www.sparkfun.com/products/24904) (Optional)
   
 #### 1.1.3. Microcontroller
-- STM32L432KC
+- [STM32L432KC](https://www.st.com/en/evaluation-tools/nucleo-l432kc.html)
 
 #### 1.1.4. Processor
-- Raspberry Pi 5
-  
+- Raspberry Pi 5 Computer with 8GB RAM
 #### 1.1.4. Motor
 - TAMIYA 54612 BRUSHLESS MOTOR 02 Sensored 15.5T 2300KV (For main drive motor)
 - MG996R Servo Tower Pro (For steering motor)
   
 #### 1.1.5. Motor Driver
 - TAMIYA 45070 TBLE-04SR BRUSHLESS ELECTRONIC SPEED CONTROLLER
+
+### 1.2. Docker Setup
+[Reference](https://github.com/kittinook/ADVANCED-ROBOTICS.git)
 
 ### 1.2. ROS 2 Setup Environment
 ```
