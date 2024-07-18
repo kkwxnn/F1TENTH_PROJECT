@@ -6,47 +6,24 @@
 
 ## Table of Contents
 
-- [1. Getting Started](#1-getting-started)
-  - [1.1. What you need](#11-what-you-need)
-  - [1.2. ROS 2 Setup Environment](#12-ros-2-setup-environment)
-  - [1.3. Installation Package](#13-installation-package)
-  - [1.4. Connect Jetson Xavier NX via SSH](#14-connect-jetson-xavier-nx-via-ssh)
-  - [1.5. Creating the micro-ROS agent](#15-creating-the-micro-ros-agent)
-  - [1.6. Running the micro-ROS app](#16-running-the-micro-ros-app)
-  - [1.7. Verify Installation: Running Robot (Teleoperation)](#17-verify-installation-running-robot-teleoperation)
-- [2. Firmware](#2-firmware)
-- [3. TF](#3-tf)
-  - [3.1 Sensor and Coordinate Frame Transformations](#31-sensor-and-coordinate-frame-transformations)
-  - [3.2 Visualization](#32-visualization)
-- [4. Odometry](#4-odometry)
-  - [4.1. Odometry Calculation](#41-odometry-calculation)
-  - [4.2. Odometry Information](#42-odometry-information)
-- [5. Sensors](#5-sensors)
-  - [5.1 Laser Sensor](#51-laser-sensor)
-- [6. Mapping](#6-mapping)
-  - [6.1. Creating Map](#61-creating-map)
-- [7. Autonomous Navigation](#7-autonomous-navigation)
-  - [7.1. Running the micro-ROS app](#71-running-the-micro-ros-app)
-  - [7.2. Run ydlidar_launch.py](#72-run-ydlidar_launchpy)
-  - [7.3. Run robot_bridge.launch](#73-run-robot_bridgelaunch)
-
 ## 1. Getting Started
 ### 1.1. What you need
 #### 1.1.1. Laser Sensor
 - YDLIDAR T-mini Pro 
   
-#### 1.1.2. IMUs
-- BNO-005
+#### 1.1.2. Sensors
+- 9-DOF Absolute Orientation IMU Fusion Breakout - BNO055
+- Optical Tracking Odometry Sensor - PAA5160E1 (Optional)
   
 #### 1.1.3. Microcontroller
 - STM32L432KC
 
 #### 1.1.4. Processor
-- Jetson Xavier NX
+- Raspberry Pi 5
   
 #### 1.1.4. Motor
-- TAMIYA 54612 BRUSHLESS MOTOR 02 Sensored 15.5T 2300KV (for main drive motor)
-- MG996R Servo Tower Pro (for steering motor)
+- TAMIYA 54612 BRUSHLESS MOTOR 02 Sensored 15.5T 2300KV (For main drive motor)
+- MG996R Servo Tower Pro (For steering motor)
   
 #### 1.1.5. Motor Driver
 - TAMIYA 45070 TBLE-04SR BRUSHLESS ELECTRONIC SPEED CONTROLLER
