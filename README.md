@@ -2,8 +2,11 @@
 
 ## Table of Contents
 
-## 1. Getting Started
-### 1.1. Hardware Components
+## 1. Components
+### 1.1. Hardware
+#### 1.1.1. Chassis
+- TAMIYA 58720 1/10 R/C 4WD TT-02 Type-SRX Chassis Kit
+  
 #### 1.1.1. Laser Sensor
 - [YDLIDAR T-mini Pro](https://www.ydlidar.com/products/view/22.html)
 
@@ -15,7 +18,7 @@
 - [STM32L432KC](https://www.st.com/en/evaluation-tools/nucleo-l432kc.html)
 
 #### 1.1.4. Processor
-- Raspberry Pi 5 Computer with 8GB RAM
+- [Raspberry Pi 5 Computer with 8GB RAM](https://www.raspberrypi.com/products/raspberry-pi-5/)
 #### 1.1.4. Motor
 - TAMIYA 54612 BRUSHLESS MOTOR 02 Sensored 15.5T 2300KV (For main drive motor)
 - MG996R Servo Tower Pro (For steering motor)
@@ -23,7 +26,13 @@
 #### 1.1.5. Motor Driver
 - TAMIYA 45070 TBLE-04SR BRUSHLESS ELECTRONIC SPEED CONTROLLER
 
-### 1.2. Docker Setup
+## 1.2. Electrical
+### 1.2.1. Step down DC-DC 4.5-30V to 0.8-30V 12A
+### 1.2.2. HW-683 Module
+
+**PCB
+
+### 2. Docker Setup
 [Reference](https://github.com/kittinook/ADVANCED-ROBOTICS.git)
 
 ### 1.2. ROS 2 Setup Environment
