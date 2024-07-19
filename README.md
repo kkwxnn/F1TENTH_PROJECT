@@ -37,5 +37,46 @@ View full PCB schematic in EasyEDA within [this link](https://u.easyeda.com/join
 <img src="https://github.com/user-attachments/assets/ac95c9e9-dec3-4970-b7cc-894eba6396ad" alt="Schematic_F1TENTH_V4_2024-07-18" width="500">
 <img src="https://github.com/user-attachments/assets/73847e04-d45c-444e-89ba-6c5d62f37a31" alt="PCB_F1TENTH_V4_2024-07-18" width="310">
 
-## 3. Docker Setup
+## 3. High-Level 
+
+### 3.1 Docker Setup
 [Reference](https://github.com/kittinook/ADVANCED-ROBOTICS.git)
+
+### 3.2 Localization
+
+#### 3.2.1 Prepare sensor for Localization
+
+1) IMU Sensor
+
+    - Calibration sensor
+
+    - Find Offset & Covariance sensor
+
+    - Verification sensor 
+
+2) Optical Tracking Odometry Sensor
+
+    - Calibration sensor
+
+    - Verification sensor 
+
+#### 3.2.2 Wheel Odometry (Yawrate Odometry)
+
+- Equation
+
+- Verification
+
+#### 3.2.3 Extended Kalman Filter (EKF)
+
+### 3.3 Mapping & Localization by Slam toolbox
+
+#### 3.3.1. Creating Map
+
+### 3.4 Navigation (Nav2)
+
+#### 3.4.1 Cost map
+
+#### 3.4.2 Planner
+
+#### 3.4.3 Controller
+
