@@ -39,9 +39,11 @@ View full PCB schematic in EasyEDA within [this link](https://u.easyeda.com/join
 
 ### 2.3. Firmware
 
+Process for Setup low level is within [this link](https://github.com/tanakon-apit/F1TENTH_PROJECT.git)
+
 ## 3. High-Level 
 
-### 3.1 Docker Setup
+### 3.1. Docker Setup
 
 Instructions for using the provided `docker-compose.yml` file to set up and run a micro-ROS agent and a ROS 2 desktop environment with VNC access.
 
@@ -93,7 +95,7 @@ Open a web browser and navigate to http://localhost:6080 to access the ROS 2 des
 ```ctrl+c```
 
 
-#### Warning
+#### ⚠️ Warning
 If you are unable to connect to the ROS 2 desktop via noVNC, follow these steps:
 
 **Remove the container**
@@ -108,13 +110,63 @@ docker-compose up
 
 **Reinstall the dependencies**
 ```
+sudo apt update && rosdep update
 rosdep install --from-paths src
 ```
-### 3.2 TF
+### 3.2. TF
 
-### 3.3 Localization
+### 3.2.1. Coordinate Frame Transformations
 
-#### 3.3.1 Prepare sensor for Localization
+#### 3.2.1.1. base_footprint -> **base_link**
+
+- This transform represents the static relationship between the center of the robot base (`base_footprint`) and the floor (`base_link`).
+
+#### 3.2.1.2. base_link -> **imu**
+
+- This transform describes the static relationship between the robot's base (`base_link`) and the IMU (Inertial Measurement Unit) sensor (`imu`).
+
+#### 3.2.1.3. base_link -> **left_wheel**
+
+- This transform defines the revolute relationship between the robot's base (`base_link`) and the left wheel (`left_wheel`).
+
+#### 3.2.1.4. base_link -> **right_wheel**
+
+- This transform defines the revolute relationship between the robot's base (`base_link`) and the right wheel (`right_wheel`).
+
+#### 3.2.1.5. base_link -> **steer**
+
+- This transform defines the static relationship between the robot's base (`base_link`) and the lidar sensor (`steer`).
+
+#### 3.2.1.6. imu -> **laser_frame**
+
+- This transform defines the static relationship between imu (`imu`) and the lidar sensor (`laser_frame`). 
+
+#### 3.2.1.7. base_link -> **optical_odom**
+
+- This transform defines the static relationship between the robot's base (`base_link`) and the Optical Tracking Odometry Sensor (`optical_odom`).
+
+### 3.2.2. Visualization
+
+#### 3.2.2.1. Launch Robot Description
+
+- Run the following command to launch the robot's description
+
+```
+ros2 launch robot_bridge robot_bridge.launch.py 
+```
+#### 3.2.2.2. View Transformations
+
+- Execute the following command to watch the relationships between the robot's transformations
+
+```
+ros2 run tf2_tools view_frames.py
+```
+
+This command opens a graphical interface displaying the relationships between different frames. The provided link shows an example image capturing these transformations:
+
+### 3.3. Localization
+
+#### 3.3.1. Prepare sensor for Localization
 
 1) IMU Sensor
 
@@ -132,15 +184,43 @@ rosdep install --from-paths src
 
 3) Laser Sensor 
 
-#### 3.3.2 Wheel Odometry (Yawrate Odometry)
+**Install YDLIDAR ROS2 Driver** [Reference](https://github.com/YDLIDAR/ydlidar_ros2_driver?fbclid=IwZXh0bgNhZW0CMTAAAR3OEcoaB9rG6-haQZFpyFFbUIRuxUHEzv-TmZLJxinNRptzsMPwWTPi2mU_aem_AWq-ZxKVIEgbPc8O5VaWP_GTqjUgGpQF3f1EuqnmXKfztNGkgQNBtLfJfG6miwBMLaj0LysVZxNwI7SLqACmVW_h)
+
+- Clone ydlidar_ros2_driver package for github in `src` folder
+
+```
+git clone https://github.com/YDLIDAR/ydlidar_ros2_driver.git 
+[your_workspace]/src/ydlidar_ros2_driver
+```
+
+- Build & Install [Reference](https://github.com/YDLIDAR/YDLidar-SDK/blob/master/doc/howto/how_to_build_and_install.md)
+
+
+```
+git clone https://github.com/YDLIDAR/YDLidar-SDK.git
+mkdir build
+cd YDLidar-SDK/build
+cmake ..
+make
+sudo make install
+```
+
+- Build ydlidar_ros2_driver package
+
+```
+cd [your_workspace]
+colcon build --symlink-install
+```
+
+#### 3.3.2. Wheel Odometry (Yawrate Odometry)
 
 - Equation
 
 - Verification
 
-#### 3.3.3 Extended Kalman Filter (EKF)
+#### 3.3.3. Extended Kalman Filter (EKF)
 
-### 3.4 Mapping & Localization by Slam toolbox
+### 3.4. Mapping & Localization by Slam toolbox
 
 #### 3.4.1. Creating Map
 
@@ -186,11 +266,11 @@ Open the `keepout_<map_name>.yaml` file and change the `image` parameter to `kee
 
 Using image editing software, such as GIMP, draw the area you want to keepout in black. The rest of the image is left as is.
 
-### 3.5 Navigation (Nav2)
+### 3.5. Navigation (Nav2)
 
-#### 3.5.1 Cost map
+#### 3.5.1. Costmap
 
-#### 3.5.2 Planner
+#### 3.5.2. Planner
 
-#### 3.5.3 Controller
+#### 3.5.3. Controller
 
