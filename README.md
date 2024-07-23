@@ -95,8 +95,8 @@ Open a web browser and navigate to http://localhost:6080 to access the ROS 2 des
 ```ctrl+c```
 
 
-#### ⚠️ Warning
-If you are unable to connect to the ROS 2 desktop via noVNC, follow these steps:
+> [!WARNING]
+> If you are unable to connect to the ROS 2 desktop via noVNC, follow these steps:
 
 **Remove the container**
 ```
