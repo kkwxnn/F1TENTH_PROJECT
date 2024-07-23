@@ -225,11 +225,15 @@ colcon build --symlink-install
 
 #### 3.3.2. Wheel Odometry (Yawrate Odometry)
 
-- Equation
+**Yaw Rate Equation**
 
-- Verification
+where:
+- $x_k$ and $y_k$ are the vehicle's position coordinates at time step $k$.
+- $\theta_k$ is the vehicle's orientation (heading angle) at time step $k$.
+- $\beta_k$ is the vehicle's slip angle at time step $k$.
+- $v_k$ is the vehicle's velocity at time step $k$.
 
-#### 3.3.3. Extended Kalman Filter (EKF)
+**Verification**
 
 ### 3.4. Mapping & Localization by Slam toolbox
 
