@@ -86,10 +86,21 @@ To start the services defined in the docker-compose.yml file, navigate to the di
 ```
 docker compose up 
 ```
+**2. Connect Raspberry Pi via SSH**
+
+- Finding IP Address of wlan0 (wifi)
+```
+ifconfig
+```
+- Connect Raspberry Pi your computer via SSH
+```
+ssh [username]@[inet addr] 
+```
+For example: ```ssh pi@10.7.145.17```
 
 **2. Access the ROS 2 Desktop**
 
-Open a web browser and navigate to http://localhost:6080 to access the ROS 2 desktop environment via VNC.
+Open a web browser and navigate to http://127.0.0.1:6080/ to access the ROS 2 desktop environment via VNC.
 
 **3. Reset the services**
 ```ctrl+c```
@@ -115,7 +126,7 @@ Open a web browser and navigate to http://localhost:6080 to access the ROS 2 des
 
 ### 3.2. TF
 
-### 3.2.1. Coordinate Frame Transformations
+#### 3.2.1. Coordinate Frame Transformations
 
 #### 3.2.1.1. base_footprint -> **base_link**
 
@@ -145,7 +156,7 @@ Open a web browser and navigate to http://localhost:6080 to access the ROS 2 des
 
 - This transform defines the static relationship between the robot's base (`base_link`) and the Optical Tracking Odometry Sensor (`optical_odom`).
 
-### 3.2.2. Visualization
+#### 3.2.2. Visualization
 
 #### 3.2.2.1. Launch Robot Description
 
@@ -230,7 +241,7 @@ To create a map, run the following command:
 ros2 launch robot_bridge caver_mapping.launch.py
 ```
 
-Once RViz has fully loaded, you need to launch teleop to control the robot for creating map.
+Once RVIZ has fully loaded, you need to launch teleop to control the robot for creating map.
 
 ```bash
 ros2 run teleop_twist_keyboard teleop_twist_keyboard
@@ -274,3 +285,48 @@ Using image editing software, such as GIMP, draw the area you want to keepout in
 
 #### 3.5.3. Controller
 
+## 4. Usage
+
+To run the robot, you should first connect to Docker and then run the following terminal commands.
+
+### 4.1. Run ydlidar_launch.py
+```
+ros2 launch ydlidar_ros2_driver ydlidar_launch.py 
+```
+
+### 4.2. Run robot_bridge.launch 
+```
+ros2 launch robot_bridge robot_bridge.launch.py
+```
+
+### 4.3. Teleoperation
+```
+ros2 run teleop_twist_keyboard teleop_twist_keyboard
+```
+[Reference](https://index.ros.org/r/teleop_twist_keyboard/)
+```
+This node takes keypresses from the keyboard and publishes them as Twist
+messages. It works best with a US keyboard layout.
+---------------------------
+Moving around:
+   u    i    o
+   j    k    l
+   m    ,    .
+
+For Holonomic mode (strafing), hold down the shift key:
+---------------------------
+   U    I    O
+   J    K    L
+   M    <    >
+
+t : up (+z)
+b : down (-z)
+
+anything else : stop
+
+q/z : increase/decrease max speeds by 10%
+w/x : increase/decrease only linear speed by 10%
+e/c : increase/decrease only angular speed by 10%
+
+CTRL-C to quit
+```
