@@ -72,6 +72,40 @@ View full PCB schematic in EasyEDA within [this link](https://u.easyeda.com/join
 
 #### 3.3.1. Creating Map
 
+To create a map, run the following command:
+
+```bash
+ros2 launch robot_bridge caver_mapping.launch.py
+```
+
+Once RViz has fully loaded, you need to launch teleop to control the robot for creating map.
+
+```bash
+ros2 run teleop_twist_keyboard teleop_twist_keyboard
+```
+
+After you have created a map, you can save it using the following command:
+
+```bash
+ros2 launch robot_bridge vmegarover_save_map.launch.py
+```
+
+Two file will be saved where you ran the command in the folder maps. The `.pgm` file is the map image and the `.yaml` file is the map metadata.
+
+You can change the map name by rename the `.pgm` and `.yaml` file. You also need to foward in to `.yaml` file and change the name to the same name as `.pgm` file
+
+You can change the map name by renaming both the `.pgm` and `.yaml` files. Additionally, you need to open the `.yaml` file and modify the name within it to match the new `.pgm` file name.
+
+Then, copy both files and paste into the `maps` folder located within the `src` folder.
+
+To use a specific map, you'll need to modify the map file name within the Python launch script. 
+
+Running the following command will open the Python launch script in Visual Studio Code:
+
+```bash
+code /src/robot_bridge/lauch/robot_bridge.launch.py
+```
+
 ### 3.4 Navigation (Nav2)
 
 #### 3.4.1 Cost map
