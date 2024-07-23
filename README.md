@@ -39,7 +39,7 @@ View full PCB schematic in EasyEDA within [this link](https://u.easyeda.com/join
 
 ### 2.3. Firmware
 
-Process for Setup low level is within [this link](https://github.com/tanakon-apit/F1TENTH_PROJECT.git)
+Process for Setup Low-Level is within [this link](https://github.com/tanakon-apit/F1TENTH_PROJECT.git)
 
 ## 3. High-Level 
 
@@ -48,7 +48,7 @@ Process for Setup low level is within [this link](https://github.com/tanakon-api
 Instructions for using the provided `docker-compose.yml` file to set up and run a micro-ROS agent and a ROS 2 desktop environment with VNC access.
 
 #### 3.1.1. Prerequisites
-- Install Docker
+- [Install Docker](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-22-04)
 - Install Docker Compose
 
 #### 3.1.2. Services
