@@ -227,6 +227,24 @@ colcon build --symlink-install
 
 **Yaw Rate Equation**
 
+$$
+\begin{bmatrix}
+x_k \\
+y_k \\
+\theta_k \\
+\beta_k \\
+v_k
+\end{bmatrix}
+=
+\begin{bmatrix}
+x_{k-1} + v_{k-1} \cdot \Delta t \cdot \cos(\beta_{k-1} + \theta_k) \\
+y_{k-1} + v_{k-1} \cdot \Delta t \cdot \sin(\beta_{k-1} + \theta_k) \\
+\theta_k \\
+0 \\
+\text{motor speed} \cdot \text{gear ratio} \cdot r
+\end{bmatrix}
+$$
+
 where:
 - $x_k$ and $y_k$ are the vehicle's position coordinates at time step $k$.
 - $\theta_k$ is the vehicle's orientation (heading angle) at time step $k$.
