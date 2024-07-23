@@ -40,7 +40,74 @@ View full PCB schematic in EasyEDA within [this link](https://u.easyeda.com/join
 ## 3. High-Level 
 
 ### 3.1 Docker Setup
-[Reference](https://github.com/kittinook/ADVANCED-ROBOTICS.git)
+
+Instructions for using the provided `docker-compose.yml` file to set up and run a micro-ROS agent and a ROS 2 desktop environment with VNC access.
+
+#### 3.1.1. Prerequisites
+- Install Docker
+- Install Docker Compose
+
+#### 3.1.2. Services
+**1. micro_ros_agent** runs a micro-ROS agent that connects to a serial device.
+
+- Image: `microros/micro-ros-agent:humble`
+- Container Name: `micro-ros-agent`
+- Network Mode: `host`
+- Command: `serial --dev /dev/ttyACM0 --baudrate 2000000`
+- Devices:
+    - `/dev/ttyACM0:/dev/ttyACM0`
+- Restart Policy: `unless-stopped`
+
+**2. desktop_ros2** runs a ROS 2 desktop environment with VNC access, allowing you to interact with ROS 2 via a web browser. [Reference](https://github.com/Tiryoh/docker-ros2-desktop-vnc.git)
+
+- Image: `tiryoh/ros2-desktop-vnc:humble`
+- Container Name: `desktop_ros2`
+- Security Options:
+    - `seccomp=unconfined`
+- Shared Memory Size: `512m`
+- IPC Mode: `host`
+- Ports: `6080:80` (Maps port 6080 on your host to port 80 in the container)
+- Volumes: 
+    - `~/F1TENTH_PROJECT/ros2_ws:/f1tenth_ws:rw` (Mounts your local workspace to the container)
+    - `/dev:/dev` (Mounts the host's /dev directory to the container)
+- Devices:
+    - `/dev/ttyUSB0:/dev/ttyUSB0`
+- Restart Policy: `unless-stopped`
+
+#### 3.1.3. Usage
+**1. Start the Services**
+
+To start the services defined in the docker-compose.yml file, navigate to the directory containing the file and run:
+
+```
+docker compose up 
+```
+
+**2. Access the ROS 2 Desktop**
+
+Open a web browser and navigate to http://localhost:6080 to access the ROS 2 desktop environment via VNC.
+
+**3. Reset the services**
+```ctrl+c```
+
+
+#### Warning
+If you are unable to connect to the ROS 2 desktop via noVNC, follow these steps:
+
+**Remove the container**
+```
+docker compose down
+```
+
+**Start the services again**
+```
+docker-compose up 
+```
+
+**Reinstall the dependencies**
+```
+rosdep install --from-paths src
+```
 
 ### 3.2 Localization
 
