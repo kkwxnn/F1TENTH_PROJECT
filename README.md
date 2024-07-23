@@ -26,7 +26,7 @@
 ### 1.7. Motor Driver
 - TAMIYA 45070 TBLE-04SR BRUSHLESS ELECTRONIC SPEED CONTROLLER
 
-## 2. Electrical
+## 2. Electrical & Firmware
 ### 2.1. Electrical Components
 - Step down DC-DC 4.5-30V to 0.8-30V 12A
 - HW-683 Module
@@ -36,6 +36,8 @@ View full PCB schematic in EasyEDA within [this link](https://u.easyeda.com/join
 
 <img src="https://github.com/user-attachments/assets/ac95c9e9-dec3-4970-b7cc-894eba6396ad" alt="Schematic_F1TENTH_V4_2024-07-18" width="500">
 <img src="https://github.com/user-attachments/assets/73847e04-d45c-444e-89ba-6c5d62f37a31" alt="PCB_F1TENTH_V4_2024-07-18" width="310">
+
+### 2.3. Firmware
 
 ## 3. High-Level 
 
@@ -108,10 +110,11 @@ docker-compose up
 ```
 rosdep install --from-paths src
 ```
+### 3.2 TF
 
-### 3.2 Localization
+### 3.3 Localization
 
-#### 3.2.1 Prepare sensor for Localization
+#### 3.3.1 Prepare sensor for Localization
 
 1) IMU Sensor
 
@@ -127,17 +130,19 @@ rosdep install --from-paths src
 
     - Verification sensor 
 
-#### 3.2.2 Wheel Odometry (Yawrate Odometry)
+3) Laser Sensor 
+
+#### 3.3.2 Wheel Odometry (Yawrate Odometry)
 
 - Equation
 
 - Verification
 
-#### 3.2.3 Extended Kalman Filter (EKF)
+#### 3.3.3 Extended Kalman Filter (EKF)
 
-### 3.3 Mapping & Localization by Slam toolbox
+### 3.4 Mapping & Localization by Slam toolbox
 
-#### 3.3.1. Creating Map
+#### 3.4.1. Creating Map
 
 To create a map, run the following command:
 
@@ -173,11 +178,19 @@ Running the following command will open the Python launch script in Visual Studi
 code /src/robot_bridge/lauch/robot_bridge.launch.py
 ```
 
-### 3.4 Navigation (Nav2)
+#### 3.4.2. Creating Keepout zone
 
-#### 3.4.1 Cost map
+To create a keepout zone, make a copy of both the `.pgm` and `.yaml` files and rename them to `keepout_<map_name>.pgm` and `keepout_<map_name>.yaml` respectively.
 
-#### 3.4.2 Planner
+Open the `keepout_<map_name>.yaml` file and change the `image` parameter to `keepout_<map_name>.pgm`.
 
-#### 3.4.3 Controller
+Using image editing software, such as GIMP, draw the area you want to keepout in black. The rest of the image is left as is.
+
+### 3.5 Navigation (Nav2)
+
+#### 3.5.1 Cost map
+
+#### 3.5.2 Planner
+
+#### 3.5.3 Controller
 
