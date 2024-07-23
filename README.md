@@ -97,22 +97,22 @@ Open a web browser and navigate to http://localhost:6080 to access the ROS 2 des
 
 > [!WARNING]
 > If you are unable to connect to the ROS 2 desktop via noVNC, follow these steps:
+> **Remove the container**
+> ```
+> docker compose down
+> ```
+> 
+> **Start the services again**
+> ```
+> docker-compose up 
+> ```
+> 
+> **Reinstall the dependencies**
+> ```
+> sudo apt update && rosdep update
+> rosdep install --from-paths src
+> ```
 
-**Remove the container**
-```
-docker compose down
-```
-
-**Start the services again**
-```
-docker-compose up 
-```
-
-**Reinstall the dependencies**
-```
-sudo apt update && rosdep update
-rosdep install --from-paths src
-```
 ### 3.2. TF
 
 ### 3.2.1. Coordinate Frame Transformations
