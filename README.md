@@ -116,7 +116,7 @@ Open a web browser and navigate to http://127.0.0.1:6080/ to access the ROS 2 de
 > 
 > - Start the services again
 > ```
-> docker-compose up 
+> docker compose up 
 > ```
 > 
 > - Reinstall the libraries and dependencies
@@ -137,13 +137,39 @@ Open a web browser and navigate to http://127.0.0.1:6080/ to access the ROS 2 de
 > ```
 > docker login
 > ```
+> - Tag Your Docker Image
+> ```
+> docker tag your-image:tag your-username/your-repository:tag
+> ```
+> For example: ```docker tag my-app:latest your-username/my-app:latest```
+>
 > - Push the Image to Docker Hub
 >
 > ```
 > docker push your-username/your-repository:tag
 > ```
-> For example: ```docker push kkwxnn/test:tagname```
+> For example: ```docker push your-username/my-app:latest```
 
+> [!ISSUE]
+> In the event that **Docker crashes** and **Docker images and containers disappear**, but **noVNC is still running**, you will need to repeat the `docker compose up` steps and clear the running noVNC instance by following these steps.
+>
+> - Identify Running noVNC 
+> ```
+> ps aux | grep localhost
+> ```
+> - Terminate the noVNC 
+> ```
+> sudo kill [Process IDs]
+> ```
+> For example: ```sudo kill 3322```
+> - Restart Docker
+> ```
+> sudo service docker restart
+> ```
+> or
+> ```
+> sudo systemctl restart docker
+> ```
 
 ### 3.2. TF
 
