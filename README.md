@@ -150,7 +150,7 @@ Open a web browser and navigate to http://127.0.0.1:6080/ to access the ROS 2 de
 > ```
 > For example: ```docker push your-username/my-app:latest```
 
-> [!ISSUE]
+> [!CAUTION]
 > In the event that **Docker crashes** and **Docker images and containers disappear**, but **noVNC is still running**, you will need to repeat the `docker compose up` steps and clear the running noVNC instance by following these steps.
 >
 > - Identify Running noVNC 
