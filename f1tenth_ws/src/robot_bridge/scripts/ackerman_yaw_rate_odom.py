@@ -36,7 +36,7 @@ class YawrateOdom(Node):
         )
 
         # Initialize the transform broadcaster
-        # self.tf_br = TransformBroadcaster(self)
+        self.tf_br = TransformBroadcaster(self)
         self.isOdomUpdate = False
 
         self.pose_cov = np.diag([1.0e-9, 1.0e-9, 1.0e-9, 1.0e-9, 1.0e-9, 1.0e-9])
@@ -140,6 +140,7 @@ class YawrateOdom(Node):
 
         self.publisher.publish(odom_msg)
         self.publisher_imu.publish(Float32(data=self.relative_yaw*180/math.pi))
+
         transform = TransformStamped()
         transform.header.stamp = odom_msg.header.stamp
         transform.header.frame_id = 'odom'
@@ -149,9 +150,8 @@ class YawrateOdom(Node):
         transform.transform.translation.z = odom_msg.pose.pose.position.z
         transform.transform.rotation = odom_msg.pose.pose.orientation
 
-        # self.tf_br.sendTransform(transform)
+        self.tf_br.sendTransform(transform)
         
-
 def main(args=None):
     rclpy.init(args=args)
     pub_odom_node = YawrateOdom()

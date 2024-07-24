@@ -24,7 +24,7 @@ class RobotCommandNode(Node):
         self.quat = quaternion_from_euler(0.0, 0.0, self.pose[2])
         self.lasttimestamp = self.get_clock().now()
 
-        self.wheel_radius = 0.033
+        self.wheel_radius = 0.031
 
         self.wheel2motor_ratio = (27/68) * (15/39)
 
@@ -51,7 +51,7 @@ class RobotCommandNode(Node):
         self.motor_speed = self.wheel2motor(self.wheel_speed, self.wheel2motor_ratio)
 
         if self.cmd_vel[0] != 0.0:
-            self.steer_angle = np.arctan(self.cmd_vel[1]*0.257/self.cmd_vel[0]) * (-1)
+            self.steer_angle = np.arctan(self.cmd_vel[1]*0.257/self.cmd_vel[0]) * (-1) #0.257
         else:
             self.steer_angle = np.arctan(self.cmd_vel[1]*0.257/1.0e-9) * (-1)
 

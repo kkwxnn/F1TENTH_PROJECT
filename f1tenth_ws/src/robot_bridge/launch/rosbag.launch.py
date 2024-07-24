@@ -157,5 +157,4 @@ def generate_launch_description():
         ackerman_yaw_rate_odom_Node,
         mcu_bridge_Node,
         #ydlidar_node,
-        ekf_node
     ])

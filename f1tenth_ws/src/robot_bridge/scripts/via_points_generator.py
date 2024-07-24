@@ -24,9 +24,6 @@ class ViaPointGenerateNode(Node):
             10)
         self.create_timer(0.033, self.timer_callback)
         self.lasttimestamp = self.get_clock().now()
-
-        self.via_point = [[0.25,np.pi / 4.0],
-                     [0.0,0.0]]
         
         self.time_stamp = [1.0,
                            4.0,]
@@ -40,20 +37,48 @@ class ViaPointGenerateNode(Node):
         self.current_pose_yaw = 0.0
 
         self.goal_indx = 0
-        self.current_goal_pose = [[5.35, -0.37, -np.deg2rad(90)], [2.27, -0.9, np.deg2rad(90)]]
+        # self.current_goal_pose = [[5.0, 0.0, np.deg2rad(0)], [5.85, 5.5, np.deg2rad(180)], [0.42, 4.23, np.deg2rad(-90)], [0.42, 0.67, np.deg2rad(-45)]]
+        #self.current_goal_pose = [[3.38, 1.57, np.deg2rad(90)], [5.98, 5.46, np.deg2rad(0)], [2.31,5.59, np.deg2rad(0)], [5.15, 0.06, np.deg2rad(0)], [1.17, 0.26, np.deg2rad(180)]]
+        self.current_goal_pose = [[2.9975690841674805,-0.015538708306849003, np.deg2rad(0)], 
+                                  [8.023812294006348, -0.5682970881462097, np.deg2rad(15)],
+                                  [7.082821846008301,-3.315748691558838, np.deg2rad(-130)],
+                                  [5.661594390869141,-5.556628227233887, np.deg2rad(-130)],
+                                  [2.4511070251464844,-5.648253917694092, np.deg2rad(180)],
+                                  [-0.5811727046966553, -5.529450416564941, np.deg2rad(180)],
+                                  [-0.8448625802993774, -5.121358394622803, np.deg2rad(90)],
+                                  [-0.6783024072647095, 0.08792346715927124, np.deg2rad(75)],]
+        
+        # [[7.608312606811523,3.8289072513580322, np.deg2rad(0)], 
+        #                           [1.6564301252365112,0.3198237419128418, np.deg2rad(0)],
+        #                           [1.6392544507980347,5.711426734924316, np.deg2rad(0)],
+        #                           [3.7355315685272217,4.159043788909912, np.deg2rad(0)],
+        #                           [1.1766549348831177,2.9632551670074463, np.deg2rad(0)],
+        #                           [4.93858003616333,0.1032109260559082, np.deg2rad(0)]]
+        
+        # self.current_goal_pose = [[2.337547779083252,2.7790637016296387, np.deg2rad(180)],
+        #                           [2.682753086090088, 5.675486087799072, np.deg2rad(0)],
+        #                         [7.608312606811523,3.8289072513580322, np.deg2rad(-135)],
+        #                         [1.5415644645690918,0.11198954284191132, np.deg2rad(180)],
+        #                         [0.5418587327003479,4.744513511657715, np.deg2rad(90)],
+        #                         [7.608312606811523,3.8289072513580322, np.deg2rad(-135)],
+        #                         [4.93858003616333,0.1032109260559082, np.deg2rad(180)],
+        #                         [1.5415644645690918,0.11198954284191132, np.deg2rad(180)]]
 
-        self.goal_pose_x = 0.0
-        self.goal_pose_y = 0.0
+        self.goal_pose_x = None
+        self.goal_pose_y = None
         self.goal_pose_yaw = 0.0
 
-        self.error_threshold = [1.5, 4.0]
+        #5 1 2 3 1 6 2
+
+        #self.error_threshold = [2.5, 2.5]
+        self.error_threshold = [2.0, 2.0]
 
         # Declare and acquire `target_frame` parameter
-        self.target_frame = self.declare_parameter(
-          'target_frame', 'base_footprint').get_parameter_value().string_value
+        # self.target_frame = self.declare_parameter(
+        #   'target_frame', 'base_footprint').get_parameter_value().string_value
 
-        self.tf_buffer = Buffer()
-        self.tf_listener = TransformListener(self.tf_buffer, self)
+        # self.tf_buffer = Buffer()
+        # self.tf_listener = TransformListener(self.tf_buffer, self)
  
         # Launch the ROS 2 Navigation Stack
         self.navigator = BasicNavigator()
@@ -84,10 +109,10 @@ class ViaPointGenerateNode(Node):
 
     def timer_callback(self):
         # calculate dt
-        currenttimestamp = self.get_clock().now()
-        dt = (currenttimestamp - self.lasttimestamp).to_msg().nanosec * 1.0e-9
-        self.lasttimestamp = currenttimestamp
-        self.t += dt
+        # currenttimestamp = self.get_clock().now()
+        # dt = (currenttimestamp - self.lasttimestamp).to_msg().nanosec * 1.0e-9
+        # self.lasttimestamp = currenttimestamp
+        # self.t += dt
 
         # from_frame_rel = self.target_frame
         # to_frame_rel = 'map'
@@ -101,20 +126,29 @@ class ViaPointGenerateNode(Node):
         #         f'Could not transform {to_frame_rel} to {from_frame_rel}: {ex}')
         #     return
 
-        error_pose_x = abs(self.goal_pose_x - self.current_pose_x)
-        error_pose_y = abs(self.goal_pose_y - self.current_pose_y)
-        print(error_pose_x, error_pose_y)
-
-        if error_pose_x < self.error_threshold[0] and error_pose_y < self.error_threshold[1]:
-            print("reach goal")
+        if self.goal_pose_x == None:
             self.send_goal(self.current_goal_pose[self.goal_indx])
             self.goal_pose_x = self.current_goal_pose[self.goal_indx][0]
             self.goal_pose_y = self.current_goal_pose[self.goal_indx][1]
+            self.goal_indx = 1
+        else:
+
+            error_pose_x = abs(self.goal_pose_x - self.current_pose_x)
+            error_pose_y = abs(self.goal_pose_y - self.current_pose_y)
+            # print(self.goal_pose_x, self.goal_pose_y, self.goal_indx)
+        
             
-            if self.goal_indx == 0:
-                self.goal_indx = 1
-            else:
-                self.goal_indx = 0 
+
+            if error_pose_x < self.error_threshold[0] and error_pose_y < self.error_threshold[1]:
+                print("reach goal")
+                self.send_goal(self.current_goal_pose[self.goal_indx])
+                self.goal_pose_x = self.current_goal_pose[self.goal_indx][0]
+                self.goal_pose_y = self.current_goal_pose[self.goal_indx][1]
+                
+                if self.goal_indx != len(self.current_goal_pose) - 1:
+                    self.goal_indx += 1
+                else:
+                    self.goal_indx = 0 
 
             
 
