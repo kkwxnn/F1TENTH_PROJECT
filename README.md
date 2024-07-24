@@ -108,17 +108,18 @@ Open a web browser and navigate to http://127.0.0.1:6080/ to access the ROS 2 de
 
 > [!WARNING]
 > If you are unable to connect to the ROS 2 desktop via noVNC, follow these steps:
-> **Remove the container**
+> 
+> - Remove the container
 > ```
 > docker compose down
 > ```
 > 
-> **Start the services again**
+> - Start the services again
 > ```
 > docker-compose up 
 > ```
 > 
-> **Reinstall the libraries and dependencies**
+> - Reinstall the libraries and dependencies
 > ```
 > sudo apt update && rosdep update
 > rosdep install --from-paths src
