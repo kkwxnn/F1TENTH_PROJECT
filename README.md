@@ -137,6 +137,13 @@ Open a web browser and navigate to http://127.0.0.1:6080/ to access the ROS 2 de
 > ```
 > docker login
 > ```
+> - Commit the container
+> ```
+> docker commit [container_id_or_name] your-username/your-repository:tag
+> ```
+>
+> For example: ```docker commit 1a2b3c4d5e6f your-username/my-app:latest```
+> 
 > - Tag Your Docker Image
 > ```
 > docker tag your-image:tag your-username/your-repository:tag
