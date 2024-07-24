@@ -118,11 +118,31 @@ Open a web browser and navigate to http://127.0.0.1:6080/ to access the ROS 2 de
 > docker-compose up 
 > ```
 > 
-> **Reinstall the dependencies**
+> **Reinstall the libraries and dependencies**
 > ```
 > sudo apt update && rosdep update
 > rosdep install --from-paths src
 > ```
+
+> [!TIP]
+> To avoid the need to reinstall libraries and dependencies, you can push your Docker image to Docker Hub. Follow these steps to do.
+> 
+> Don't forget to **logout of ubuntu in docker** and **stop the docker** before pushing the image.
+> ```
+> docker stop [container_id_or_name]
+> ```
+> - Log in to Docker Hub
+>
+> ```
+> docker login
+> ```
+> - Push the Image to Docker Hub
+>
+> ```
+> docker push your-username/your-repository:tag
+> ```
+> For example: ```docker push kkwxnn/test:tagname```
+
 
 ### 3.2. TF
 
