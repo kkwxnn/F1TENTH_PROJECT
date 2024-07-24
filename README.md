@@ -209,8 +209,9 @@ git clone https://github.com/YDLIDAR/ydlidar_ros2_driver.git
 
 ```
 git clone https://github.com/YDLIDAR/YDLidar-SDK.git
+cd YDLidar-SDK
 mkdir build
-cd YDLidar-SDK/build
+cd build
 cmake ..
 make
 sudo make install
