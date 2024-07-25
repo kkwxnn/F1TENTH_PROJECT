@@ -224,7 +224,7 @@ ros2 launch robot_bridge robot_bridge.launch.py
 - Execute the following command to watch the relationships between the robot's transformations
 
 ```
-ros2 run tf2_tools view_frames.py
+ros2 run tf2_tools view_frames
 ```
 
 This command opens a graphical interface displaying the relationships between different frames. The provided link shows an example image capturing these transformations:
