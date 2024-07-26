@@ -179,7 +179,7 @@ Open a web browser and navigate to http://127.0.0.1:6080/ to access the ROS 2 de
 > ```
 
 ### 3.2. TF
-<img src="https://github.com/user-attachments/assets/e0d1709a-a66c-4ba6-8a19-d0308fb0f621" alt="Schematic_F1TENTH_V4_2024-07-18" width="700">
+<img src="https://github.com/user-attachments/assets/e0d1709a-a66c-4ba6-8a19-d0308fb0f621" alt="Robot_Description" width="700">
 
 #### 3.2.1. Coordinate Frame Transformations
 
@@ -229,6 +229,8 @@ ros2 run tf2_tools view_frames
 ```
 
 This command opens a graphical interface displaying the relationships between different frames. The provided link shows an example image capturing these transformations:
+
+<img src="https://github.com/user-attachments/assets/61efbc9a-44b0-4ba7-a626-1a6dac1811cc" alt="TF_frames" width="900">
 
 ### 3.3. Localization
 
