@@ -94,9 +94,9 @@ ifconfig
 ```
 - Connect Raspberry Pi your computer via SSH
 ```
-ssh [username]@[inet addr] 
+ssh -L 6080:localhost:6080 [username]@[inet addr] 
 ```
-For example: ```ssh pi@10.7.145.17```
+For example: ```ssh -L 6080:localhost:6080 pi@192.168.0.152```
 
 **2. Access the ROS 2 Desktop**
 
@@ -179,6 +179,7 @@ Open a web browser and navigate to http://127.0.0.1:6080/ to access the ROS 2 de
 > ```
 
 ### 3.2. TF
+<img src="https://github.com/user-attachments/assets/e0d1709a-a66c-4ba6-8a19-d0308fb0f621" alt="Schematic_F1TENTH_V4_2024-07-18" width="700">
 
 #### 3.2.1. Coordinate Frame Transformations
 
