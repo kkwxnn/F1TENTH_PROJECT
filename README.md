@@ -283,6 +283,21 @@ cd [your_workspace]
 colcon build --symlink-install
 ```
 
+#### Usage: Laser Sensor
+
+1. Connect LiDAR
+```
+ros2 launch ydlidar_ros2_driver ydlidar_launch.py
+```
+
+2. Visualization in RVIZ
+```
+ros2 launch ydlidar_ros2_driver ydlidar_launch_view.py 
+```
+
+<img src="https://github.com/user-attachments/assets/61efbc9a-44b0-4ba7-a626-1a6dac1811cc" alt="Lidar" width="900">
+
+
 #### 3.3.2. Wheel Odometry (Yawrate Odometry)
 
 **Yaw Rate Equation**
@@ -350,6 +365,9 @@ Running the following command will open the Python launch script in Visual Studi
 ```bash
 code /src/robot_bridge/lauch/robot_bridge.launch.py
 ```
+Finally, you will obtain a map similar to the one shown below.
+
+<img src="https://github.com/user-attachments/assets/61efbc9a-44b0-4ba7-a626-1a6dac1811cc" alt="Map" width="700">
 
 #### 3.4.2. Creating Keepout zone
 
@@ -358,6 +376,8 @@ To create a keepout zone, make a copy of both the `.pgm` and `.yaml` files and r
 Open the `keepout_<map_name>.yaml` file and change the `image` parameter to `keepout_<map_name>.pgm`.
 
 Using image editing software, such as GIMP, draw the area you want to keepout in black. The rest of the image is left as is.
+
+<img src="https://github.com/user-attachments/assets/61efbc9a-44b0-4ba7-a626-1a6dac1811cc" alt="Keepout" width="700">
 
 ### 3.5. Navigation (Nav2)
 
