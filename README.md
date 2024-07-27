@@ -366,7 +366,7 @@ code /src/robot_bridge/lauch/robot_bridge.launch.py
 ```
 Finally, you will obtain a map similar to the one shown below.
 
-<img src="https://github.com/user-attachments/assets/9467d755-7d51-4eaf-bafa-f5f5f1d503a8" alt="Map" width="700">
+<img src="https://github.com/user-attachments/assets/9467d755-7d51-4eaf-bafa-f5f5f1d503a8" alt="Map" width="450">
 
 #### 3.4.2. Creating Keepout zone
 
@@ -376,7 +376,7 @@ Open the `keepout_<map_name>.yaml` file and change the `image` parameter to `kee
 
 Using image editing software, such as GIMP, draw the area you want to keepout in black. The rest of the image is left as is.
 
-<img src="https://github.com/user-attachments/assets/63a5561e-1fa4-4ef0-a66d-c31eb05bc44b" alt="Keepout" width="700">
+<img src="https://github.com/user-attachments/assets/63a5561e-1fa4-4ef0-a66d-c31eb05bc44b" alt="Keepout" width="450">
 
 ### 3.5. Navigation (Nav2)
 
