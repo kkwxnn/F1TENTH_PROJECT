@@ -333,8 +333,9 @@ A ceiling-mounted camera in the laboratory serves as a ground truth reference fo
 
 - **Experiment 1: Circular Path for 5 round**
 
-<img src="https://github.com/user-attachments/assets/9467d755-7d51-4eaf-bafa-f5f5f1d503a8" alt="Circular Path" width="450">
+<img src="https://github.com/user-attachments/assets/8b13dcbc-7981-4dc6-95a7-168b0b864c3f" alt="Circular Path" width="700">
 
+- **Result**
     - x odometry final position: 3.71 m
     - x camera final position: 3.59 m
     - x final position error: 0.12 m
@@ -349,8 +350,9 @@ A ceiling-mounted camera in the laboratory serves as a ground truth reference fo
 
 - **Experiment 2: Path around the object**
 
-<img src="https://github.com/user-attachments/assets/9467d755-7d51-4eaf-bafa-f5f5f1d503a8" alt="Obj Path" width="450">
+<img src="https://github.com/user-attachments/assets/464721fc-f9a7-4065-8367-265360b34701" alt="Obj Path" width="700">
 
+- **Result**
     - x odometry final position: 2.54 m
     - x camera final position: 2.57 m
     - x final position error: -0.03 m
