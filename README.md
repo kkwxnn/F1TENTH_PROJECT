@@ -295,8 +295,7 @@ ros2 launch ydlidar_ros2_driver ydlidar_launch.py
 ros2 launch ydlidar_ros2_driver ydlidar_launch_view.py 
 ```
 
-<img src="https://github.com/user-attachments/assets/61efbc9a-44b0-4ba7-a626-1a6dac1811cc" alt="Lidar" width="900">
-
+<img src="https://github.com/user-attachments/assets/7b7f3aa2-0fd3-449e-af10-5252123fc776" alt="Lidar" width="700">
 
 #### 3.3.2. Wheel Odometry (Yawrate Odometry)
 
