@@ -327,6 +327,42 @@ where:
 
 **Verification**
 
+A ceiling-mounted camera in the laboratory serves as a ground truth reference for verifying the yaw rate odometry calculations. These calculations are derived from data obtained from both a hall sensor and an IMU sensor.
+
+<img src="https://github.com/user-attachments/assets/9467d755-7d51-4eaf-bafa-f5f5f1d503a8" alt="Camera" width="450">
+
+- **Experiment 1: Circular Path for 5 round**
+
+<img src="https://github.com/user-attachments/assets/9467d755-7d51-4eaf-bafa-f5f5f1d503a8" alt="Circular Path" width="450">
+
+    - x odometry final position: 3.71 m
+    - x camera final position: 3.59 m
+    - x final position error: 0.12 m
+
+    - y odometry final position: 4.78 m
+    - y camera final position: 5.13 m
+    - y final position error: -0.35 m
+
+    - **Root Mean Square Error (RMSE)** of odometry in the X axis (Y axis of the car frame): 0.16 m
+    - **Root Mean Square Error (RMSE)** of odometry in the Y axis (X axis of the car frame): 0.21 m
+
+
+- **Experiment 2: Path around the object**
+
+<img src="https://github.com/user-attachments/assets/9467d755-7d51-4eaf-bafa-f5f5f1d503a8" alt="Obj Path" width="450">
+
+    - x odometry final position: 2.54 m
+    - x camera final position: 2.57 m
+    - x final position error: -0.03 m
+
+    - y odometry final position: -1.20 m
+    - y camera final position: -1.00 m
+    - y final position error: -0.20 m
+
+    - **Root Mean Square Error (RMSE)** of odometry in the X axis (Y axis of the car frame): 0.06 m
+    - **Root Mean Square Error (RMSE)** of odometry in the Y axis (X axis of the car frame): 0.11 m
+
+
 ### 3.4. Mapping & Localization by Slam toolbox
 
 #### 3.4.1. Creating Map
