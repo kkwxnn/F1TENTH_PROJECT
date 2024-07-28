@@ -1,12 +1,17 @@
 # F1TENTH: Autonomous Ackermann Steering Mobile Robot
 
+https://github.com/user-attachments/assets/00c732cc-46e2-4cad-98e0-985dcad842f4
+
+### Obstacle Avoidance
+https://github.com/user-attachments/assets/739e911e-5323-4bcc-a1b8-9813c5cff750
+
 ## Table of Contents
 
 ## 1. Hardware
+<img src="https://github.com/user-attachments/assets/7b48d97a-7f7b-4ea8-9d7a-1655bd488fa6" alt="f1tenth pic" width="400">
+
 ### 1.1. Chassis
 - [TAMIYA 58720 1/10 R/C 4WD TT-02 Type-SRX Chassis Kit](https://www.tamiyausa.com/shop/110-4wd-shaft-drive-road-tt/rc-tt-02-type-srx-chassis-kit/)
-
-<img src="https://github.com/user-attachments/assets/48060e41-77c8-48ab-8f5f-86fee4b1e83b" alt="Chassis" width="250">
   
 ### 1.2. Laser Sensor
 - [YDLIDAR T-mini Pro](https://www.ydlidar.com/products/view/22.html)
