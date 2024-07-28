@@ -404,7 +404,14 @@ Using image editing software, such as GIMP, draw the area you want to keepout in
 
 ### 3.5. Navigation (Nav2)
 
-#### 3.5.1. Costmap
+#### 3.5.1. Config Navigation Parameters
+
+```
+code src/robot_bridge/config/navigation_param.yaml
+```
+
+
+#### 3.5.2. Costmap
 
 Environment representation used for planning and control. Combines sensor data (depth, AI, semantics) into a grid, assigning costs to cells. Higher costs indicate obstacles or risky areas. [[link]](https://docs.nav2.org/configuration/packages/configuring-costmaps.html)
 
@@ -444,7 +451,7 @@ Environment representation used for planning and control. Combines sensor data (
 
  - Example of the nav2 configuration can be found at the following [here](https://github.com/kkwxnn/F1TENTH_PROJECT/blob/humble/f1tenth_ws/src/robot_bridge/config/navigation_param.yaml).
 
-#### 3.5.2. Planner
+#### 3.5.3. Planner
 
 `Smac Hybrid-A* Planner`
 
@@ -471,7 +478,7 @@ Creates various A* planners for different robots (cars, legged). Supports Hybrid
 
     - A higher `cost_penalty` incentivizes the planner to avoid high-cost regions, typically obstacles.
 
-#### 3.5.3. Controller
+#### 3.5.4. Controller
 
 `Regulated Pure Pursuit`
 
@@ -514,7 +521,7 @@ Macenski, S. Singh, F. Martin, J. Gines, [Regulated Pure Pursuit for Robot Path 
 
  - Example of the nav2 configuration can be found at the following [here](https://github.com/kkwxnn/F1TENTH_PROJECT/blob/humble/f1tenth_ws/src/robot_bridge/config/navigation_param.yaml).
 
- #### 3.5.4. AMCL
+ #### 3.5.5. AMCL
 
  AMCL implements the server for taking a static map and localizing the robot within it using an Adaptive Monte-Carlo Localizer. [[link]](https://docs.nav2.org/configuration/packages/configuring-amcl.html)
 
@@ -541,6 +548,9 @@ Macenski, S. Singh, F. Martin, J. Gines, [Regulated Pure Pursuit for Robot Path 
     - For unreliable lidar data, increase `z_hit` and `sigma_hit` to incoporate higher measurement noise.
 
  - Example of the nav2 configuration can be found at the following [here](https://github.com/kkwxnn/F1TENTH_PROJECT/blob/humble/f1tenth_ws/src/robot_bridge/config/navigation_param.yaml).
+
+
+
 ## 4. Usage
 
 To run the robot, you should first connect to Docker and then run the following terminal commands.
