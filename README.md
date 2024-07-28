@@ -5,6 +5,8 @@
 ## 1. Hardware
 ### 1.1. Chassis
 - TAMIYA 58720 1/10 R/C 4WD TT-02 Type-SRX Chassis Kit
+
+<img src="https://github.com/user-attachments/assets/48060e41-77c8-48ab-8f5f-86fee4b1e83b" alt="Chassis" width="300">
   
 ### 1.2. Laser Sensor
 - [YDLIDAR T-mini Pro](https://www.ydlidar.com/products/view/22.html)
@@ -301,23 +303,7 @@ ros2 launch ydlidar_ros2_driver ydlidar_launch_view.py
 
 **Yaw Rate Equation**
 
-$$
-\begin{bmatrix}
-x_k \\
-y_k \\
-\theta_k \\
-\beta_k \\
-v_k
-\end{bmatrix}
-=
-\begin{bmatrix}
-x_{k-1} + v_{k-1} \cdot \Delta t \cdot \cos(\beta_{k-1} + \theta_k) \\
-y_{k-1} + v_{k-1} \cdot \Delta t \cdot \sin(\beta_{k-1} + \theta_k) \\
-\theta_k \\
-0 \\
-\text{motor speed} \cdot \text{gear ratio} \cdot r
-\end{bmatrix}
-$$
+![image](https://github.com/user-attachments/assets/f149981d-2dc1-48ab-b067-66b8478ffcbd)
 
 where:
 - $x_k$ and $y_k$ are the vehicle's position coordinates at time step $k$.
@@ -329,7 +315,7 @@ where:
 
 A ceiling-mounted camera in the laboratory serves as a ground truth reference for verifying the yaw rate odometry calculations. These calculations are derived from data obtained from both a hall sensor and an IMU sensor.
 
-<img src="https://github.com/user-attachments/assets/9467d755-7d51-4eaf-bafa-f5f5f1d503a8" alt="Camera" width="450">
+<img src="https://github.com/user-attachments/assets/81ab683f-14e1-4523-b5d4-ec480f5cf7b3" alt="Camera" width="450">
 
 - **Experiment 1: Circular Path for 5 round**
 
