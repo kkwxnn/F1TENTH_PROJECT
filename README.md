@@ -5,6 +5,8 @@
 ## 1. Hardware
 ### 1.1. Chassis
 - TAMIYA 58720 1/10 R/C 4WD TT-02 Type-SRX Chassis Kit
+
+<img src="https://github.com/user-attachments/assets/48060e41-77c8-48ab-8f5f-86fee4b1e83b" alt="Chassis" width="300">
   
 ### 1.2. Laser Sensor
 - [YDLIDAR T-mini Pro](https://www.ydlidar.com/products/view/22.html)
@@ -94,9 +96,9 @@ ifconfig
 ```
 - Connect Raspberry Pi your computer via SSH
 ```
-ssh [username]@[inet addr] 
+ssh -L 6080:localhost:6080 [username]@[inet addr] 
 ```
-For example: ```ssh pi@10.7.145.17```
+For example: ```ssh -L 6080:localhost:6080 pi@192.168.0.152```
 
 **2. Access the ROS 2 Desktop**
 
@@ -179,6 +181,7 @@ Open a web browser and navigate to http://127.0.0.1:6080/ to access the ROS 2 de
 > ```
 
 ### 3.2. TF
+<img src="https://github.com/user-attachments/assets/e0d1709a-a66c-4ba6-8a19-d0308fb0f621" alt="Robot_Description" width="700">
 
 #### 3.2.1. Coordinate Frame Transformations
 
@@ -228,6 +231,8 @@ ros2 run tf2_tools view_frames
 ```
 
 This command opens a graphical interface displaying the relationships between different frames. The provided link shows an example image capturing these transformations:
+
+<img src="https://github.com/user-attachments/assets/61efbc9a-44b0-4ba7-a626-1a6dac1811cc" alt="TF_frames" width="900">
 
 ### 3.3. Localization
 
@@ -280,27 +285,25 @@ cd [your_workspace]
 colcon build --symlink-install
 ```
 
+#### Usage: Laser Sensor
+
+1. Connect LiDAR
+```
+ros2 launch ydlidar_ros2_driver ydlidar_launch.py
+```
+
+2. Visualization in RVIZ
+```
+ros2 launch ydlidar_ros2_driver ydlidar_launch_view.py 
+```
+
+<img src="https://github.com/user-attachments/assets/7b7f3aa2-0fd3-449e-af10-5252123fc776" alt="Lidar" width="700">
+
 #### 3.3.2. Wheel Odometry (Yawrate Odometry)
 
 **Yaw Rate Equation**
 
-$$
-\begin{bmatrix}
-x_k \\
-y_k \\
-\theta_k \\
-\beta_k \\
-v_k
-\end{bmatrix}
-=
-\begin{bmatrix}
-x_{k-1} + v_{k-1} \cdot \Delta t \cdot \cos(\beta_{k-1} + \theta_k) \\
-y_{k-1} + v_{k-1} \cdot \Delta t \cdot \sin(\beta_{k-1} + \theta_k) \\
-\theta_k \\
-0 \\
-\text{motor speed} \cdot \text{gear ratio} \cdot r
-\end{bmatrix}
-$$
+![image](https://github.com/user-attachments/assets/f149981d-2dc1-48ab-b067-66b8478ffcbd)
 
 where:
 - $x_k$ and $y_k$ are the vehicle's position coordinates at time step $k$.
@@ -309,6 +312,44 @@ where:
 - $v_k$ is the vehicle's velocity at time step $k$.
 
 **Verification**
+
+A ceiling-mounted camera in the laboratory serves as a ground truth reference for verifying the yaw rate odometry calculations. These calculations are derived from data obtained from both a hall sensor and an IMU sensor.
+
+<img src="https://github.com/user-attachments/assets/81ab683f-14e1-4523-b5d4-ec480f5cf7b3" alt="Camera" width="450">
+
+- **Experiment 1: Circular Path for 5 round**
+
+<img src="https://github.com/user-attachments/assets/8b13dcbc-7981-4dc6-95a7-168b0b864c3f" alt="Circular Path" width="700">
+
+- **Result**
+    - x odometry final position: 3.71 m
+    - x camera final position: 3.59 m
+    - x final position error: 0.12 m
+
+    - y odometry final position: 4.78 m
+    - y camera final position: 5.13 m
+    - y final position error: -0.35 m
+
+    - **Root Mean Square Error (RMSE)** of odometry in the X axis (Y axis of the car frame): 0.16 m
+    - **Root Mean Square Error (RMSE)** of odometry in the Y axis (X axis of the car frame): 0.21 m
+
+
+- **Experiment 2: Path around the object**
+
+<img src="https://github.com/user-attachments/assets/464721fc-f9a7-4065-8367-265360b34701" alt="Obj Path" width="700">
+
+- **Result**
+    - x odometry final position: 2.54 m
+    - x camera final position: 2.57 m
+    - x final position error: -0.03 m
+
+    - y odometry final position: -1.20 m
+    - y camera final position: -1.00 m
+    - y final position error: -0.20 m
+
+    - **Root Mean Square Error (RMSE)** of odometry in the X axis (Y axis of the car frame): 0.06 m
+    - **Root Mean Square Error (RMSE)** of odometry in the Y axis (X axis of the car frame): 0.11 m
+
 
 ### 3.4. Mapping & Localization by Slam toolbox
 
@@ -347,6 +388,9 @@ Running the following command will open the Python launch script in Visual Studi
 ```bash
 code /src/robot_bridge/lauch/robot_bridge.launch.py
 ```
+Finally, you will obtain a map similar to the one shown below.
+
+<img src="https://github.com/user-attachments/assets/9467d755-7d51-4eaf-bafa-f5f5f1d503a8" alt="Map" width="450">
 
 #### 3.4.2. Creating Keepout zone
 
@@ -355,6 +399,8 @@ To create a keepout zone, make a copy of both the `.pgm` and `.yaml` files and r
 Open the `keepout_<map_name>.yaml` file and change the `image` parameter to `keepout_<map_name>.pgm`.
 
 Using image editing software, such as GIMP, draw the area you want to keepout in black. The rest of the image is left as is.
+
+<img src="https://github.com/user-attachments/assets/63a5561e-1fa4-4ef0-a66d-c31eb05bc44b" alt="Keepout" width="450">
 
 ### 3.5. Navigation (Nav2)
 
