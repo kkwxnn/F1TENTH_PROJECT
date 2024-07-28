@@ -28,6 +28,14 @@
 ### 1.7. Motor Driver
 - [TAMIYA 45070 TBLE-04SR BRUSHLESS ELECTRONIC SPEED CONTROLLER](https://www.tamiya.com/english/products/45070/index.html)
 
+ > [!TIP]
+ > High Point Setup
+ > 1. Press and hold down Set button. LED will light up in the order Red → Green → Orange → Red. Release the Set button when the LED is lit up Red, and it will start to flash Red.
+ > 2. Apply full throttle and press Set button once. If procedure has been performed correctly, LED will start to double flash Red.
+ > 3. Apply full brake and press Set button once. If procedure has been performed correctly, LED will turn off.
+ > 
+ > [Tamiya Brushless ESC 04SR Manual](https://www.tamiyausa.com/media/files/45070ml-1206-1b53.pdf)
+
 ## 2. Electrical & Firmware
 ### 2.1. Electrical Components
 - Step down DC-DC 4.5-30V to 0.8-30V 12A
