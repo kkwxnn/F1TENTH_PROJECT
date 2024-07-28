@@ -360,10 +360,141 @@ Using image editing software, such as GIMP, draw the area you want to keepout in
 
 #### 3.5.1. Costmap
 
+Environment representation used for planning and control. Combines sensor data (depth, AI, semantics) into a grid, assigning costs to cells. Higher costs indicate obstacles or risky areas. [[link]](https://docs.nav2.org/configuration/packages/configuring-costmaps.html)
+
+-  Critical Costmap2D ROS Parameters 
+    - `Footprint`
+
+        polygon updated over time due to change of robot's state (base_footprint). If this parameter is set, `isPathValid` will do full collision checking.
+        - `Robot_radius`: If footprint coordinates not provided. If this parameter is set, `isPathValid` will do circular collision checking.
+    - `plugin`: 
+        - `StaticLayer`: 
+        
+            Static obstacles on the planning space.
+            - `footprint_clearing_enabled`: Clear any occupied cells under robot footprint.
+
+        - `ObstacleLayer`:
+
+            Costmap layeruses that use 2D raycasting for 2D lidars, depth, or other sensors. Manages the planning space by the parameters specified
+            
+            - `obstacle_max_range` / `obstacle_min_range`:
+            Maximum, Minimum range to mark obstacles in costmap.
+            - `raytrace_max_range` / `raytrace_min_range`
+        - `InflationLayer`:
+
+            This layer places an exponential decay functions around obstacles to increase cost to traverse near collision.
+
+            - `inflation_radius`:
+            Radius to inflate costmap around lethal obstacles.
+            - `cost_scaling_factor`: Exponential decay factor across inflation radius.
+
+-  Costmap2D ROS Parameters tunning guide
+
+    - `Footprint`: For precise navigation in tight spaces, use a detailed robot footprint. In open areas, a simple `Robot_radius` can optimize performance (Collision detection computation time).
+
+    - `obstacle_max_range`-`obstacle_min_range` / `raytrace_max_range`-`raytrace_min_range`: A longer sensor range enhances obstacle detection, improving path planning and collision avoidance. Conversely, a shorter range can expedite computation but limits obstacle awareness.
+
+    - Increasing both `inflation_radius` and `cost_scaling_factor` amplifies the cost area around obstacles. To achieve a stronger cost effect, prioritize increasing `cost_scaling_factor` first (more `cost_scaling_factor` will decrease cost area).
+
+ - Example of the nav2 configuration can be found at the following [here](https://github.com/kkwxnn/F1TENTH_PROJECT/blob/humble/f1tenth_ws/src/robot_bridge/config/navigation_param.yaml).
+
 #### 3.5.2. Planner
+
+`Smac Hybrid-A* Planner`
+
+Creates various A* planners for different robots (cars, legged). Supports Hybrid-A* for complex maneuvers (kinematically feasible and support reversing). [[link]](https://docs.nav2.org/configuration/packages/configuring-smac-planner.html)
+
+-  Critical Planner ROS Parameters
+
+    - `allow_unknown`: Allow traversing/search in unknown space.
+    - `motion_model_for_search`: Motion model (`Dubin`, `Redds-Shepp`). 
+    - `minimum_turning_radius`: Minimum turning radius in meters of vehicle.
+    - `reverse_penalty`: Heuristic penalty to apply to SE2 node if searching in reverse direction. Only used in `REEDS_SHEPP` motion model.
+    - `non_straight_penalty`: Heuristic penalty to apply to SE2 node if searching in non-straight direction.
+    - `cost_penalty`: Heuristic penalty to apply to SE2 node for cost at pose. Allows Hybrid-A* to be cost aware.
+
+ - Example of the nav2 configuration can be found at the following [here](https://github.com/kkwxnn/F1TENTH_PROJECT/blob/humble/f1tenth_ws/src/robot_bridge/config/navigation_param.yaml).
+
+ - Planner ROS Parameters tunning guide: 
+
+    - Reccomend `Dubin` if the robot has not recommend to reverse.
+
+    - Using the exact `minimum_turning_radius` aids robot to follow, while a slightly reduced value can smooth path planning.
+
+    - Increasing the `non_straight_penalty` heuristic promotes straighter paths in path planning.
+
+    - A higher `cost_penalty` incentivizes the planner to avoid high-cost regions, typically obstacles.
 
 #### 3.5.3. Controller
 
+`Regulated Pure Pursuit`
+
+Adaptive speed based on path curvature for safer industrial robot navigation. Prevents overshoot in corners. [[link]](https://docs.nav2.org/configuration/packages/configuring-regulated-pp.html)
+
+If you use the Regulated Pure Pursuit Controller algorithm or software from this repository, please cite this work in your papers:
+Macenski, S. Singh, F. Martin, J. Gines, [Regulated Pure Pursuit for Robot Path Tracking](https://arxiv.org/abs/2305.20026). Autonomous Robots, 2023.
+
+- Controller ROS Parameters tunning
+
+    - `desired_linear_vel`: The desired maximum linear velocity (m/s) to use.
+
+    - `use_velocity_scaled_lookahead_dist` is `false`.
+        - `lookahead_dist`: The lookahead distance (m) to use to find the lookahead point when 
+
+    - `use_velocity_scaled_lookahead_dist` is `true`.
+        - `min_lookahead_dist` / `max_lookahead_dist`: The minimum / maximum lookahead distance (m) threshold when 
+
+        - `lookahead_time`: The time (s) to project the velocity. Also known as the lookahead gain.
+
+    - `use_cost_regulated_linear_velocity_scaling`: Whether to use the regulated features for proximity to obstacles (e.g. slow in close proximity to obstacles).
+
+    - `use_regulated_linear_velocity_scaling`: use the regulated features for path curvature (e.g. slow on high curvature paths).
+
+        - `regulated_linear_scaling_min_radius`: The turning radius (m) for which the regulation features are triggered.
+
+    - `regulated_linear_scaling_min_speed`: To ensure process is still achievable even in high cost spaces with high curvature.
+
+    - `use_fixed_curvature_lookahead`: Use a fixed lookahead distance to compute curvature from.
+
+        - `curvature_lookahead_dist`: Distance to look ahead on the path to detect curvature.
+
+- Controller ROS Parameters tunning guide:
+
+    - `Regulated Pure Pursuit` enhances curve following by adjusting speed through the `regulated_linear_scaling_min_radius` parameter. Higher values reduce speed on tighter curves.
+
+    - Enabling `use_cost_regulated_linear_velocity_scaling` prioritizes obstacle avoidance by reducing speed in high-cost areas.
+
+    - If the area the robot need to traverse high-cost areas, increasing `regulated_linear_scaling_min_speed` enables the robot to traverse by maintaining a minimum velocity.
+
+ - Example of the nav2 configuration can be found at the following [here](https://github.com/kkwxnn/F1TENTH_PROJECT/blob/humble/f1tenth_ws/src/robot_bridge/config/navigation_param.yaml).
+
+ #### 3.5.4. AMCL
+
+ AMCL implements the server for taking a static map and localizing the robot within it using an Adaptive Monte-Carlo Localizer. [[link]](https://docs.nav2.org/configuration/packages/configuring-amcl.html)
+
+ -  Critical AMCL ROS Parameters 
+
+    - Odometry
+        - `alpha1`: Expected process noise in odometry’s rotation estimate from rotation.
+        - `alpha2`: Expected process noise in odometry’s rotation estimate from translation.
+        - `alpha3`: Expected process noise in odometry’s translation estimate from translation.
+        - `alpha4`: Expected process noise in odometry’s translation estimate from rotation.
+        - `pf_err`: Particle Filter population error.
+        - `pf_z`: Particle filter population density. 2.33 is the 99% percentile.
+    - Laser (Lidar)
+        - `laser_likelihood_max_dist`: Maximum distance to do obstacle inflation on map, for use in likelihood_field model.
+        - `sigma_hit`: Standard deviation for Gaussian model used in z_hit part of the model.
+        - `z_hit` / `z_rand`: Mixture weight for z_hit part of model, sum of all used z weight must be 1.
+
+- AMCL ROS Parameters tunning guide:
+
+    - Our odometry model is more stable than the laser scan (lidar) data.
+
+    - For a reliable odometry model, reduce expected process noise (`alpha`) and `pf_er`r, while increasing `pf_z`.
+
+    - For unreliable lidar data, increase `z_hit` and `sigma_hit` to incoporate higher measurement noise.
+
+ - Example of the nav2 configuration can be found at the following [here](https://github.com/kkwxnn/F1TENTH_PROJECT/blob/humble/f1tenth_ws/src/robot_bridge/config/navigation_param.yaml).
 ## 4. Usage
 
 To run the robot, you should first connect to Docker and then run the following terminal commands.
