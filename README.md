@@ -324,7 +324,7 @@ A ceiling-mounted camera in the laboratory serves as a ground truth reference fo
 | X (Y axis of the car frame) | 3.71 | 3.59 | 0.12 | 0.16 |
 | Y (X axis of the car frame) | 4.78 | 5.13 | -0.35 | 0.21 |
 
-<img src="https://github.com/user-attachments/assets/8b13dcbc-7981-4dc6-95a7-168b0b864c3f" alt="Circular Path" width="450">
+<img src="https://github.com/user-attachments/assets/8b13dcbc-7981-4dc6-95a7-168b0b864c3f" alt="Circular Path" width="550">
 
 #### Experiment 2: Path Around the Object at speed 0.5 m/s
 
@@ -333,7 +333,7 @@ A ceiling-mounted camera in the laboratory serves as a ground truth reference fo
 | X (Y axis of the car frame) | 2.54 | 2.57 | -0.03 | 0.06 |
 | Y (X axis of the car frame) | -1.20 | -1.00 | -0.20 | 0.11 |
 
-<img src="https://github.com/user-attachments/assets/464721fc-f9a7-4065-8367-265360b34701" alt="Obj Path" width="450">
+<img src="https://github.com/user-attachments/assets/464721fc-f9a7-4065-8367-265360b34701" alt="Obj Path" width="550">
 
 
 ### 3.4. Mapping & Localization by Slam toolbox
@@ -536,7 +536,7 @@ Macenski, S. Singh, F. Martin, J. Gines, [Regulated Pure Pursuit for Robot Path 
 | X (Y axis of the car frame) | 2.57 | 2.62 | -0.03 | 0.10 | 0.05 | 0.11 |
 | Y (X axis of the car frame) | -1.00 | -1.05 | -0.20 | 0.05 | -0.05 | 0.14 |
 
-<img src="https://github.com/user-attachments/assets/8b13dcbc-7981-4dc6-95a7-168b0b864c3f" alt="Circular Path" width="450">
+<img src="https://github.com/user-attachments/assets/8b13dcbc-7981-4dc6-95a7-168b0b864c3f" alt="Circular Path" width="550">
 
 #### Experiment 2: Path Around the Object at Speed 2.0 m/s
 
@@ -545,7 +545,7 @@ Macenski, S. Singh, F. Martin, J. Gines, [Regulated Pure Pursuit for Robot Path 
 | X (Y axis of the car frame) | 2.53 | 2.55 | -0.19 | 0.00 | 0.01 | 0.40 |
 | Y (X axis of the car frame) | 0.69 | 0.66 | -0.18 | 0.02 | -0.03 | 0.47 |
 
-<img src="https://github.com/user-attachments/assets/464721fc-f9a7-4065-8367-265360b34701" alt="Obj Path" width="450">
+<img src="https://github.com/user-attachments/assets/464721fc-f9a7-4065-8367-265360b34701" alt="Obj Path" width="550">
 
 
 ## 4. Usage
