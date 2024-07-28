@@ -4,7 +4,6 @@
 
 ## 1. Hardware
 ### 1.1. Chassis
-- TAMIYA 58720 1/10 R/C 4WD TT-02 Type-SRX Chassis Kit
 
 <img src="https://github.com/user-attachments/assets/48060e41-77c8-48ab-8f5f-86fee4b1e83b" alt="Chassis" width="300">
   
@@ -22,11 +21,8 @@
 - [Raspberry Pi 5 Computer with 8GB RAM](https://www.raspberrypi.com/products/raspberry-pi-5/)
   
 ### 1.6. Motor
-- TAMIYA 54612 BRUSHLESS MOTOR 02 Sensored 15.5T 2300KV (For main drive motor)
-- MG996R Servo Tower Pro (For steering motor)
   
 ### 1.7. Motor Driver
-- TAMIYA 45070 TBLE-04SR BRUSHLESS ELECTRONIC SPEED CONTROLLER
 
 ## 2. Electrical & Firmware
 ### 2.1. Electrical Components
