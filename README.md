@@ -536,7 +536,8 @@ Macenski, S. Singh, F. Martin, J. Gines, [Regulated Pure Pursuit for Robot Path 
 | X (Y axis of the car frame) | 2.57 | 2.62 | -0.03 | 0.10 | 0.05 | 0.11 |
 | Y (X axis of the car frame) | -1.00 | -1.05 | -0.20 | 0.05 | -0.05 | 0.14 |
 
-<img src="https://github.com/user-attachments/assets/8b13dcbc-7981-4dc6-95a7-168b0b864c3f" alt="Circular Path" width="450">
+<img src="https://github.com/user-attachments/assets/6032db8c-aa6f-4f9b-87db-2f10ae75a338" alt="AMCL Obj Path 0.5" width="450">
+
 
 #### Experiment 2: Path Around the Object at Speed 2.0 m/s
 
@@ -545,7 +546,7 @@ Macenski, S. Singh, F. Martin, J. Gines, [Regulated Pure Pursuit for Robot Path 
 | X (Y axis of the car frame) | 2.53 | 2.55 | -0.19 | 0.00 | 0.01 | 0.40 |
 | Y (X axis of the car frame) | 0.69 | 0.66 | -0.18 | 0.02 | -0.03 | 0.47 |
 
-<img src="https://github.com/user-attachments/assets/464721fc-f9a7-4065-8367-265360b34701" alt="Obj Path" width="450">
+<img src="https://github.com/user-attachments/assets/841ad39c-4b63-4814-9c69-8cb1f45e90be" alt="AMCL Obj Path 2.0" width="450">
 
 
 ## 4. Usage
