@@ -294,14 +294,7 @@ This command opens a graphical interface displaying the relationships between di
             - Turn 90, 180, 360 Degree (R/L)
             - Turn Right then Left 90 Degree
 
-
-2) Optical Tracking Odometry Sensor
-
-    - Calibration sensor
-
-    - Verification sensor 
-
-3) Laser Sensor 
+2) Laser Sensor 
 
 **Install YDLIDAR ROS2 Driver** [Reference](https://github.com/YDLIDAR/ydlidar_ros2_driver?fbclid=IwZXh0bgNhZW0CMTAAAR3OEcoaB9rG6-haQZFpyFFbUIRuxUHEzv-TmZLJxinNRptzsMPwWTPi2mU_aem_AWq-ZxKVIEgbPc8O5VaWP_GTqjUgGpQF3f1EuqnmXKfztNGkgQNBtLfJfG6miwBMLaj0LysVZxNwI7SLqACmVW_h)
 
@@ -352,7 +345,23 @@ ros2 launch ydlidar_ros2_driver ydlidar_launch_view.py
 
 **Yaw Rate Equation**
 
-![image](https://github.com/user-attachments/assets/f149981d-2dc1-48ab-b067-66b8478ffcbd)
+$$ 
+\begin{bmatrix}
+x_k \\
+y_k \\
+\theta_l \\
+\beta_k \\
+v_k
+\end{bmatrix}
+=\
+\begin{bmatrix}
+x_{k-1} + v_{k-1} \cdot \Delta t \cdot \cos(\beta_{k-1} + \theta_k) \\
+y_{k-1} + v_{k-1} \cdot \Delta t \cdot \sin(\beta_{k-1} + \theta_k) \\
+\theta_k \\
+0 \\
+\text{motor speed} \cdot \text{gear ratio} \cdot r
+\end{bmatrix} 
+$$
 
 where:
 - $x_k$ and $y_k$ are the vehicle's position coordinates at time step $k$.
