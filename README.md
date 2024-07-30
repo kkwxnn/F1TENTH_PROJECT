@@ -585,8 +585,8 @@ Creates various A* planners for different robots (cars, legged). Supports Hybrid
 
     - Using the exact `minimum_turning_radius` aids robot to follow, while a slightly reduced value can smooth path planning.
     <div align="center">
-      <img src="https://github.com/user-attachments/assets/82873879-5055-4781-8e33-f0e27ad4da1a" alt="low_curvature" width="400">
-      <img src="https://github.com/user-attachments/assets/9ed54b30-b630-446e-81a9-d49fea4d7f00" alt="high_curvature" width="400">
+      <img src="https://github.com/user-attachments/assets/82873879-5055-4781-8e33-f0e27ad4da1a" alt="low_curvature" width="375">
+      <img src="https://github.com/user-attachments/assets/9ed54b30-b630-446e-81a9-d49fea4d7f00" alt="high_curvature" width="375">
       
       *`minimum_turning_radius`: low [0.73], high [1.20]*
     </div>
@@ -594,8 +594,8 @@ Creates various A* planners for different robots (cars, legged). Supports Hybrid
     - Increasing the `non_straight_penalty` heuristic promotes straighter paths in path planning.
 
     <div align="center">
-      <img src="https://github.com/user-attachments/assets/49a3351e-3717-451d-9248-e503268ab6ee" alt="Non_straight_penalty" width="400">
-      <img src="https://github.com/user-attachments/assets/1b4493b1-cf73-40d1-98bf-ac7d4272c405" alt="straight_penalty" width="400">
+      <img src="https://github.com/user-attachments/assets/49a3351e-3717-451d-9248-e503268ab6ee" alt="Non_straight_penalty" width="375">
+      <img src="https://github.com/user-attachments/assets/1b4493b1-cf73-40d1-98bf-ac7d4272c405" alt="straight_penalty" width="375">
       
       *`non_straight_penalty`: low [1.2], high [2.0]*
     </div>
