@@ -8,7 +8,9 @@ https://github.com/user-attachments/assets/739e911e-5323-4bcc-a1b8-9813c5cff750
 ## Table of Contents
 
 ## 1. Hardware
-<img src="https://github.com/user-attachments/assets/7b48d97a-7f7b-4ea8-9d7a-1655bd488fa6" alt="f1tenth pic" width="400">
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/7b48d97a-7f7b-4ea8-9d7a-1655bd488fa6" alt="f1tenth pic" width="400">
+</div>
 
 ### 1.1. Chassis
 - [TAMIYA 58720 1/10 R/C 4WD TT-02 Type-SRX Chassis Kit](https://www.tamiyausa.com/shop/110-4wd-shaft-drive-road-tt/rc-tt-02-type-srx-chassis-kit/)
@@ -49,8 +51,10 @@ https://github.com/user-attachments/assets/739e911e-5323-4bcc-a1b8-9813c5cff750
 ### 2.2. F1TENTH PCB Schematic
 View full PCB schematic in EasyEDA within [this link](https://u.easyeda.com/join?type=project&key=61e3464f45188bac2c8e41a07c19f58e&inviter=db3150f4d5b848c09e05f7428d4a7d9b)
 
-<img src="https://github.com/user-attachments/assets/ac95c9e9-dec3-4970-b7cc-894eba6396ad" alt="Schematic_F1TENTH_V4_2024-07-18" width="500">
-<img src="https://github.com/user-attachments/assets/73847e04-d45c-444e-89ba-6c5d62f37a31" alt="PCB_F1TENTH_V4_2024-07-18" width="310">
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/ac95c9e9-dec3-4970-b7cc-894eba6396ad" alt="Schematic_F1TENTH_V4_2024-07-18" width="500">
+  <img src="https://github.com/user-attachments/assets/73847e04-d45c-444e-89ba-6c5d62f37a31" alt="PCB_F1TENTH_V4_2024-07-18" width="310">
+</div>
 
 ### 2.3. Firmware
 
@@ -194,7 +198,10 @@ Open a web browser and navigate to http://127.0.0.1:6080/ to access the ROS 2 de
 > ```
 
 ### 3.2. TF
-<img src="https://github.com/user-attachments/assets/e0d1709a-a66c-4ba6-8a19-d0308fb0f621" alt="Robot_Description" width="550">
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/e0d1709a-a66c-4ba6-8a19-d0308fb0f621" alt="Robot_Description" width="600">
+</div>
 
 #### 3.2.1. Coordinate Frame Transformations
 
@@ -245,7 +252,11 @@ ros2 run tf2_tools view_frames
 
 This command opens a graphical interface displaying the relationships between different frames. The provided link shows an example image capturing these transformations:
 
-<img src="https://github.com/user-attachments/assets/61efbc9a-44b0-4ba7-a626-1a6dac1811cc" alt="TF_frames" width="600">
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/61efbc9a-44b0-4ba7-a626-1a6dac1811cc" alt="TF_frames" width="900">
+</div>
+
 
 ### 3.3. Localization
 
@@ -339,7 +350,9 @@ ros2 launch ydlidar_ros2_driver ydlidar_launch.py
 ros2 launch ydlidar_ros2_driver ydlidar_launch_view.py 
 ```
 
-<img src="https://github.com/user-attachments/assets/7b7f3aa2-0fd3-449e-af10-5252123fc776" alt="Lidar" width="500">
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/7b7f3aa2-0fd3-449e-af10-5252123fc776" alt="Lidar" width="550">
+</div>
 
 #### 3.3.2. Wheel Odometry (Yawrate Odometry)
 
@@ -373,7 +386,9 @@ where:
 
 A ceiling-mounted camera in the laboratory serves as a ground truth reference for verifying the yaw rate odometry calculations. These calculations are derived from data obtained from both a hall sensor and an IMU sensor.
 
-<img src="https://github.com/user-attachments/assets/81ab683f-14e1-4523-b5d4-ec480f5cf7b3" alt="Camera" width="450">
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/81ab683f-14e1-4523-b5d4-ec480f5cf7b3" alt="Camera" width="550">
+</div>
 
 #### Experiment 1: Circular Path for 5 Rounds at speed 0.5 m/s
 
@@ -382,7 +397,9 @@ A ceiling-mounted camera in the laboratory serves as a ground truth reference fo
 | X (Y axis of the car frame) | 3.71 | 3.59 | 0.12 | 0.16 |
 | Y (X axis of the car frame) | 4.78 | 5.13 | -0.35 | 0.21 |
 
-<img src="https://github.com/user-attachments/assets/8b13dcbc-7981-4dc6-95a7-168b0b864c3f" alt="Circular Path" width="550">
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/8b13dcbc-7981-4dc6-95a7-168b0b864c3f" alt="Circular Path" width="550">
+</div>
 
 #### Experiment 2: Path Around the Object at speed 0.5 m/s
 
@@ -391,8 +408,9 @@ A ceiling-mounted camera in the laboratory serves as a ground truth reference fo
 | X (Y axis of the car frame) | 2.54 | 2.57 | -0.03 | 0.06 |
 | Y (X axis of the car frame) | -1.20 | -1.00 | -0.20 | 0.11 |
 
-<img src="https://github.com/user-attachments/assets/464721fc-f9a7-4065-8367-265360b34701" alt="Obj Path" width="550">
-
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/464721fc-f9a7-4065-8367-265360b34701" alt="Obj Path" width="550">
+</div>
 
 ### 3.4. Mapping & Localization by Slam toolbox
 
@@ -433,7 +451,9 @@ code /src/robot_bridge/lauch/robot_bridge.launch.py
 ```
 Finally, you will obtain a map similar to the one shown below.
 
-<img src="https://github.com/user-attachments/assets/9467d755-7d51-4eaf-bafa-f5f5f1d503a8" alt="Map" width="400">
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/9467d755-7d51-4eaf-bafa-f5f5f1d503a8" alt="Map" width="400">
+</div>
 
 #### 3.4.2. Creating Keepout zone
 
@@ -443,7 +463,9 @@ Open the `keepout_<map_name>.yaml` file and change the `image` parameter to `kee
 
 Using image editing software, such as GIMP, draw the area you want to keepout in black. The rest of the image is left as is.
 
-<img src="https://github.com/user-attachments/assets/63a5561e-1fa4-4ef0-a66d-c31eb05bc44b" alt="Keepout" width="400">
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/63a5561e-1fa4-4ef0-a66d-c31eb05bc44b" alt="Keepout" width="400">
+</div>
 
 ### 3.5. Navigation (Nav2)
 
@@ -594,7 +616,10 @@ Macenski, S. Singh, F. Martin, J. Gines, [Regulated Pure Pursuit for Robot Path 
 | X (Y axis of the car frame) | 2.57 | 2.62 | -0.03 | 0.10 | 0.05 | 0.11 |
 | Y (X axis of the car frame) | -1.00 | -1.05 | -0.20 | 0.05 | -0.05 | 0.14 |
 
-<img src="https://github.com/user-attachments/assets/8b13dcbc-7981-4dc6-95a7-168b0b864c3f" alt="Circular Path" width="550">
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/8b13dcbc-7981-4dc6-95a7-168b0b864c3f" alt="Circular Path" width="550">
+</div>
 
 #### Experiment 2: Path Around the Object at Speed 2.0 m/s
 
@@ -603,7 +628,9 @@ Macenski, S. Singh, F. Martin, J. Gines, [Regulated Pure Pursuit for Robot Path 
 | X (Y axis of the car frame) | 2.53 | 2.55 | -0.19 | 0.00 | 0.01 | 0.40 |
 | Y (X axis of the car frame) | 0.69 | 0.66 | -0.18 | 0.02 | -0.03 | 0.47 |
 
-<img src="https://github.com/user-attachments/assets/464721fc-f9a7-4065-8367-265360b34701" alt="Obj Path" width="550">
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/464721fc-f9a7-4065-8367-265360b34701" alt="Obj Path" width="550">
+</div>
 
 
 ## 4. Usage
