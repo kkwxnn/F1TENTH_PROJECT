@@ -242,9 +242,45 @@ This command opens a graphical interface displaying the relationships between di
 
     - Calibration sensor
 
+        To calibrate IMU sensor you need to use STM32Cubeide this calibration file is set up for `STM32L432KC` follow this link to low-level github (branch: CalibrateIMU) [[link]](https://github.com/tanakon-apit/F1TENTH_PROJECT/tree/CalibrateIMU)
+
+        Open up the project `BNO_Calibrate` in STM32Cubeide.
+
+        Monitor the `Calibrated` value in the debugger's live expressions to track calibration progress (Accel, Gyro, Magneto).
+
+        - `Magnetometer`: Hold the sensor parallel to the ground and move it in a figure 8 pattern.
+        - `Accelerometer`: Place the BNO055 sensor in these six stable positions for a few seconds each.
+        - `Gyroscope`: Place the sensor in any stable position for a few seconds.
+
+        After successful calibration, record the BNO offsets from the bno variable in the debugger's live expressions.
+
+        Change branch from `CalibrateIMU` to `Main`, Within the project, navigate to the file `Mobile_Config.h` located in the `Config/inc` directory. Write the BNO offsets from recorded. Then upload code into `STM32L432KC`.
+
     - Find Offset & Covariance sensor
 
+        - Using `Calibration Node` to find offset and covariance of imu.
+            - Collect 10,000 sensor raw data && Save offset and covariance data in YAML file.
+
+            ```
+            ros2 run calibration_gen cal_node.py
+            ```
+
+            - Copy the information from `f1tenth_ws/install/calibration_gen/share/calibration_gen/config/sensor_calibration.yaml` and paste in `f1tenth_ws/src/calibration_gen/config/sensor_calibration.yaml` 
+
+        - Eliminating noise at stationary state by cutting threshold this will be done by `mcu_bridge` Node.
+        
+            - `threshold`: 2 x std. x 3.89 (Modeling Noise as Normal Distribution)
+
+
     - Verification sensor 
+
+        - Testing Absolute Orientation from imu
+
+            Testing Condition:
+
+            - Turn 90, 180, 360 Degree (R/L)
+            - Turn Right then Left 90 Degree
+
 
 2) Optical Tracking Odometry Sensor
 
@@ -595,4 +631,32 @@ w/x : increase/decrease only linear speed by 10%
 e/c : increase/decrease only angular speed by 10%
 
 CTRL-C to quit
+```
+### 4.4. viapoint generator
+
+#### 4.4.1. Selecting point from Map
+
+After lauch robot_bridge.launch.py
+
+```
+ros2 topic echo /clicked_point 
+```
+
+Click the `Publish Point` button, then select the desired goal point. 
+
+Edit the goal point by modifying the `self.current_goal_pose` value (in [x, y, yaw] format) within the `navigation_param.yaml` file located in the `src/robot_bridge/config` directory.
+
+For example: `self.current_goal_pose` = [[3.6, 0.0, np.deg2rad(0)]]
+
+```
+code src/robot_bridge/config/navigation_param.yaml
+```
+
+> [!WARNING]
+> If your next goal point doesn't generate (Feedback: Reached), consider relocating it or increasing the error threshold. Path planning difficulties might be causing the issue.
+
+After defining all goal points you can execute the Python script from Visual Studio Code or run it as a command below:
+
+```
+ros2 run robot_bridge via_points_generator.py
 ```
