@@ -14,7 +14,7 @@ https://github.com/user-attachments/assets/739e911e-5323-4bcc-a1b8-9813c5cff750
    - [1.5 Processor](#15-processor)
    - [1.6 Motor](#16-motor)
    - [1.7 Motor Driver](#17-motor-driver)
-   
+
 2. [Electrical & Firmware](#2-electrical--firmware)
    - [2.1 Electrical Components](#21-electrical-components)
    - [2.2 F1TENTH PCB Schematic](#22-f1tenth-pcb-schematic)
@@ -43,7 +43,7 @@ https://github.com/user-attachments/assets/739e911e-5323-4bcc-a1b8-9813c5cff750
    - [4.3 Teleoperation](#43-teleoperation)
    - [4.4 Viapoint Generator](#44-viapoint-generator)
      - [4.4.1 Selecting Point from Map](#441-selecting-point-from-map)
-
+       
 ## 1. Hardware
 <div align="center">
   <img src="https://github.com/user-attachments/assets/7b48d97a-7f7b-4ea8-9d7a-1655bd488fa6" alt="f1tenth pic" width="400">
@@ -120,7 +120,7 @@ Instructions for using the provided `docker-compose.yml` file to set up and run 
 
 **2. desktop_ros2** runs a ROS 2 desktop environment with VNC access, allowing you to interact with ROS 2 via a web browser. [Reference](https://github.com/Tiryoh/docker-ros2-desktop-vnc.git)
 
-- Image: `tiryoh/ros2-desktop-vnc:humble`
+- Image: `kkwxnn/f1tenth-vnc:humble`
 - Container Name: `desktop_ros2`
 - Security Options:
     - `seccomp=unconfined`
@@ -154,11 +154,11 @@ ssh -L 6080:localhost:6080 [username]@[inet addr]
 ```
 For example: ```ssh -L 6080:localhost:6080 pi@192.168.0.152```
 
-**2. Access the ROS 2 Desktop**
+**3. Access the ROS 2 Desktop**
 
 Open a web browser and navigate to http://127.0.0.1:6080/ to access the ROS 2 desktop environment via VNC.
 
-**3. Reset the services**
+**4. Reset the services**
 ```ctrl+c```
 
 
@@ -341,6 +341,13 @@ This command opens a graphical interface displaying the relationships between di
 
             - Turn 90, 180, 360 Degree (R/L)
             - Turn Right then Left 90 Degree
+
+
+            https://github.com/user-attachments/assets/508171c0-2647-4e11-aa7b-1ab644b267a2
+
+
+        **The IMU will shift of ±6 degrees each time it completes a full 360-degree rotation.**
+
 
 2) Laser Sensor 
 
@@ -544,6 +551,15 @@ Environment representation used for planning and control. Combines sensor data (
 
     - Increasing both `inflation_radius` and `cost_scaling_factor` amplifies the cost area around obstacles. To achieve a stronger cost effect, prioritize increasing `cost_scaling_factor` first (more `cost_scaling_factor` will decrease cost area).
 
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/d02a7889-d9a7-4b47-960d-79e825877ede" alt="costmap_lowcost" width="400">
+  <img src="https://github.com/user-attachments/assets/1d4ab5ee-5e7b-4775-bc7a-67ccec745f2f" alt="costmap_highcost" width="400">
+  
+  *`inflation_radius`: low [0.275], high [2.0]*
+  
+  *`cost_scaling_factor`: low [15.0], high [16.5]*
+</div>
+
  - Example of the nav2 configuration can be found at the following [here](https://github.com/kkwxnn/F1TENTH_PROJECT/blob/humble/f1tenth_ws/src/robot_bridge/config/navigation_param.yaml).
 
 #### 3.5.2. Planner
@@ -568,8 +584,21 @@ Creates various A* planners for different robots (cars, legged). Supports Hybrid
     - Reccomend `Dubin` if the robot has not recommend to reverse.
 
     - Using the exact `minimum_turning_radius` aids robot to follow, while a slightly reduced value can smooth path planning.
+    <div align="center">
+      <img src="https://github.com/user-attachments/assets/82873879-5055-4781-8e33-f0e27ad4da1a" alt="low_curvature" width="400">
+      <img src="https://github.com/user-attachments/assets/9ed54b30-b630-446e-81a9-d49fea4d7f00" alt="high_curvature" width="400">
+      
+      *`minimum_turning_radius`: low [0.73], high [1.20]*
+    </div>
 
     - Increasing the `non_straight_penalty` heuristic promotes straighter paths in path planning.
+
+    <div align="center">
+      <img src="https://github.com/user-attachments/assets/49a3351e-3717-451d-9248-e503268ab6ee" alt="Non_straight_penalty" width="400">
+      <img src="https://github.com/user-attachments/assets/1b4493b1-cf73-40d1-98bf-ac7d4272c405" alt="straight_penalty" width="400">
+      
+      *`non_straight_penalty`: low [1.2], high [2.0]*
+    </div>
 
     - A higher `cost_penalty` incentivizes the planner to avoid high-cost regions, typically obstacles.
 
@@ -644,6 +673,39 @@ Macenski, S. Singh, F. Martin, J. Gines, [Regulated Pure Pursuit for Robot Path 
 
  - Example of the nav2 configuration can be found at the following [here](https://github.com/kkwxnn/F1TENTH_PROJECT/blob/humble/f1tenth_ws/src/robot_bridge/config/navigation_param.yaml).
 
+Parameters prioritize `odometry` over `lidar`.
+```
+lazer_z_hit = 0.9
+laser_sigma_hit = 0.1
+laser_z_rand = 0.5
+laser_likelihood_max_dist = 4.0
+kld_err = 0.01
+kld_z = 0.99
+odom_alpha1 = 0.005
+odom_alpha2 = 0.005
+odom_alpha3 = 0.005
+odom_alpha4 = 0.005
+```
+https://github.com/user-attachments/assets/a85da535-ef96-4c38-8924-c9d862924488
+
+Parameters prioritize `lidar` over `odometry`.
+```
+lazer_z_hit = 0.5
+laser_sigma_hit = 0.2
+laser_z_rand = 0.5
+laser_likelihood_max_dist = 2.0
+kld_err = 0.1
+kld_z = 0.5
+odom_alpha1 = 0.004
+odom_alpha2 = 0.04
+odom_alpha3 = 0.008
+odom_alpha4 = 0.025
+```
+
+https://github.com/user-attachments/assets/7fe0a6d9-28dd-49fd-9026-d1f11126844d
+
+
+
  **Verification**
 
  #### Experiment 1: Path Around the Object at Speed 0.5 m/s
@@ -655,7 +717,7 @@ Macenski, S. Singh, F. Martin, J. Gines, [Regulated Pure Pursuit for Robot Path 
 
 
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/8b13dcbc-7981-4dc6-95a7-168b0b864c3f" alt="Circular Path" width="550">
+  <img src="https://github.com/user-attachments/assets/b8241f82-df3b-4f02-91c4-584b3867b5c1" alt="amcl_tune0.5" width="550">
 </div>
 
 #### Experiment 2: Path Around the Object at Speed 2.0 m/s
@@ -666,9 +728,8 @@ Macenski, S. Singh, F. Martin, J. Gines, [Regulated Pure Pursuit for Robot Path 
 | Y (X axis of the car frame) | 0.69 | 0.66 | -0.18 | 0.02 | -0.03 | 0.47 |
 
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/464721fc-f9a7-4065-8367-265360b34701" alt="Obj Path" width="550">
+  <img src="https://github.com/user-attachments/assets/d8185f61-b2e4-4700-afda-86f40b62193c" alt="amcl_tune2.0" width="550">
 </div>
-
 
 ## 4. Usage
 
