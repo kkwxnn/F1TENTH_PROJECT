@@ -1,12 +1,17 @@
 # F1TENTH: Autonomous Ackermann Steering Mobile Robot
 
+https://github.com/user-attachments/assets/00c732cc-46e2-4cad-98e0-985dcad842f4
+
+### Obstacle Avoidance
+https://github.com/user-attachments/assets/739e911e-5323-4bcc-a1b8-9813c5cff750
+
 ## Table of Contents
 
 ## 1. Hardware
+<img src="https://github.com/user-attachments/assets/7b48d97a-7f7b-4ea8-9d7a-1655bd488fa6" alt="f1tenth pic" width="400">
+
 ### 1.1. Chassis
 - [TAMIYA 58720 1/10 R/C 4WD TT-02 Type-SRX Chassis Kit](https://www.tamiyausa.com/shop/110-4wd-shaft-drive-road-tt/rc-tt-02-type-srx-chassis-kit/)
-
-<img src="https://github.com/user-attachments/assets/48060e41-77c8-48ab-8f5f-86fee4b1e83b" alt="Chassis" width="300">
   
 ### 1.2. Laser Sensor
 - [YDLIDAR T-mini Pro](https://www.ydlidar.com/products/view/22.html)
@@ -27,6 +32,14 @@
   
 ### 1.7. Motor Driver
 - [TAMIYA 45070 TBLE-04SR BRUSHLESS ELECTRONIC SPEED CONTROLLER](https://www.tamiya.com/english/products/45070/index.html)
+
+ > [!TIP]
+ > **High Point Setup**
+ > 1. Press and hold down Set button. LED will light up in the order Red → Green → Orange → Red. Release the Set button when the LED is lit up Red, and it will start to flash Red.
+ > 2. Apply full throttle and press Set button once. If procedure has been performed correctly, LED will start to double flash Red.
+ > 3. Apply full brake and press Set button once. If procedure has been performed correctly, LED will turn off.
+ > 
+ > [Tamiya Brushless ESC 04SR Manual](https://www.tamiyausa.com/media/files/45070ml-1206-1b53.pdf)
 
 ## 2. Electrical & Firmware
 ### 2.1. Electrical Components
@@ -181,7 +194,7 @@ Open a web browser and navigate to http://127.0.0.1:6080/ to access the ROS 2 de
 > ```
 
 ### 3.2. TF
-<img src="https://github.com/user-attachments/assets/e0d1709a-a66c-4ba6-8a19-d0308fb0f621" alt="Robot_Description" width="700">
+<img src="https://github.com/user-attachments/assets/e0d1709a-a66c-4ba6-8a19-d0308fb0f621" alt="Robot_Description" width="550">
 
 #### 3.2.1. Coordinate Frame Transformations
 
@@ -232,7 +245,7 @@ ros2 run tf2_tools view_frames
 
 This command opens a graphical interface displaying the relationships between different frames. The provided link shows an example image capturing these transformations:
 
-<img src="https://github.com/user-attachments/assets/61efbc9a-44b0-4ba7-a626-1a6dac1811cc" alt="TF_frames" width="900">
+<img src="https://github.com/user-attachments/assets/61efbc9a-44b0-4ba7-a626-1a6dac1811cc" alt="TF_frames" width="600">
 
 ### 3.3. Localization
 
@@ -333,7 +346,7 @@ ros2 launch ydlidar_ros2_driver ydlidar_launch.py
 ros2 launch ydlidar_ros2_driver ydlidar_launch_view.py 
 ```
 
-<img src="https://github.com/user-attachments/assets/7b7f3aa2-0fd3-449e-af10-5252123fc776" alt="Lidar" width="700">
+<img src="https://github.com/user-attachments/assets/7b7f3aa2-0fd3-449e-af10-5252123fc776" alt="Lidar" width="500">
 
 #### 3.3.2. Wheel Odometry (Yawrate Odometry)
 
@@ -353,38 +366,23 @@ A ceiling-mounted camera in the laboratory serves as a ground truth reference fo
 
 <img src="https://github.com/user-attachments/assets/81ab683f-14e1-4523-b5d4-ec480f5cf7b3" alt="Camera" width="450">
 
-- **Experiment 1: Circular Path for 5 round**
+#### Experiment 1: Circular Path for 5 Rounds at speed 0.5 m/s
 
-<img src="https://github.com/user-attachments/assets/8b13dcbc-7981-4dc6-95a7-168b0b864c3f" alt="Circular Path" width="700">
+| Position | Odometry Final Position (m) | Camera Final Position (m) | Final Position Error (m) | RMSE (m) |
+|----------|-----------------------------|---------------------------|--------------------------|----------|
+| X (Y axis of the car frame) | 3.71 | 3.59 | 0.12 | 0.16 |
+| Y (X axis of the car frame) | 4.78 | 5.13 | -0.35 | 0.21 |
 
-- **Result**
-    - x odometry final position: 3.71 m
-    - x camera final position: 3.59 m
-    - x final position error: 0.12 m
+<img src="https://github.com/user-attachments/assets/8b13dcbc-7981-4dc6-95a7-168b0b864c3f" alt="Circular Path" width="550">
 
-    - y odometry final position: 4.78 m
-    - y camera final position: 5.13 m
-    - y final position error: -0.35 m
+#### Experiment 2: Path Around the Object at speed 0.5 m/s
 
-    - **Root Mean Square Error (RMSE)** of odometry in the X axis (Y axis of the car frame): 0.16 m
-    - **Root Mean Square Error (RMSE)** of odometry in the Y axis (X axis of the car frame): 0.21 m
+| Position | Odometry Final Position (m) | Camera Final Position (m) | Final Position Error (m) | RMSE (m) |
+|----------|-----------------------------|---------------------------|--------------------------|----------|
+| X (Y axis of the car frame) | 2.54 | 2.57 | -0.03 | 0.06 |
+| Y (X axis of the car frame) | -1.20 | -1.00 | -0.20 | 0.11 |
 
-
-- **Experiment 2: Path around the object**
-
-<img src="https://github.com/user-attachments/assets/464721fc-f9a7-4065-8367-265360b34701" alt="Obj Path" width="700">
-
-- **Result**
-    - x odometry final position: 2.54 m
-    - x camera final position: 2.57 m
-    - x final position error: -0.03 m
-
-    - y odometry final position: -1.20 m
-    - y camera final position: -1.00 m
-    - y final position error: -0.20 m
-
-    - **Root Mean Square Error (RMSE)** of odometry in the X axis (Y axis of the car frame): 0.06 m
-    - **Root Mean Square Error (RMSE)** of odometry in the Y axis (X axis of the car frame): 0.11 m
+<img src="https://github.com/user-attachments/assets/464721fc-f9a7-4065-8367-265360b34701" alt="Obj Path" width="550">
 
 
 ### 3.4. Mapping & Localization by Slam toolbox
@@ -426,7 +424,7 @@ code /src/robot_bridge/lauch/robot_bridge.launch.py
 ```
 Finally, you will obtain a map similar to the one shown below.
 
-<img src="https://github.com/user-attachments/assets/9467d755-7d51-4eaf-bafa-f5f5f1d503a8" alt="Map" width="450">
+<img src="https://github.com/user-attachments/assets/9467d755-7d51-4eaf-bafa-f5f5f1d503a8" alt="Map" width="400">
 
 #### 3.4.2. Creating Keepout zone
 
@@ -436,20 +434,13 @@ Open the `keepout_<map_name>.yaml` file and change the `image` parameter to `kee
 
 Using image editing software, such as GIMP, draw the area you want to keepout in black. The rest of the image is left as is.
 
-<img src="https://github.com/user-attachments/assets/63a5561e-1fa4-4ef0-a66d-c31eb05bc44b" alt="Keepout" width="450">
+<img src="https://github.com/user-attachments/assets/63a5561e-1fa4-4ef0-a66d-c31eb05bc44b" alt="Keepout" width="400">
 
 ### 3.5. Navigation (Nav2)
 
-#### 3.5.1. Config Navigation Parameters
+#### 3.5.1. Costmap
 
-```
-code src/robot_bridge/config/navigation_param.yaml
-```
-
-
-#### 3.5.2. Costmap
-
-Environment representation used for planning and control. Combines sensor data (depth, AI, semantics) into a grid, assigning costs to cells. Higher costs indicate obstacles or risky areas. [[link]](https://docs.nav2.org/configuration/packages/configuring-costmaps.html)
+Environment representation used for planning and control. Combines sensor data (depth, AI, semantics) into a grid, assigning costs to cells. Higher costs indicate obstacles or risky areas. [Reference](https://docs.nav2.org/configuration/packages/configuring-costmaps.html)
 
 -  Critical Costmap2D ROS Parameters 
     - `Footprint`
@@ -487,11 +478,11 @@ Environment representation used for planning and control. Combines sensor data (
 
  - Example of the nav2 configuration can be found at the following [here](https://github.com/kkwxnn/F1TENTH_PROJECT/blob/humble/f1tenth_ws/src/robot_bridge/config/navigation_param.yaml).
 
-#### 3.5.3. Planner
+#### 3.5.2. Planner
 
 `Smac Hybrid-A* Planner`
 
-Creates various A* planners for different robots (cars, legged). Supports Hybrid-A* for complex maneuvers (kinematically feasible and support reversing). [[link]](https://docs.nav2.org/configuration/packages/configuring-smac-planner.html)
+Creates various A* planners for different robots (cars, legged). Supports Hybrid-A* for complex maneuvers (kinematically feasible and support reversing). [Reference](https://docs.nav2.org/configuration/packages/configuring-smac-planner.html)
 
 -  Critical Planner ROS Parameters
 
@@ -514,11 +505,11 @@ Creates various A* planners for different robots (cars, legged). Supports Hybrid
 
     - A higher `cost_penalty` incentivizes the planner to avoid high-cost regions, typically obstacles.
 
-#### 3.5.4. Controller
+#### 3.5.3. Controller
 
 `Regulated Pure Pursuit`
 
-Adaptive speed based on path curvature for safer industrial robot navigation. Prevents overshoot in corners. [[link]](https://docs.nav2.org/configuration/packages/configuring-regulated-pp.html)
+Adaptive speed based on path curvature for safer industrial robot navigation. Prevents overshoot in corners. [Reference](https://docs.nav2.org/configuration/packages/configuring-regulated-pp.html)
 
 If you use the Regulated Pure Pursuit Controller algorithm or software from this repository, please cite this work in your papers:
 Macenski, S. Singh, F. Martin, J. Gines, [Regulated Pure Pursuit for Robot Path Tracking](https://arxiv.org/abs/2305.20026). Autonomous Robots, 2023.
@@ -557,9 +548,9 @@ Macenski, S. Singh, F. Martin, J. Gines, [Regulated Pure Pursuit for Robot Path 
 
  - Example of the nav2 configuration can be found at the following [here](https://github.com/kkwxnn/F1TENTH_PROJECT/blob/humble/f1tenth_ws/src/robot_bridge/config/navigation_param.yaml).
 
- #### 3.5.5. AMCL
+ #### 3.5.4. AMCL
 
- AMCL implements the server for taking a static map and localizing the robot within it using an Adaptive Monte-Carlo Localizer. [[link]](https://docs.nav2.org/configuration/packages/configuring-amcl.html)
+ AMCL implements the server for taking a static map and localizing the robot within it using an Adaptive Monte-Carlo Localizer. [Reference](https://docs.nav2.org/configuration/packages/configuring-amcl.html)
 
  -  Critical AMCL ROS Parameters 
 
@@ -585,6 +576,25 @@ Macenski, S. Singh, F. Martin, J. Gines, [Regulated Pure Pursuit for Robot Path 
 
  - Example of the nav2 configuration can be found at the following [here](https://github.com/kkwxnn/F1TENTH_PROJECT/blob/humble/f1tenth_ws/src/robot_bridge/config/navigation_param.yaml).
 
+ **Verification**
+
+ #### Experiment 1: Path Around the Object at Speed 0.5 m/s
+
+| Position | Camera Last Position (m) | TF Last Position (m) | Error Odom Last Position (m) | Error AMCL Last Position (m) | Error TF Last Position (m) | RMSE TF (m) |
+|----------|--------------------------|----------------------|-----------------------------|-----------------------------|--------------------------|-------------|
+| X (Y axis of the car frame) | 2.57 | 2.62 | -0.03 | 0.10 | 0.05 | 0.11 |
+| Y (X axis of the car frame) | -1.00 | -1.05 | -0.20 | 0.05 | -0.05 | 0.14 |
+
+<img src="https://github.com/user-attachments/assets/8b13dcbc-7981-4dc6-95a7-168b0b864c3f" alt="Circular Path" width="550">
+
+#### Experiment 2: Path Around the Object at Speed 2.0 m/s
+
+| Position | Camera Last Position (m) | TF Last Position (m) | Error Odom Last Position (m) | Error AMCL Last Position (m) | Error TF Last Position (m) | RMSE TF (m) |
+|----------|--------------------------|----------------------|-----------------------------|-----------------------------|--------------------------|-------------|
+| X (Y axis of the car frame) | 2.53 | 2.55 | -0.19 | 0.00 | 0.01 | 0.40 |
+| Y (X axis of the car frame) | 0.69 | 0.66 | -0.18 | 0.02 | -0.03 | 0.47 |
+
+<img src="https://github.com/user-attachments/assets/464721fc-f9a7-4065-8367-265360b34701" alt="Obj Path" width="550">
 
 
 ## 4. Usage
