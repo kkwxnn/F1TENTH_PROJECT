@@ -27,14 +27,13 @@ ament_python_install_package(${PROJECT_NAME})
 
 # Install Python executables
 install(PROGRAMS
-  scripts/dummy_script.py
-  scripts/diff_drive_robot.py
   scripts/cmd_odom.py
   scripts/RobotCommand.py
   scripts/mcu_bridge.py
   scripts/ackerman_yaw_rate_odom.py
   scripts/save_csv.py
   scripts/via_points_generator.py
+  scripts/robot_navigator.py
   scripts/save_odom_rosbag.py
   DESTINATION lib/${PROJECT_NAME}
 )

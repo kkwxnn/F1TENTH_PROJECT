@@ -59,12 +59,12 @@ def generate_launch_description():
 
     # pkg = get_package_share_directory('calibration_gen')
     # rviz_path = os.path.join(pkg,'config','_display.rviz')
-    print(os.path.join(get_package_share_directory('robot_localization'), 'launch'), '/ekf.launch.py')
+    # print(os.path.join(get_package_share_directory('robot_localization'), 'launch'), '/ekf.launch.py')
 
-    ekf_node = IncludeLaunchDescription(
-                PythonLaunchDescriptionSource([os.path.join(
-                    get_package_share_directory('robot_localization'), 'launch'), '/ekf.launch.py']),
-             )
+    # ekf_node = IncludeLaunchDescription(
+    #             PythonLaunchDescriptionSource([os.path.join(
+    #                 get_package_share_directory('robot_localization'), 'launch'), '/ekf.launch.py']),
+    #          )
 
 
     #=====================================================================#

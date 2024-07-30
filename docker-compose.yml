@@ -11,7 +11,8 @@ services:
     restart: unless-stopped
     
   desktop_ros2:
-    image: tiryoh/ros2-desktop-vnc:humble
+    # image: tiryoh/ros2-desktop-vnc:humble
+    image: kkwxnn/f1tenth-vnc:humble
     container_name: desktop_ros2
     security_opt:
       - seccomp=unconfined
@@ -25,3 +26,4 @@ services:
     devices:
       - "/dev/ttyUSB0:/dev/ttyUSB0"
     restart: unless-stopped
+
