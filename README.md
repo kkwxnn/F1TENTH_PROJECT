@@ -1,6 +1,6 @@
 # F1TENTH: Autonomous Ackermann Steering Mobile Robot
 
-https://github.com/user-attachments/assets/00c732cc-46e2-4cad-98e0-985dcad842f4
+[![Watch Full Video](https://img.youtube.com/vi/VIDEO_ID/0.jpg)](https://youtu.be/6SZyWfLB4BM)
 
 ### Obstacle Avoidance
 https://github.com/user-attachments/assets/739e911e-5323-4bcc-a1b8-9813c5cff750
