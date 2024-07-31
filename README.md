@@ -400,7 +400,7 @@ ros2 launch ydlidar_ros2_driver ydlidar_launch_view.py
 
 #### 3.3.2. Wheel Odometry (Yawrate Odometry)
 
-**Yaw Rate Equation**
+**State Equation**
 
 $$ 
 \begin{bmatrix}
