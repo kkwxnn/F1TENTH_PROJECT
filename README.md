@@ -406,7 +406,7 @@ $$
 \begin{bmatrix}
 x_k \\
 y_k \\
-\theta_l \\
+\theta_k \\
 \beta_k \\
 v_k
 \end{bmatrix}
