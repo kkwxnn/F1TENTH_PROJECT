@@ -5,7 +5,7 @@ services:
     image: microros/micro-ros-agent:humble
     container_name: micro-ros-agent
     network_mode: host
-    command: serial --dev /dev/ttyACM0 --baudrate 2000000
+    command: serial --dev /dev/ttyACM0 --baudrate 921600
     devices:
       - "/dev/ttyACM0:/dev/ttyACM0"
     restart: unless-stopped
@@ -26,4 +26,17 @@ services:
     devices:
       - "/dev/ttyUSB0:/dev/ttyUSB0"
     restart: unless-stopped
+
+  t265-humble:
+    image: nopparujan/t265-ros2-humble
+    container_name: t265-humble
+    network_mode: host
+    volumes:
+      - "/dev:/dev"
+    device_cgroup_rules:
+      - "c 81:* rmw"
+      - "c 189:* rmw"
+    command: /bin/bash -c "source /ros2_ws/install/setup.bash && ros2 launch realsense2_camera rs_launch.py"
+    restart: unless-stopped
+
 
