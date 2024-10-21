@@ -21,7 +21,7 @@ services:
     ports:
       - "6080:80"
     volumes:
-      - ~/F1TENTH_PROJECT/ros2_ws:/home/ubuntu/f1tenth_ws:rw
+      - /home/pi/F1TENTH_PROJECT/f1tenth_ws:/home/ubuntu/f1tenth_ws:rw
       - "/dev:/dev"
     devices:
       - "/dev/ttyUSB0:/dev/ttyUSB0"
